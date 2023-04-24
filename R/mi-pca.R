@@ -23,7 +23,7 @@ plotResults <- function() {
         # App UI
         shiny::fluidRow(
             shiny::column(
-                width = 8, 
+                width = 8,
                 "",
                 shiny::sliderInput(
                     inputId = "colli",
@@ -34,37 +34,51 @@ plotResults <- function() {
                     step = .1,
                     width = "100%"
                 )
+            ),
+        ),
+        shiny::fluidRow(
+            shiny::column(
+                width = 4,
+                "Data correlation structure",
+                shiny::plotOutput(outputId = "heatmap_cor"),
+                shinyBS::bsPopover(
+                    id = "heatmap_cor",
+                    title = "Correlation structure heatmap",
+                    content = "This heatmap shows darker colors for higher values of bivariate correlations. Bivariate correlations for variables `v14` to `v47` are omitted as they are always close to the others in this block (`v11` to `v50`.). As you change the values of the `Collinearity` input, you will notice that variables `v4` and `v5`, `v9` and `v10`.",
+                    placement = "right",
+                    options = list(container = "body")
+                )
+            ),
+            shiny::column(
+                width = 4,
+                "Loadings",
+                shiny::plotOutput(outputId = "heatmap_load"),
+                shinyBS::bsPopover(
+                    id = "heatmap_load",
+                    title = "Pcinripal component loadings", 
+                    content = "This heatmap shows darker colors for higher absolute values of the principal component loadings. The higher the loading, the higher the influence of an item in the linear combination generating the PC scores. As you change the values of the `Collinearity` input, you will notice that the first component goes from being a combination of the first items to being a combination of the noise items.",
+                    placement = "right",
+                    options = list(container = "body")
+                )
             )
         ),
         shiny::fluidRow(
             shiny::column(
-                width = 4, 
-                "Data correlation structure", 
-                shiny::plotOutput(outputId = "heatmap_cor")
-                ),
-            shiny::column(
-                width = 4, 
-                "Loadings", 
-                shiny::plotOutput(outputId = "heatmap_load")
-                )
-        ),
-        shiny::fluidRow(
-            shiny::column(
-                width = 4, 
-                "Number of principal components kept", 
+                width = 4,
+                "Number of principal components kept",
                 shiny::plotOutput(outputId = "hist")
-                ),
+            ),
             shiny::column(
-                width = 4, 
-                "Cumulative proportion of explained variance", 
+                width = 4,
+                "Cumulative proportion of explained variance",
                 shiny::plotOutput(outputId = "scatter")
-                )
+            )
         )
     )
 
     # Server -------------------------------------------------------------------
 
-    server <- function(input, output) {
+    server <- function(input, output, session) {
         # Simulate data
         app_data <- reactive({
             # Simulate Data
@@ -273,6 +287,36 @@ plotResults <- function() {
                     axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)
                 )
         })
+
+        # > Tooltips -----------------------------------------------------------
+
+        # Input: collinearity factor
+        addPopover(
+            session,
+            id = "colli",
+            title = "Collinearity",
+            content = "The value of the correlation between variables v4 and v5, v9 and v10, and between the block on noise variables (v11 and above.)",
+            trigger = "hover"
+        )
+
+        # Cumulative proportion of explained variance
+        addPopover(
+            session,
+            id = "scatter",
+            title = "Cumulative proportion of explained variance",
+            content = "Explanation",
+            trigger = "click"
+        )
+
+        # Number of principal components kept
+        addPopover(
+            session,
+            id = "hist",
+            title = "Number of principal components kept",
+            content = "Explanation",
+            trigger = "click"
+        )
+
     }
 
     # Run app ------------------------------------------------------------------

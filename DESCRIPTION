@@ -15,4 +15,5 @@ Imports:
     mvtnorm,
     nFactors,
     patchwork,
-    shiny
+    shiny,
+    shinyBS

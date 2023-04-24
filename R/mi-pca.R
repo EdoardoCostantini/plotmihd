@@ -26,14 +26,16 @@ plotResults <- function() {
             # Sidebar panel for inputs ----
             shiny::sidebarPanel(
 
-                # Input: Slider for the number of bins ----
+                # Input: Collinearity values 
                 shiny::sliderInput(
-                    inputId = "bins",
-                    label = "Number of bins:",
-                    min = 1,
-                    max = 50,
-                    value = 30
-                )
+                    inputId = "colli",
+                     label = "Collinearity",
+                     min = 0,
+                     max = .9,
+                     value = .1,
+                     step = .1,
+                     width = "100%"
+                 )
             ),
 
             # Main panel for displaying outputs ----
@@ -75,7 +77,7 @@ plotResults <- function() {
                 block_sizes = c(5, 5, 40),
                 block_rhos = c(.6, .3, .01),
                 inflated_rhos = list(c(4, 5), c(9, 10), c(11:sum(c(5, 5, 40)))),
-                inflated_values = collinearity[i]
+                inflated_values = as.numeric(input$colli)
             )
 
             # Check correlation matrix
@@ -205,7 +207,7 @@ plotResults <- function() {
 
             # Number of factors underlying data
             npcs_kept <- cbind(
-                collinearity = collinearity[i],
+                collinearity = as.numeric(input$colli),
                 storenScree,
                 rule50 = npcs_kpet
             )

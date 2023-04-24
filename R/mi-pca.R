@@ -17,61 +17,57 @@ plotResults <- function() {
     # UI -----------------------------------------------------------------------
     ui <- shiny::fluidPage(
 
-        # App title ----
+        # App title
         shiny::titlePanel("Understanding the MI-PCA behaviour"),
 
-        # Sidebar layout with input and output definitions ----
-        shiny::sidebarLayout(
-
-            # Sidebar panel for inputs ----
-            shiny::sidebarPanel(
-
-                # Input: Collinearity values 
+        # App UI
+        shiny::fluidRow(
+            shiny::column(
+                width = 8, 
+                "",
                 shiny::sliderInput(
                     inputId = "colli",
-                     label = "Collinearity",
-                     min = 0,
-                     max = .9,
-                     value = .1,
-                     step = .1,
-                     width = "100%"
-                 )
-            ),
-
-            # Main panel for displaying outputs ----
-            shiny::mainPanel(
-                # Output: Histogram ----
-                shiny::plotOutput(outputId = "plot")
+                    label = "Collinearity",
+                    min = 0,
+                    max = .9,
+                    value = .1,
+                    step = .1,
+                    width = "100%"
+                )
             )
+        ),
+        shiny::fluidRow(
+            shiny::column(
+                width = 4, 
+                "Data correlation structure", 
+                shiny::plotOutput(outputId = "heatmap_cor")
+                ),
+            shiny::column(
+                width = 4, 
+                "Loadings", 
+                shiny::plotOutput(outputId = "heatmap_load")
+                )
+        ),
+        shiny::fluidRow(
+            shiny::column(
+                width = 4, 
+                "Number of principal components kept", 
+                shiny::plotOutput(outputId = "hist")
+                ),
+            shiny::column(
+                width = 4, 
+                "Cumulative proportion of explained variance", 
+                shiny::plotOutput(outputId = "scatter")
+                )
         )
     )
 
     # Server -------------------------------------------------------------------
 
     server <- function(input, output) {
-        # Histogram of the Old Faithful Geyser Data ----
-        # with requested number of bins
-        # This expression that generates a histogram is wrapped in a call
-        # to renderPlot to indicate that:
-        #
-        # 1. It is "reactive" and therefore should be automatically
-        #    re-executed when inputs (input$bins) change
-        # 2. Its output type is a plot
-        output$plot <- shiny::renderPlot({
-            
-            # Define experimental factor levels
-            collinearity <- c(0.01, seq(0.1, .9, by = .1))
-
-            # Crate a place to store factor structures
-            storenScree <- list()
-            cpve <- NULL
-            pc1.loadings <- NULL
-            npcs_kpet <- NULL
-            cor_mats <- NULL
-
-            i <- 9
-
-            # Generate data
+        # Simulate data
+        app_data <- reactive({
+            # Simulate Data
             X <- gen_data(
                 n = 5e3,
                 block_sizes = c(5, 5, 40),
@@ -80,16 +76,13 @@ plotResults <- function() {
                 inflated_values = as.numeric(input$colli)
             )
 
-            # Check correlation matrix
-            cor_mats <- round(cor(X)[c(1:13, 48:50), c(1:13, 48:50)], 1)
+            # Prepare correlation matrix
+            cor_mat <- round(cor(X)[c(1:13, 48:50), c(1:13, 48:50)], 1)
 
-            # Select possible auxiliary data
+            # Subset X to desired active set for PCA
             X_ma <- X[, -c(1:3, 6:8)]
 
-            # 3-factor structure
-            storenScree <- nFactors::nScree(as.data.frame(X_ma))$Components
-
-            # PCA
+            # Perform PCA
             svd_X <- svd(X_ma)
 
             # Store the loadings
@@ -98,24 +91,36 @@ plotResults <- function() {
             # Give meaningful names to the loading matrix
             colnames(load_mat) <- paste0("PC", 1:ncol(svd_X$v))
             rownames(load_mat) <- colnames(X_ma)
-            
-            # Compute CPVE for this run
-            cpve_i <- cumsum(prop.table(svd_X$d^2))
 
             # Compute cumulative proportion of explained variance
             cpve <- cumsum(prop.table(svd_X$d^2))
 
             # Apply the decision rule used in the simulation study
             if (cpve[1] >= 0.5) {
-                npcs_kpet <- c(npcs_kpet, 1)
+                npcs_kpet <- 1
             } else {
                 npcs_kpet <- sum(cpve <= 0.5)
             }
 
-            # > Correlation matrix ---------------------------------------------
+            # Non-graphical decision rules
+            storenScree <- nFactors::nScree(as.data.frame(X_ma))$Components
 
+            # Return the list of outputs
+            list(
+                X = X,
+                X_ma = X_ma,
+                cor_mat = cor_mat,
+                load_mat = load_mat,
+                cpve = cpve,
+                npcs_kpet = npcs_kpet,
+                storenScree = storenScree
+            )
+        })
+
+        # > Correlation matrix -------------------------------------------------
+        output$heatmap_cor <- shiny::renderPlot({
             # Subset correlation matrix
-            cor_mat_melt <- reshape2::melt(cor_mats)
+            cor_mat_melt <- reshape2::melt(app_data()$cor_mat)
 
             # Add ellipsis as an empty level
             cor_mat_melt[, "Var1"] <- factor(
@@ -128,7 +133,7 @@ plotResults <- function() {
             )
 
             # Make heatmap
-            heatmap_cor <- ggplot2::ggplot(
+            ggplot2::ggplot(
                 data = cor_mat_melt,
                 ggplot2::aes(x = Var1, y = Var2, fill = value)
             ) +
@@ -155,13 +160,14 @@ plotResults <- function() {
                 ggplot2::scale_x_discrete(
                     drop = FALSE, # avoid dropping empty elements
                     position = "top"
-                ) +
-                ggplot2::labs(title = "Heatmap of the Pearson correlation matrix in the data")
+                )
+        })
 
-            # > Loading matrix -------------------------------------------------
+        # > Loading matrix -----------------------------------------------------
 
+        output$heatmap_load <- shiny::renderPlot({
             # Subset correlation matrix
-            load_mat_melt <- reshape2::melt(load_mat[c(1:6, 43:44), 1:4])
+            load_mat_melt <- reshape2::melt(app_data()$load_mat[c(1:6, 43:44), 1:4])
 
             # Round values
             load_mat_melt$value <- abs(round(load_mat_melt$value, 3))
@@ -177,7 +183,7 @@ plotResults <- function() {
             )
 
             # Make heatmap
-            heatmap_load <- ggplot2::ggplot(
+            ggplot2::ggplot(
                 data = load_mat_melt,
                 ggplot2::aes(x = Var1, y = Var2, fill = value)
             ) +
@@ -202,20 +208,55 @@ plotResults <- function() {
                 ggplot2::scale_x_discrete(
                     drop = FALSE, # avoid dropping empty elements
                     position = "top"
-                ) +
-                ggplot2::labs(title = "Heatmap of the absolute value of the loadings on the Principal componnets")
+                )
+        })
 
+        # > CPVE plot ----------------------------------------------------------
+
+        output$scatter <- shiny::renderPlot({
+            # Round CPVE
+            cpve_round <- app_data()$cpve # round(cpve, 2) * 100
+
+            # Give PC number as name
+            names(cpve_round) <- 1:length(cpve_round)
+
+            # Attach collinearity as column
+            cpve_data <- data.frame(
+                npcs = factor(1:length(cpve_round)),
+                value = cpve_round
+            )
+
+            # ggplot
+            cpve_data %>%
+                ggplot2::ggplot(
+                    ggplot2::aes(
+                        x = npcs,
+                        y = value
+                    )
+                ) +
+                ggplot2::geom_point() +
+                ggplot2::ylab("") +
+                ggplot2::xlab("Number of components") +
+                ggplot2::theme_bw() +
+                ggplot2::theme(
+                    axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)
+                )
+        })
+
+        # > NPCS plot ----------------------------------------------------------
+
+        output$hist <- shiny::renderPlot({
             # Number of factors underlying data
             npcs_kept <- cbind(
                 collinearity = as.numeric(input$colli),
-                storenScree,
-                rule50 = npcs_kpet
+                app_data()$storenScree,
+                rule50 = app_data()$npcs_kpet
             )
 
             # Plot npcs
             npcs_kept <- reshape2::melt(npcs_kept, id.vars = "collinearity")
 
-            hist_npcs <- npcs_kept %>%
+            npcs_kept %>%
                 ggplot2::ggplot(
                     ggplot2::aes(
                         x = variable,
@@ -230,42 +271,7 @@ plotResults <- function() {
                 ggplot2::theme(
                     axis.title.x = ggplot2::element_blank(),
                     axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)
-                ) +
-                ggplot2::labs(title = "Number of principal components kep according to 5 decision rules")
-
-            # Round CPVE
-            cpve_round <- cpve#round(cpve, 2) * 100
-
-            # Give PC number as name
-            names(cpve_round) <- 1:length(cpve_round)
-
-            # Attach collinearity as column
-            cpve_data <- data.frame(
-                npcs = factor(1:length(cpve_round)),
-                value = cpve_round
-            )
-            
-            # ggplot
-            scatter_cpve <- cpve_data %>%
-                ggplot2::ggplot(
-                    ggplot2::aes(
-                        x = npcs,
-                        y = value
-                    )
-                ) +
-                ggplot2::geom_point() +
-                ggplot2::ylab("") +
-                ggplot2::xlab("Number of components") +
-                ggplot2::theme_bw() +
-                ggplot2::theme(
-                    axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)
-                ) + 
-                ggplot2::labs(title = "Cumulative proportion of explained variance by the PCs in the data matrix.")
-
-                # Collect graphs
-                    heatmap_cor + heatmap_load + hist_npcs + scatter_cpve +
-                        patchwork::plot_layout(ncol = 2, widths = 1)
-
+                )
         })
     }
 

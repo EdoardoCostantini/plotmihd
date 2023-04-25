@@ -21,80 +21,17 @@ plotResults <- function() {
         shiny::titlePanel(
             shiny::h1("Understanding the MI-PCA behaviour", align = "center")
         ),
-
-        # App UI
-        shiny::fluidRow(
-            shiny::titlePanel(
-                shiny::h3("Inputs", align = "center")
-            ),
-            shiny::column(
+        fluidRow(
+            column(
                 width = 4,
-                "",
-                offset = 4,
-                shiny::sliderInput(
-                    inputId = "colli",
-                    label = "Collinearity",
-                    min = 0,
-                    max = .9,
-                    value = .1,
-                    step = .1,
-                    width = "100%"
-                ),
-                shinyBS::bsPopover(
-                    id = "colli",
-                    title = "Collinearity",
-                    content = shiny::HTML("The value of the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>, and between the block on noise variables (<b>v11</b> and above.)"),
-                    trigger = "hover",
-                    placement = "left",
-                    options = list(container = "body")
-                )
-            ),
-        ),
-        shiny::fluidRow(
-            shiny::titlePanel(
-                shiny::h3("Plots", align = "center")
-            ),
-            shiny::column(
-                width = 3,
+                offset = 1,
                 shiny::titlePanel(
-                    shiny::h5("Panel A", align = "center")
+                    shiny::h3("Interpretation", align = "center")
                 ),
-                shiny::plotOutput(outputId = "heatmap_cor")
-            ),
-            shiny::column(
-                width = 3,
-                shiny::titlePanel(
-                    shiny::h5("Panel B", align = "center")
-                ),
-                shiny::plotOutput(outputId = "heatmap_load")
-            ),
-            shiny::column(
-                width = 3,
-                shiny::titlePanel(
-                    shiny::h5("Panel C", align = "center")
-                ),
-                shiny::plotOutput(outputId = "hist")
-            ),
-            shiny::column(
-                width = 3,
-                shiny::titlePanel(
-                    shiny::h5("Panel D", align = "center")
-                ),
-                shiny::plotOutput(outputId = "scatter")
-            )
-        ),
-        # Interpretation:
-        shiny::fluidRow(
-            shiny::titlePanel(
-                shiny::h3("Interpretation", align = "center")
-            ),
-            shiny::column(
-                width = 4,
-                offset = 4,
                 shiny::tabsetPanel(
                     type = "tabs",
                     shiny::tabPanel(
-                        title = "1. Setup", 
+                        title = "1. Setup",
                         shiny::HTML(
                             "<br>
                             This shiny app samples 200 observations from a multivariate normal distribution and performs PCA on it.
@@ -107,8 +44,8 @@ plotResults <- function() {
                             We recommend clicking on the plot to read a description of what is plotted before continuing with the interpretation.
                             <br>
                             <br>"
-                            )
-                        ),
+                        )
+                    ),
                     shiny::tabPanel(
                         title = "2. Correlation matrix",
                         shiny::HTML(
@@ -117,14 +54,14 @@ plotResults <- function() {
                             <br>
                             Note the following:
                             <ul>
-                                <li>The correlation between variables <b>v1</b> to <b>v10</b> and the variables <b>v11</b> to <b>v50</b> is fixed to approximately 0, irrespective of the value of the input <code>Collinearity</code>. 
+                                <li>The correlation between variables <b>v1</b> to <b>v10</b> and the variables <b>v11</b> to <b>v50</b> is fixed to approximately 0, irrespective of the value of the input <code>Collinearity</code>.
                                 This preserves the understanding of variables <b>v11</b> to <b>v50</b> as noise variables in the task of imputing variables <b>v1</b> to <b>v10</b>.</li>
                                 <li>Expect for variables <b>v4</b>, <b>v5</b>, <b>v9</b>, and <b>v10</b> The correlation between variables <b>v1</b> to <b>v10</b> also stays the same. This preserves the same strength of the MAR mechanism produced in the simulation study. Because <b>v4</b>, <b>v5</b>, <b>v9</b>, and <b>v10</b> are the MAR predictors used to impose missing values on <b>v1</b> to <b>v3</b> and <b>v5</b> to <b>v7</b>, these correlations need to stay constant, otherwise, the strength of the MAR mechanism would change together with the collinearity.</li>
                             </ul>
                             <br>
                             <br>"
-                            )
-                        ),
+                        )
+                    ),
                     shiny::tabPanel(
                         title = "3. PC Loadings",
                         shiny::HTML(
@@ -134,9 +71,8 @@ plotResults <- function() {
                             As you increase the <code>Collinearity</code> input value, you will notice that the first PC becomes a linear combination of the noise variables, while items 4, 5, 9, and 10 are more important (higher weights) in the computation of the second and third PCs.
                             <br>
                             <br>"
-                            )
-                        ),
-
+                        )
+                    ),
                     shiny::tabPanel(
                         title = "4. Non-graphical decision rules",
                         shiny::HTML(
@@ -166,16 +102,82 @@ plotResults <- function() {
                             <br>
                             <br>
                             For a correlation of .9, the 50% rule retains a single PC that explains more than 70% of the variance in X.
-                            However, this single component is a linear combination where the noise variables are weighted much more than the important predictors. 
+                            However, this single component is a linear combination where the noise variables are weighted much more than the important predictors.
                             Using the Kaiser criterion or parallel analysis, we would be keeping the first three PCs, which would then include a first PC that is useless for imputation (a combination of noise variables) and the two following important PCs (a combination of the MAR predictors.)
                             <br>
                             <br>"
                         )
                     )
+                )
+            ),
+            column(
+                width = 6,
+                fluidRow(
+                    shiny::titlePanel(
+                        shiny::h3("Input", align = "center")
+                    ),
+                    shiny::column(
+                        width = 8,
+                        offset = 2,
+                    shiny::sliderInput(
+                        inputId = "colli",
+                        label = "Collinearity",
+                        min = 0,
+                        max = .9,
+                        value = .1,
+                        step = .1,
+                        width = "100%"
+                    ),
+                    shinyBS::bsPopover(
+                        id = "colli",
+                        title = "Collinearity",
+                        content = shiny::HTML("The value of the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>, and between the block on noise variables (<b>v11</b> and above.)"),
+                        trigger = "hover",
+                        placement = "left",
+                        options = list(container = "body")
+                    ),
+                    )
+                ),
+                fluidRow(
+                    shiny::titlePanel(
+                        shiny::h3("Plots", align = "center")
+                    ),
+                    fluidRow(
+                    shiny::column(
+                        width = 6,
+                        shiny::titlePanel(
+                            shiny::h5("Panel A", align = "center")
+                        ),
+                        shiny::plotOutput(outputId = "heatmap_cor")
+                    ),
+                    shiny::column(
+                        width = 6,
+                        shiny::titlePanel(
+                            shiny::h5("Panel B", align = "center")
+                        ),
+                        shiny::plotOutput(outputId = "heatmap_load")
+                    )
+                    ),
+                    fluidRow(
+                    shiny::column(
+                        width = 6,
+                        shiny::titlePanel(
+                            shiny::h5("Panel C", align = "center")
+                        ),
+                        shiny::plotOutput(outputId = "hist")
+                    ),
+                    shiny::column(
+                        width = 6,
+                        shiny::titlePanel(
+                            shiny::h5("Panel D", align = "center")
+                        ),
+                        shiny::plotOutput(outputId = "scatter")
+                    )
                     )
                 )
-                )
             )
+        )
+    )
 
     # Server -------------------------------------------------------------------
 

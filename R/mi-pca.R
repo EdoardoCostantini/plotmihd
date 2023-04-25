@@ -19,18 +19,18 @@ plotResults <- function() {
 
         # App title
         shiny::titlePanel(
-            h1("Understanding the MI-PCA behaviour", align = "center")
+            shiny::h1("Understanding the MI-PCA behaviour", align = "center")
         ),
 
         # App UI
         shiny::fluidRow(
             shiny::titlePanel(
-                h3("Inputs", align = "center")
+                shiny::h3("Inputs", align = "center")
             ),
             shiny::column(
-                width = 8,
+                width = 4,
                 "",
-                offset = 2,
+                offset = 4,
                 shiny::sliderInput(
                     inputId = "colli",
                     label = "Collinearity",
@@ -52,42 +52,91 @@ plotResults <- function() {
         ),
         shiny::fluidRow(
             shiny::titlePanel(
-                h3("Plots", align = "center")
+                shiny::h3("Plots", align = "center")
             ),
             shiny::column(
-                width = 4,
-                offset = 2,
+                width = 3,
                 shiny::titlePanel(
-                    h5("Panel A", align = "center")
+                    shiny::h5("Panel A", align = "center")
                 ),
                 shiny::plotOutput(outputId = "heatmap_cor")
             ),
             shiny::column(
-                width = 4,
-                                shiny::titlePanel(
-                    h5("Panel B", align = "center")
+                width = 3,
+                shiny::titlePanel(
+                    shiny::h5("Panel B", align = "center")
                 ),
                 shiny::plotOutput(outputId = "heatmap_load")
-            )
-        ),
-        shiny::fluidRow(
+            ),
             shiny::column(
-                width = 4,
-                offset = 2,
-                                shiny::titlePanel(
-                    h5("Panel C", align = "center")
+                width = 3,
+                shiny::titlePanel(
+                    shiny::h5("Panel C", align = "center")
                 ),
                 shiny::plotOutput(outputId = "hist")
             ),
             shiny::column(
-                width = 4,
-                                shiny::titlePanel(
-                    h5("Panel D", align = "center")
+                width = 3,
+                shiny::titlePanel(
+                    shiny::h5("Panel D", align = "center")
                 ),
                 shiny::plotOutput(outputId = "scatter")
             )
-        )
-    )
+        ),
+        # Interpretation:
+        shiny::fluidRow(
+            shiny::titlePanel(
+                shiny::h3("Interpretation", align = "center")
+            ),
+            shiny::column(
+                width = 4,
+                offset = 4,
+                shiny::tabsetPanel(
+                    type = "tabs",
+                    shiny::tabPanel(
+                        title = "1. Setup", 
+                        shiny::HTML(
+                            "<br>
+                            This shiny app samples 200 observations from a multivariate normal distribution and performs PCA on it.
+                            The data is generated based on a known covariance matrix with a 3-block structure.
+                            - variables correlated by .6
+                            - variables correlated by .3
+                            - noise variables (extra variables not related to the ones in blocks 1 and 2.)"
+                            )
+                        ),
+                    shiny::tabPanel(
+                        title = "2. Correlation matrix",
+                        shiny::HTML(
+                            "<br>
+                            As you change the values of the <code>Collinearity</code> input, you will notice changes in the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>., and variables <b>v11</b> to <b>v15</b>"
+                            )
+                        ),
+                    shiny::tabPanel(
+                        title = "3. PC Loadings",
+                        shiny::HTML(
+                            "<br>
+                            When <code>Collinearity</code> is set to 0, the PC loadings for items 4, 5, 9, and 10 are many orders of magnitudes larger than the ones for all other items.
+                            Although, no loading is ever equal to 0, this configuration can be understood as generating a first principal component that is a linear combination of items 4, 5, 9, and 10.
+                            As you increase the <code>Collinearity</code> input value, you will notice that the first PC becomes a linear combination of the noise variables, while items 4, 5, 9, and 10 are more important (higher weights) in the computation of the second and third PCs."
+                            )
+                        ),
+
+                    shiny::tabPanel(
+                        title = "4. Non-graphical decision rules",
+                        "Text"
+                    ),
+                    shiny::tabPanel(
+                        title = "5. CPVE",
+                        "Text"
+                    ),
+                    shiny::tabPanel(
+                        title = "6. Conclusions",
+                        "Text"
+                    )
+                    )
+                )
+                )
+            )
 
     # Server -------------------------------------------------------------------
 
@@ -317,7 +366,7 @@ plotResults <- function() {
             <br>
             As you change the values of the <code>Collinearity</code> input, you will notice changes in the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>., and variables <b>v11</b> to <b>v15</b>"),
             trigger = "click",
-            placement = "left",
+            placement = "bottom",
             options = list(container = "body")
         )
 
@@ -332,7 +381,7 @@ plotResults <- function() {
             <br>
             As you change the values of the <code>Collinearity</code> input, you will notice that the first component goes from being a combination of items <b>v4</b>, <b>v5</b>, <b>v9</b>, and <b>v10</b>, to being a combination of the noise items (<b>v11</b> and above.)"),
             trigger = "click",
-            placement = "right",
+            placement = "bottom",
             options = list(container = "body")
         )
 
@@ -354,7 +403,7 @@ plotResults <- function() {
                 "
             ),
             trigger = "click",
-            placement = "left",
+            placement = "bottom",
             options = list(container = "body")
         )
 
@@ -367,7 +416,7 @@ plotResults <- function() {
                 "This scatter plot reports the CPVE by subsequent components obtained by performing PCA on the correlation matrix."
             ),
             trigger = "click",
-            placement = "right",
+            placement = "bottom",
             options = list(container = "body")
         )
     }

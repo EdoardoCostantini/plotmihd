@@ -18,10 +18,15 @@ plotResults <- function() {
     ui <- shiny::fluidPage(
 
         # App title
-        shiny::titlePanel("Understanding the MI-PCA behaviour"),
+        shiny::titlePanel(
+            h1("Understanding the MI-PCA behaviour", align = "center")
+        ),
 
         # App UI
         shiny::fluidRow(
+            shiny::titlePanel(
+                h3("Inputs", align = "center")
+            ),
             shiny::column(
                 width = 8,
                 "",
@@ -38,7 +43,7 @@ plotResults <- function() {
                 shinyBS::bsPopover(
                     id = "colli",
                     title = "Collinearity",
-                    content = HTML("The value of the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>, and between the block on noise variables (<b>v11</b> and above.)"),
+                    content = shiny::HTML("The value of the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>, and between the block on noise variables (<b>v11</b> and above.)"),
                     trigger = "hover",
                     placement = "left",
                     options = list(container = "body")
@@ -46,15 +51,22 @@ plotResults <- function() {
             ),
         ),
         shiny::fluidRow(
+            shiny::titlePanel(
+                h3("Plots", align = "center")
+            ),
             shiny::column(
                 width = 4,
                 offset = 2,
-                "Data correlation structure",
+                shiny::titlePanel(
+                    h5("Panel A", align = "center")
+                ),
                 shiny::plotOutput(outputId = "heatmap_cor")
             ),
             shiny::column(
                 width = 4,
-                "Loadings",
+                                shiny::titlePanel(
+                    h5("Panel B", align = "center")
+                ),
                 shiny::plotOutput(outputId = "heatmap_load")
             )
         ),
@@ -62,12 +74,16 @@ plotResults <- function() {
             shiny::column(
                 width = 4,
                 offset = 2,
-                "Number of principal components kept",
+                                shiny::titlePanel(
+                    h5("Panel C", align = "center")
+                ),
                 shiny::plotOutput(outputId = "hist")
             ),
             shiny::column(
                 width = 4,
-                "Cumulative proportion of explained variance",
+                                shiny::titlePanel(
+                    h5("Panel D", align = "center")
+                ),
                 shiny::plotOutput(outputId = "scatter")
             )
         )
@@ -162,6 +178,8 @@ plotResults <- function() {
                 ggplot2::theme(
                     axis.title.y = ggplot2::element_blank(),
                     axis.title.x = ggplot2::element_blank(),
+                    legend.position = "bottom",
+                    aspect.ratio = 1
                 ) +
                 ggplot2::coord_fixed() +
                 ggplot2::scale_y_discrete(
@@ -210,6 +228,8 @@ plotResults <- function() {
                 ggplot2::theme(
                     axis.title.y = ggplot2::element_blank(),
                     axis.title.x = ggplot2::element_blank(),
+                    legend.position = "bottom",
+                    aspect.ratio = 1
                 ) +
                 ggplot2::coord_fixed() +
                 ggplot2::scale_y_discrete(
@@ -235,7 +255,7 @@ plotResults <- function() {
             cpve_data <- data.frame(
                 npcs = factor(1:length(cpve_round)),
                 value = cpve_round
-            )
+            )[1:10, ]
 
             # ggplot
             cpve_data %>%
@@ -247,10 +267,10 @@ plotResults <- function() {
                 ) +
                 ggplot2::geom_point() +
                 ggplot2::ylab("") +
-                ggplot2::xlab("Number of components") +
+                ggplot2::xlab("") +
                 ggplot2::theme_bw() +
                 ggplot2::theme(
-                    axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)
+                    aspect.ratio = 1
                 )
         })
 
@@ -281,7 +301,7 @@ plotResults <- function() {
                 ggplot2::theme_bw() +
                 ggplot2::theme(
                     axis.title.x = ggplot2::element_blank(),
-                    axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)
+                    aspect.ratio = 1
                 )
         })
 
@@ -292,7 +312,7 @@ plotResults <- function() {
             session,
             id = "heatmap_cor",
             title = "Correlation matrix",
-            content = HTML("This heatmap shows darker colors for higher values of bivariate correlations. Bivariate correlations for variables <b>v14</b> to <b>v47</b> are omitted as they are always close to the others in this block (<b>v11</b> to <b>v50</b>.). 
+            content = shiny::HTML("This heatmap shows darker colors for higher values of bivariate correlations. Bivariate correlations for variables <b>v14</b> to <b>v47</b> are omitted as they are always close to the others in this block (<b>v11</b> to <b>v50</b>.).
             <br>
             <br>
             As you change the values of the <code>Collinearity</code> input, you will notice changes in the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>., and variables <b>v11</b> to <b>v15</b>"),
@@ -306,7 +326,7 @@ plotResults <- function() {
             session,
             id = "heatmap_load",
             title = "Principal component loadings",
-            content = HTML("This heatmap shows darker colors for higher absolute values of the principal component loadings.
+            content = shiny::HTML("This heatmap shows darker colors for higher absolute values of the principal component loadings.
             For a given item, the higher the loading, the higher its influence in the linear combination generating the PC scores compared to the other items.
             <br>
             <br>
@@ -321,7 +341,7 @@ plotResults <- function() {
             session,
             id = "hist",
             title = "Number of principal components",
-            content = HTML(
+            content = shiny::HTML(
                 "The histogram shows the number of PCs kept when performing PCA on the correlation matrix shown above (excluding items <b>v1</b> to <b>v3</b>, and <b>v5</b> to <b>v6</b>).
                 Five non-graphical decision rules are reported:
                 <ul>
@@ -332,7 +352,7 @@ plotResults <- function() {
                     <li>50% rule (rule50)</li>
                 </ul>
                 "
-                ),
+            ),
             trigger = "click",
             placement = "left",
             options = list(container = "body")
@@ -343,9 +363,9 @@ plotResults <- function() {
             session,
             id = "scatter",
             title = "Cumulative proportion of variance explained (CPVE)",
-            content = HTML(
+            content = shiny::HTML(
                 "This scatter plot reports the CPVE by subsequent components obtained by performing PCA on the correlation matrix."
-                ),
+            ),
             trigger = "click",
             placement = "right",
             options = list(container = "body")

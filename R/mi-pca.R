@@ -158,15 +158,7 @@ plotResults <- function() {
                         value = .1,
                         step = .1,
                         width = "100%"
-                    ),
-                    shinyBS::bsPopover(
-                        id = "colli",
-                        title = "Collinearity",
-                        content = shiny::HTML("The value of the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>, and between the block on noise variables (<b>v11</b> and above.)"),
-                        trigger = "hover",
-                        placement = "left",
-                        options = list(container = "body")
-                    ),
+                    )
                     )
                 ),
                 fluidRow(
@@ -425,61 +417,6 @@ plotResults <- function() {
                     aspect.ratio = 1
                 )
         })
-
-        # > Tooltips -----------------------------------------------------------
-
-        # Correlation matrix
-        shinyBS::addPopover(
-            session,
-            id = "heatmap_cor",
-            title = "Correlation matrix",
-            content = shiny::HTML("This heatmap shows darker colors for higher values of bivariate correlations. Bivariate correlations for variables <b>v14</b> to <b>v47</b> are omitted as they are always close to the others in this block (<b>v11</b> to <b>v50</b>.).
-            <br>
-            <br>
-            As you change the values of the <code>Collinearity</code> input, you will notice changes in the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>., and variables <b>v11</b> to <b>v15</b>"),
-            trigger = "click",
-            placement = "bottom",
-            options = list(container = "body")
-        )
-
-        # Loadings
-        shinyBS::addPopover(
-            session,
-            id = "heatmap_load",
-            title = "Principal component loadings",
-            content = shiny::HTML("This heatmap shows darker colors for higher absolute values of the principal component loadings.
-            For a given item, the higher the loading, the higher its influence in the linear combination generating the PC scores compared to the other items.
-            <br>
-            <br>
-            As you change the values of the <code>Collinearity</code> input, you will notice that the first component goes from being a combination of items <b>v4</b>, <b>v5</b>, <b>v9</b>, and <b>v10</b>, to being a combination of the noise items (<b>v11</b> and above.)"),
-            trigger = "click",
-            placement = "bottom",
-            options = list(container = "body")
-        )
-
-        # Number of principal components kept
-        shinyBS::addPopover(
-            session,
-            id = "hist",
-            title = "Number of principal components",
-            content = shiny::HTML("none"),
-            trigger = "click",
-            placement = "bottom",
-            options = list(container = "body")
-        )
-
-        # Cumulative proportion of explained variance
-        shinyBS::addPopover(
-            session,
-            id = "scatter",
-            title = "Cumulative proportion of variance explained (CPVE)",
-            content = shiny::HTML(
-                "This scatter plot reports the CPVE by subsequent components obtained by performing PCA on the correlation matrix."
-            ),
-            trigger = "click",
-            placement = "bottom",
-            options = list(container = "body")
-        )
     }
 
     # Run app ------------------------------------------------------------------

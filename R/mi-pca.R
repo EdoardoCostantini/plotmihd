@@ -98,17 +98,31 @@ plotResults <- function() {
                         shiny::HTML(
                             "<br>
                             This shiny app samples 200 observations from a multivariate normal distribution and performs PCA on it.
-                            The data is generated based on a known covariance matrix with a 3-block structure.
-                            - variables correlated by .6
-                            - variables correlated by .3
-                            - noise variables (extra variables not related to the ones in blocks 1 and 2.)"
+                            The data is generated based on a known covariance matrix with a 3-block structure:
+                            <ul>
+                                <li>variables correlated by .6</li>
+                                <li>variables correlated by .3</li>
+                                <li>noise variables (extra variables not related to the ones in blocks 1 and 2.)</li>
+                            </ul>
+                            We recommend clicking on the plot to read a description of what is plotted before continuing with the interpretation.
+                            <br>
+                            <br>"
                             )
                         ),
                     shiny::tabPanel(
                         title = "2. Correlation matrix",
                         shiny::HTML(
                             "<br>
-                            As you change the values of the <code>Collinearity</code> input, you will notice changes in the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>., and variables <b>v11</b> to <b>v15</b>"
+                            As you change the values of the <code>Collinearity</code> input, you will notice changes in the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>., and variables <b>v11</b> to <b>v15</b>.
+                            <br>
+                            Note the following:
+                            <ul>
+                                <li>The correlation between variables <b>v1</b> to <b>v10</b> and the variables <b>v11</b> to <b>v50</b> is fixed to approximately 0, irrespective of the value of the input <code>Collinearity</code>. 
+                                This preserves the understanding of variables <b>v11</b> to <b>v50</b> as noise variables in the task of imputing variables <b>v1</b> to <b>v10</b>.</li>
+                                <li>Expect for variables <b>v4</b>, <b>v5</b>, <b>v9</b>, and <b>v10</b> The correlation between variables <b>v1</b> to <b>v10</b> also stays the same. This preserves the same strength of the MAR mechanism produced in the simulation study. Because <b>v4</b>, <b>v5</b>, <b>v9</b>, and <b>v10</b> are the MAR predictors used to impose missing values on <b>v1</b> to <b>v3</b> and <b>v5</b> to <b>v7</b>, these correlations need to stay constant, otherwise, the strength of the MAR mechanism would change together with the collinearity.</li>
+                            </ul>
+                            <br>
+                            <br>"
                             )
                         ),
                     shiny::tabPanel(
@@ -116,22 +130,47 @@ plotResults <- function() {
                         shiny::HTML(
                             "<br>
                             When <code>Collinearity</code> is set to 0, the PC loadings for items 4, 5, 9, and 10 are many orders of magnitudes larger than the ones for all other items.
-                            Although, no loading is ever equal to 0, this configuration can be understood as generating a first principal component that is a linear combination of items 4, 5, 9, and 10.
-                            As you increase the <code>Collinearity</code> input value, you will notice that the first PC becomes a linear combination of the noise variables, while items 4, 5, 9, and 10 are more important (higher weights) in the computation of the second and third PCs."
+                            Although no loading is ever equal to 0, this configuration can be understood as generating a first principal component that is a linear combination of items 4, 5, 9, and 10.
+                            As you increase the <code>Collinearity</code> input value, you will notice that the first PC becomes a linear combination of the noise variables, while items 4, 5, 9, and 10 are more important (higher weights) in the computation of the second and third PCs.
+                            <br>
+                            <br>"
                             )
                         ),
 
                     shiny::tabPanel(
                         title = "4. Non-graphical decision rules",
-                        "Text"
+                        shiny::HTML(
+                            "<br>
+                            When <code>Collinearity</code> is set to 0, the number of components selected by the 50% rule used in this study is quite high (around 19). As you increase the value of <code>Collinearity</code>, the number selected by this rule decreases and reaches 1 for values greater than 0.5.
+                            For the same values, the Kaiser rule and the parallel analysis, which are better indicators of the PCA structure, always identify at least 2 PCs.
+                            <br>
+                            <br>"
+                        )
                     ),
                     shiny::tabPanel(
                         title = "5. CPVE",
-                        "Text"
+                        shiny::HTML(
+                            "<br>
+                            When <code>Collinearity</code> is set to 0, the first PC explains very little of the total variance in X (CPVE < 0.01).
+                            As you increase the <code>Collinearity</code> input value, you will notice that the first explains more and more of the total variance.
+                            For the highest values of <code>Collinearity</code>, an elbow shape will start to appear in Panel D: the first 3 PCs start to collectively explain the majority of the variance in X, and additional PCs would only lead to a trivial increase in CPVE.
+                            <br>
+                            <br>"
+                        )
                     ),
                     shiny::tabPanel(
                         title = "6. Conclusions",
-                        "Text"
+                        shiny::HTML(
+                            "<br>
+                            For a correlation of 0, the important predictors contribute strongly to the computation of the first PC (high-loadings). It would probably be sufficient to use this single PC for the imputation task, but based on the 50% rule we actually use the first PC together with the next 18 PCs.
+                            <br>
+                            <br>
+                            For a correlation of .9, the 50% rule retains a single PC that explains more than 70% of the variance in X.
+                            However, this single component is a linear combination where the noise variables are weighted much more than the important predictors. 
+                            Using the Kaiser criterion or parallel analysis, we would be keeping the first three PCs, which would then include a first PC that is useless for imputation (a combination of noise variables) and the two following important PCs (a combination of the MAR predictors.)
+                            <br>
+                            <br>"
+                        )
                     )
                     )
                 )

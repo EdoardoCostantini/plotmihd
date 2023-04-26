@@ -62,51 +62,11 @@ server <- function(input, output, session) {
 
         # > Correlation matrix -------------------------------------------------
         output$heatmap_cor <- shiny::renderPlot({
-            # Subset correlation matrix
-            cor_mat_melt <- reshape2::melt(app_data()$cor_mat)
-
-            # Add ellipsis as an empty level
-            cor_mat_melt[, "Var1"] <- factor(
-                x = cor_mat_melt[, "Var1"],
-                levels = c(levels(cor_mat_melt[, "Var1"])[1:12], "...", levels(cor_mat_melt[, "Var1"])[-c(1:12)])
+            corplot(
+                cor_mat = app_data()$cor_mat,
+                var_range = 1:12,
+                absolute = TRUE
             )
-            cor_mat_melt[, "Var2"] <- factor(
-                x = cor_mat_melt[, "Var2"],
-                levels = c(levels(cor_mat_melt[, "Var2"])[1:12], "...", levels(cor_mat_melt[, "Var2"])[-c(1:12)])
-            )
-
-            # Make heatmap
-            ggplot2::ggplot(
-                data = cor_mat_melt,
-                ggplot2::aes(x = Var1, y = Var2, fill = value)
-            ) +
-                ggplot2::geom_tile(color = "white") +
-                ggplot2::scale_fill_gradient2(
-                    low = "blue",
-                    high = "darkgray",
-                    mid = "white",
-                    midpoint = 0,
-                    limit = c(0, 1),
-                    space = "Lab",
-                    name = ""
-                ) +
-                ggplot2::theme_bw() +
-                ggplot2::theme(
-                    axis.title.y = ggplot2::element_blank(),
-                    axis.title.x = ggplot2::element_blank(),
-                    axis.text.x = ggplot2::element_text(angle = 90),
-                    legend.position = "bottom",
-                    aspect.ratio = 1
-                ) +
-                ggplot2::coord_fixed() +
-                ggplot2::scale_y_discrete(
-                    drop = FALSE, # avoid dropping empty elements
-                    limits = rev # reverse the y order
-                ) +
-                ggplot2::scale_x_discrete(
-                    drop = FALSE, # avoid dropping empty elements
-                    position = "top"
-                )
         })
 
         # > Loading matrix -----------------------------------------------------

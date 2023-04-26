@@ -11,16 +11,16 @@
 #' cor_mat <- cor(mtcars)
 #' 
 #' # use it
-#' corplot(cor_mat)
+#' heatmap_correlation(cor_mat)
 #' 
 #' # Check if you want absolute values or not
 #' cor_mat <- matrix(c(1, -.5, -.5, 1), ncol = 2, dimnames = list(c("V1", "V2"), c("V1", "V2")))
 #' 
 #' # use it
-#' corplot(cor_mat)
+#' heatmap_correlation(cor_mat)
 #' 
 #' @export
-corplot <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor_mat)) {
+heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor_mat)) {
 
     # Prepare differences if absolute value is requested
     if(absolute == TRUE){

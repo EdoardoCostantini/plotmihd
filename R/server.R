@@ -62,7 +62,7 @@ server <- function(input, output, session) {
 
         # > Correlation matrix -------------------------------------------------
         output$heatmap_cor <- shiny::renderPlot({
-            corplot(
+            heatmap_correlation(
                 cor_mat = app_data()$cor_mat,
                 var_range = 1:12,
                 absolute = TRUE

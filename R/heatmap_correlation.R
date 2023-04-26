@@ -1,8 +1,8 @@
-#' Correlation plot
+#' Heatmap correlation
 #'
-#' Create a correlation heatmap for explaining the performance of MI-PCA.
+#' Creates a heatmap of correlation coefficients.
 #'
-#' @param cor_mat Any squared matrix (usually a correlation matrix.)
+#' @param cor_mat any squared matrix (usually a correlation matrix.)
 #' @return A ggplot object containing the heatmap.
 #' @author Edoardo Costantini, 2023
 #'

@@ -1,6 +1,6 @@
 #' Heatmap loadings
 #'
-#' Create a heatmap of the principal component loadings for a PCA analysis.
+#' Creates a heatmap of the principal component loadings for a PCA analysis.
 #'
 #' @param load_mat a matrix of principal component loadings of dimensionality p x q (with p = number of variables and q = number of PCs)
 #' @param absolute a logical value describing whether the absolute values of `load_mat` should be considered

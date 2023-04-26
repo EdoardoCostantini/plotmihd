@@ -1,11 +1,7 @@
-#' Shiny app to understand MI-PCA results
+#' Start Shiny app
 #'
-#' This function allows you to generate data according to different conditions explored in the reference study, and explore how PCA behaves on the data.
+#' This function starts the Shiny app used to display the results from Costantini et. al. (2022).
 #'
-#' @param argument_1 A description of the first argument
-#' @param argument_2 A description of the second argument
-#' @details
-#' This function does such and such.
 #' @return Starts a shiny app to explore the results.
 #' @author Edoardo Costantini, 2023
 #' @references
@@ -13,7 +9,7 @@
 #' Costantini, E., Lang, K. M., Reeskens, T., & Sijtsma, K. (2022). High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods. arXiv preprint arXiv:2208.13656.
 #'
 #' @export
-plot_colli_mipca <- function() {
+start_app <- function() {
     # UI -----------------------------------------------------------------------
     ui <- shiny::fluidPage(
 

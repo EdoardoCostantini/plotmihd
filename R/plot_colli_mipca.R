@@ -19,100 +19,124 @@ plot_colli_mipca <- function() {
 
         # App title
         shiny::titlePanel(
-            shiny::h1("Understanding the MI-PCA behaviour", align = "center")
+            shiny::h1("High-dimensional imputation for the social sciences", align = "center")
         ),
-        shiny::fluidRow(
-            shiny::column(
-                width = 3,
-                offset = 1,
-                shiny::titlePanel(
-                    shiny::h3("Interpretation", align = "center")
-                ),
-                shiny::tabsetPanel(
-                    type = "tabs",
-                    shiny::tabPanel(
-                        title = "1. Setup",
-                        shiny::htmlOutput("setup")
+
+        # Create tabs for different plotting aspects
+        shiny::tabsetPanel(
+            type = "tabs",
+            shiny::tabPanel(
+                title = "Simulation study",
+                "Coming soon"
+            ),
+            shiny::tabPanel(
+                title = "Collinearity study",
+                "Coming soon"
+            ),
+            shiny::tabPanel(
+                title = "MI-PCA deep-dive",
+                shiny::fluidRow(
+                    shiny::column(
+                        width = 3,
+                        offset = 1,
+                        shiny::titlePanel(
+                            shiny::h3("Understanding the MI-PCA behaviour", align = "center")
+                        ),
+                        shiny::tabsetPanel(
+                            type = "tabs",
+                            shiny::tabPanel(
+                                title = "Introduction",
+                                shiny::htmlOutput("introduction")
+                            ),
+                            shiny::tabPanel(
+                                title = "1. Setup",
+                                shiny::htmlOutput("setup")
+                            ),
+                            shiny::tabPanel(
+                                title = "2. Correlation matrix",
+                                shiny::htmlOutput("heatmap_cor_int")
+                            ),
+                            shiny::tabPanel(
+                                title = "3. PC Loadings",
+                                shiny::htmlOutput("heatmap_load_int")
+                            ),
+                            shiny::tabPanel(
+                                title = "4. Non-graphical decision rules",
+                                shiny::htmlOutput("hist_int")
+                            ),
+                            shiny::tabPanel(
+                                title = "5. CPVE",
+                                shiny::htmlOutput("scatter_int")
+                            ),
+                            shiny::tabPanel(
+                                title = "6. Conclusions",
+                                shiny::htmlOutput("conclusions")
+                            )
+                        )
                     ),
-                    shiny::tabPanel(
-                        title = "2. Correlation matrix",
-                        shiny::htmlOutput("heatmap_cor_int")
-                    ),
-                    shiny::tabPanel(
-                        title = "3. PC Loadings",
-                        shiny::htmlOutput("heatmap_load_int")
-                    ),
-                    shiny::tabPanel(
-                        title = "4. Non-graphical decision rules",
-                        shiny::htmlOutput("hist_int")
-                    ),
-                    shiny::tabPanel(
-                        title = "5. CPVE",
-                        shiny::htmlOutput("scatter_int")
-                    ),
-                    shiny::tabPanel(
-                        title = "6. Conclusions",
-                        shiny::htmlOutput("conclusions")
+                    shiny::column(
+                        width = 7,
+                        shiny::fluidRow(
+                            shiny::titlePanel(
+                                shiny::h3("Input", align = "center")
+                            ),
+                            shiny::column(
+                                width = 8,
+                                offset = 2,
+                                shiny::sliderInput(
+                                    inputId = "colli",
+                                    label = "Collinearity",
+                                    min = 0,
+                                    max = .9,
+                                    value = .1,
+                                    step = .1,
+                                    width = "100%"
+                                )
+                            ),
+                        ),
+                        shiny::fluidRow(
+                            shiny::titlePanel(
+                                shiny::h3("Plots", align = "center")
+                            ),
+                            shiny::fluidRow(
+                                shiny::column(
+                                    width = 3,
+                                    shiny::titlePanel(
+                                        shiny::h5("Panel A", align = "center")
+                                    ),
+                                    shiny::plotOutput(outputId = "heatmap_cor")
+                                ),
+                                shiny::column(
+                                    width = 3,
+                                    shiny::titlePanel(
+                                        shiny::h5("Panel B", align = "center")
+                                    ),
+                                    shiny::plotOutput(outputId = "heatmap_load")
+                                ),
+                                shiny::column(
+                                    width = 3,
+                                    shiny::titlePanel(
+                                        shiny::h5("Panel C", align = "center")
+                                    ),
+                                    shiny::plotOutput(outputId = "hist")
+                                ),
+                                shiny::column(
+                                    width = 3,
+                                    shiny::titlePanel(
+                                        shiny::h5("Panel D", align = "center")
+                                    ),
+                                    shiny::plotOutput(outputId = "scatter")
+                                )
+                            )
+                        ),
+                        style = "border-left: 1px solid; border-left-color: #DDDDDD"
                     )
                 )
             ),
-            shiny::column(
-                width = 7,
-                shiny::fluidRow(
-                    shiny::titlePanel(
-                        shiny::h3("Input", align = "center")
-                    ),
-                    shiny::column(
-                        width = 8,
-                        offset = 2,
-                        shiny::sliderInput(
-                            inputId = "colli",
-                            label = "Collinearity",
-                            min = 0,
-                            max = .9,
-                            value = .1,
-                            step = .1,
-                            width = "100%"
-                        )
-                    ),
-                ),
-                shiny::fluidRow(
-                    shiny::titlePanel(
-                        shiny::h3("Plots", align = "center")
-                    ),
-                    shiny::fluidRow(
-                        shiny::column(
-                            width = 3,
-                            shiny::titlePanel(
-                                shiny::h5("Panel A", align = "center")
-                            ),
-                            shiny::plotOutput(outputId = "heatmap_cor")
-                        ),
-                        shiny::column(
-                            width = 3,
-                            shiny::titlePanel(
-                                shiny::h5("Panel B", align = "center")
-                            ),
-                            shiny::plotOutput(outputId = "heatmap_load")
-                        ),
-                        shiny::column(
-                            width = 3,
-                            shiny::titlePanel(
-                                shiny::h5("Panel C", align = "center")
-                            ),
-                            shiny::plotOutput(outputId = "hist")
-                        ),
-                        shiny::column(
-                            width = 3,
-                            shiny::titlePanel(
-                                shiny::h5("Panel D", align = "center")
-                            ),
-                            shiny::plotOutput(outputId = "scatter")
-                        )
-                    )
-                ),
-            style = "border-left: 1px solid; border-left-color: #DDDDDD"
-            )
+            shiny::tabPanel(
+                title = "Resampling study",
+                "Coming soon"
+            ),
         )
     )
 
@@ -331,12 +355,23 @@ plot_colli_mipca <- function() {
 
         # > Interpretation Panel -----------------------------------------------
 
+        # Introduction ---------------------------------------------------------
+        output$introduction <- renderText({
+            shiny::HTML(
+                "<br>
+                The simulation study developed by <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022)</a> to compare different data-driven imputation model-building strategies showed that for higher degrees of collinearity in the data MI-PCA performed similarly to MI-AM.
+                The numbered tabs in this section will help to understand the MI-PCA performance observed in the study.
+                <br>
+                <br>"
+            )
+        })
+
+
         # 1. Set up ------------------------------------------------------------
         output$setup <- renderText({
             shiny::HTML(
                 "<br>
-                The simulation study developed by <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022)</a> to compare different data-driven imputation model-building strategies showed that for higher degrees of collinearity in the data MI-PCA performed similarly to MI-AM.
-                This shiny app is helpful to understand the behavior observed in the study. 
+                The shiny app in this tab is helpful to understand the behavior observed in the study.
                 <br>
                 <br>
                 This Shiny app generates data according to the same data-generating procedure defined in Costantini et. al. (2022).
@@ -369,7 +404,7 @@ plot_colli_mipca <- function() {
                 The <b>color gradient</b> represents the strength of the bivariate associations, with darker colors representing higher correlation values.
                 <br>
                 <br>
-                As you change the values of the <code>Collinearity</code> input, you will notice changes in the correlation between variables v4 and v5, v9 and v10, and variables v11 to v15. 
+                As you change the values of the <code>Collinearity</code> input, you will notice changes in the correlation between variables v4 and v5, v9 and v10, and variables v11 to v15.
                 <br>
                 Note the following:
                 <ul>
@@ -413,7 +448,7 @@ plot_colli_mipca <- function() {
                     <li>Kaiser criterion (nkaiser)</li>
                     <li>50% rule (rule50) - This is the rule used in <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022)</a></li>
                 </ul>
-                When <code>Collinearity</code> is set to 0, the number of components selected by the <b>50% rule</b> used in this study is quite high (around 19). 
+                When <code>Collinearity</code> is set to 0, the number of components selected by the <b>50% rule</b> used in this study is quite high (around 19).
                 As you increase the value of <code>Collinearity</code>, the number selected by this rule decreases and reaches 1 for correlation values greater than 0.5.
                 For the same values, the <b>Kaiser rule</b> and the <b>parallel analysis</b> always identify 2 or more PCs.
                 <br>

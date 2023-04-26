@@ -24,7 +24,7 @@ heatmap_loadings(
 Description of function output
 }
 \description{
-Create a heatmap of the principal component loadings for a PCA analysis.
+Creates a heatmap of the principal component loadings for a PCA analysis.
 }
 \examples{
 # Perform SVD of some data

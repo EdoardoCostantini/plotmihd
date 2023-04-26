@@ -83,33 +83,10 @@ server <- function(input, output, session) {
         # > CPVE plot ----------------------------------------------------------
 
         output$scatter <- shiny::renderPlot({
-            # Round CPVE
-            cpve_round <- app_data()$cpve # round(cpve, 2) * 100
-
-            # Give PC number as name
-            names(cpve_round) <- 1:length(cpve_round)
-
-            # Attach collinearity as column
-            cpve_data <- data.frame(
-                npcs = factor(1:length(cpve_round)),
-                value = cpve_round
-            )[1:10, ]
-
-            # ggplot
-            cpve_data %>%
-                ggplot2::ggplot(
-                    ggplot2::aes(
-                        x = npcs,
-                        y = value
-                    )
-                ) +
-                ggplot2::geom_point() +
-                ggplot2::ylab("CPVE") +
-                ggplot2::xlab("Number of PCs") +
-                ggplot2::theme_bw() +
-                ggplot2::theme(
-                    aspect.ratio = 1
-                )
+            scatter_cpve(
+                cpve = app_data()$cpve,
+                PCs_range = 1:10
+            )
         })
 
         # > NPCS plot ----------------------------------------------------------

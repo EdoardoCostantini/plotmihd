@@ -3,6 +3,8 @@
 export(gen_data)
 export(heatmap_correlation)
 export(heatmap_loadings)
+export(histogram_npcs)
+export(scatter_cpve)
 export(server)
 export(start_app)
 export(ui_call)

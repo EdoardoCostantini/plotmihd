@@ -8,7 +8,7 @@
 #' This function does such and such.
 #' @return A ggplot object containing the histogram.
 #' @author Edoardo Costantini, 2023
-#' #' @examples
+#' @examples
 #' # Crete an example correlation matrix
 #' npcs_nscree <- nFactors::nScree(as.data.frame(X_ma))$Components
 #' npcs_50rule <- 5

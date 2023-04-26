@@ -38,7 +38,7 @@ heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_
     load_mat_melt$value <- round(load_mat_melt$value, 3)
 
     # Modify based on range of values requested
-    if(all.equal(seq_along(var_range), var_range) == FALSE){
+    if(identical(seq_along(var_range), var_range) == FALSE){
 
         # Identify split
         end_first_part <- max(which(seq_along(var_range) %in% var_range))
@@ -55,6 +55,9 @@ heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_
             x = load_mat_melt[, "Var1"],
             levels = new_levels
         )
+    } else {
+        # Just make it a factor
+        load_mat_melt[, "Var1"] <- factor(x = load_mat_melt[, "Var1"])
     }
 
     # Make heatmap

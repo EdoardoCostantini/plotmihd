@@ -25,6 +25,7 @@ plot_colli_mipca <- function() {
         # Create tabs for different plotting aspects
         shiny::tabsetPanel(
             type = "tabs",
+            selected = "MI-PCA deep-dive",
             shiny::tabPanel(
                 title = "Simulation study",
                 "Coming soon"
@@ -359,7 +360,7 @@ plot_colli_mipca <- function() {
         output$introduction <- renderText({
             shiny::HTML(
                 "<br>
-                The simulation study developed by <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022)</a> to compare different data-driven imputation model-building strategies showed that for higher degrees of collinearity in the data MI-PCA performed similarly to MI-AM.
+                The simulation study developed by <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022)</a> to compare different data-driven imputation model-building strategies showed that, for higher degrees of collinearity, MI-PCA performed similarly to MI-AM.
                 The numbered tabs in this section will help to understand the MI-PCA performance observed in the study.
                 <br>
                 <br>"

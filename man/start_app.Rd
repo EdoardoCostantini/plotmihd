@@ -10,7 +10,7 @@ start_app()
 Starts a shiny app to explore the results.
 }
 \description{
-This function starts the Shiny app used to display the results from Costantini et. al. (2022).
+This function starts a Shiny app used to display the results from Costantini et. al. (2022).
 }
 \references{
 Costantini, E., Lang, K. M., Reeskens, T., & Sijtsma, K. (2022). High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods. arXiv preprint arXiv:2208.13656.

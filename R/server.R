@@ -115,32 +115,10 @@ server <- function(input, output, session) {
         # > NPCS plot ----------------------------------------------------------
 
         output$hist <- shiny::renderPlot({
-            # Number of factors underlying data
-            npcs_kept <- cbind(
-                collinearity = as.numeric(input$colli),
-                app_data()$storenScree,
-                rule50 = app_data()$npcs_kpet
+            histogram_npcs(
+                npcs_nscree = app_data()$storenScree,
+                npcs_50rule = app_data()$npcs_kpet
             )
-
-            # Plot npcs
-            npcs_kept <- reshape2::melt(npcs_kept, id.vars = "collinearity")
-
-            npcs_kept %>%
-                ggplot2::ggplot(
-                    ggplot2::aes(
-                        x = variable,
-                        y = value,
-                        label = value
-                    )
-                ) +
-                ggplot2::geom_bar(stat = "identity", fill = "gray") +
-                ggplot2::geom_text(colour = "black") +
-                ggplot2::ylab("Number of PCs") +
-                ggplot2::theme_bw() +
-                ggplot2::theme(
-                    axis.title.x = ggplot2::element_blank(),
-                    aspect.ratio = 1
-                )
         })
 
         # > Interpretation Panel -----------------------------------------------

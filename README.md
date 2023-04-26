@@ -40,11 +40,15 @@ Coming soon
 
 #### Understanding MI-PCA behavior
 
+Run the following command in the R console:
+
 ```
 mihd.results::plot_colli_mipca()
 ```
 
-### EVS eesampling study results
+You can then click on the tabs in the `Interpretation` panel to understand the plots.
+
+### EVS resampling study results
 
 Coming soon
 

@@ -224,7 +224,7 @@ plotResults <- function() {
 
         output$heatmap_load <- shiny::renderPlot({
             # Subset correlation matrix
-            load_mat_melt <- reshape2::melt(app_data()$load_mat[c(1:6, 43:44), 1:4])
+            load_mat_melt <- reshape2::melt(app_data()$load_mat[c(1:6, 43:44), 1:10])
 
             # Round values
             load_mat_melt$value <- abs(round(load_mat_melt$value, 3))
@@ -233,10 +233,6 @@ plotResults <- function() {
             load_mat_melt[, "Var1"] <- factor(
                 x = load_mat_melt[, "Var1"],
                 levels = c(levels(load_mat_melt[, "Var1"])[1:6], "...", levels(load_mat_melt[, "Var1"])[-c(1:6)])
-            )
-            load_mat_melt[, "Var2"] <- factor(
-                x = load_mat_melt[, "Var2"],
-                levels = c(levels(load_mat_melt[, "Var2"])[1:6], "...", levels(load_mat_melt[, "Var2"])[-c(1:6)])
             )
 
             # Make heatmap
@@ -333,24 +329,29 @@ plotResults <- function() {
                 )
         })
 
-        # > Interpretation panel -----------------------------------------------
+        # > Interpretation Panel -----------------------------------------------
 
         # 1. Set up ------------------------------------------------------------
         output$setup <- renderText({
             shiny::HTML(
                 "<br>
-                This shiny app generates data according to the same mechanism defined in study ---.
-                The data generating model requires sampling 200 observations from a multivariate normal distribution.
-                These observations are stored in a data matrix X.
-                The data is generated based on a known covariance matrix with a 3-block structure:
+                The simulation study developed by <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022)</a> to compare different data-driven imputation model-building strategies showed that for higher degrees of collinearity in the data MI-PCA performed similarly to MI-AM.
+                This shiny app is helpful to understand the behavior observed in the study. 
+                <br>
+                <br>
+                This Shiny app generates data according to the same data-generating procedure defined in Costantini et. al. (2022).
+                The original study sampled 200 observations from a multivariate normal distribution using a known covariance matrix with a 3-block structure:
                 <ul>
-                    <li>block 1: variables correlated by 0.6</li>
-                    <li>block 2: variables correlated by 0.3</li>
-                    <li>block 3: noise variables (extra variables not related to the ones in blocks 1 and 2.)</li>
+                    <li><b>Block 1</b>: variables v1 to v5 were correlated by 0.6 among themselves.</li>
+                    <li><b>Block 2</b>: variables v6 to v10 were correlated by 0.3 among themselves and with the variables in block 1.</li>
+                    <li><b>Block 3</b>: variables v11 to v50 were uncorrelated among themselves and with the variables in blocks 2 and 3,</li>
                 </ul>
-                In the simulation study presented in ---, missing values were imposed on items --- ---, the target variables, based on variables --- ---, the MAR predictors.
-                The imputation model for the first variable uses as predictors the remaining target variables and the number of components that explains at least 50% of the variance in the variables composed of the MAR predicotrs and the noise variables.
-                We refer to the set of variables on which PCA is performed as Z.
+                In the original simulation study, missing values were imposed on items v1 to v3 and v5 to v7 based on variables v4, v5, v9, and v10 (MAR predictors).
+                <b>MI-PCA</b> defined the <b>imputation model</b> for each of the variables with missing values to include as predictors:
+                <ul>
+                    <li> The other variables with missing values (same as MI-AM.)</li>
+                    <li> The first principal components explaining at least 50% of the variance in the set of possible auxiliary predictors (composed of the MAR predictors and the variables in block 3, namely v4, v5, v9, v10, and v11 to v50.)</li>
+                </ul>
                 <br>
                 <br>"
             )
@@ -360,17 +361,21 @@ plotResults <- function() {
         output$heatmap_cor_int <- renderText({
             shiny::HTML(
                 "<br>
-                The heatmap in panel A shows the correlation matrix computed on X.
-                The gradient represents the strength of association, with darker colors representing higher correlation values.
+                During the review process, one referee highlighted the need to explore how the strategies compared in the original study performed for varying degrees of collinearity.
+                We introduced collinearity as an experimental factor in the simulation study by allowing the correlation between certain variables to vary.
                 <br>
                 <br>
-                As you change the values of the <code>Collinearity</code> input, you will notice changes in the correlation between variables <b>v4</b> and <b>v5</b>, <b>v9</b> and <b>v10</b>., and variables <b>v11</b> to <b>v15</b>.
+                The <b>heatmap in Panel A</b> shows the correlation matrix of the data for different levels of the collinearity factor.
+                The <b>color gradient</b> represents the strength of the bivariate associations, with darker colors representing higher correlation values.
+                <br>
+                <br>
+                As you change the values of the <code>Collinearity</code> input, you will notice changes in the correlation between variables v4 and v5, v9 and v10, and variables v11 to v15. 
                 <br>
                 Note the following:
                 <ul>
-                    <li>The correlation between variables <b>v1</b> to <b>v10</b> and the variables <b>v11</b> to <b>v50</b> is fixed to approximately 0, irrespective of the value of the input <code>Collinearity</code>.
-                        This preserves the understanding of variables <b>v11</b> to <b>v50</b> as noise variables in the task of imputing variables <b>v1</b> to <b>v10</b>.</li>
-                    <li>Expect for variables <b>v4</b>, <b>v5</b>, <b>v9</b>, and <b>v10</b> The correlation between variables <b>v1</b> to <b>v10</b> also stays the same. This preserves the same strength of the MAR mechanism produced in the simulation study. Because <b>v4</b>, <b>v5</b>, <b>v9</b>, and <b>v10</b> are the MAR predictors used to impose missing values on <b>v1</b> to <b>v3</b> and <b>v5</b> to <b>v7</b>, these correlations need to stay constant, otherwise, the strength of the MAR mechanism would change together with the collinearity.</li>
+                    <li>The correlation between variables v1 to v10 and the variables v11 to v50 is fixed to approximately 0, irrespective of the value of the input <code>Collinearity</code>.
+                        This <b>preserved</b> the understanding of variables v11 to v50 as <b>noise variables</b> in the task of imputing variables v1 to v10.
+                    <li>Expect for variables v4, v5, v9, and v10 The correlation between variables v1 to v10 also stays the same. This preserved the same strength of the MAR mechanism produced in the original simulation study. Because v4, v5, v9, and v10 are the MAR predictors used to impose missing values on v1 to v3 and v5 to v7, these correlations needed to stay constant, otherwise, the <b>strength of the MAR mechanism</b> would have changed together with the collinearity.</li>
                 </ul>
                 <br>
                 <br>"
@@ -381,15 +386,15 @@ plotResults <- function() {
         output$heatmap_load_int <- renderText({
             shiny::HTML(
                 "<br>
-                 When using the MI-PCA method, PCA is performed on Z.
-                 The heatmap in panel B shows the principal component loadings for the first 4 PCs.
-                 The color gradient represents the weight of a column of Z in the linear combination defining the PCs.
-                 Darker colors representing higher loadings (or wieghts) compared to other items.
+                 The <b>heatmap in Panel B</b> shows the <b>principal component loadings</b> for the first 10 principal components (PCs).
+                 The color gradient represents the weight of a variable in the linear combination defining the PCs.
+                 Darker colors indicate higher loadings (or weights) compared to other items.
+                 Although no loading is ever exactly equal to 0, white and light gray indicate that a variable is only a weak contribution to the computation of a given PC.
                  <br>
                  <br>
-                 When <code>Collinearity</code> is set to 0, the PC loadings for items 4, 5, 9, and 10 are many orders of magnitudes larger than the ones for all other items.
-                 Although no loading is ever equal to 0, this configuration can be understood as generating a first principal component that is a linear combination of items 4, 5, 9, and 10.
-                 As you increase the <code>Collinearity</code> input value, you will notice that the first PC becomes a linear combination of the noise variables, while items 4, 5, 9, and 10 are more important (higher weights) in the computation of the second and third PCs.
+                 When <code>Collinearity</code> is set to 0, the PC loadings for v4, v5, v9, and v10 are many orders of magnitudes larger than the ones for all other variables.
+                 This configuration can be understood as generating a first principal component that is a good representation of the <b>MAR predictors</b>.
+                 As you increase the <code>Collinearity</code> input value, you will notice that the first PC becomes a linear combination of the <b>noise variables</b>, while v4, v5, v9, and v10 become important only in the computation of the second and third PCs.
                  <br>
                  <br>"
             )
@@ -399,18 +404,18 @@ plotResults <- function() {
         output$hist_int <- renderText({
             shiny::HTML(
                 "<br>
-                The histogram in Panel C shows the number of PCs kept when performing PCA on the correlation matrix of Z.
-                Five non-graphical decision rules are reported:
+                The <b>histogram in Panel C</b> shows the number of PCs kept when performing PCA on the potential auxiliary variables.
+                Five <b>non-graphical decision rules</b> are reported:
                 <ul>
                     <li>Optimal coordinates index (noc)</li>
                     <li>Acceleration factor (naf)</li>
                     <li>Parallel analysis (nparallel)</li>
                     <li>Kaiser criterion (nkaiser)</li>
-                    <li>50% rule (rule50)</li>
+                    <li>50% rule (rule50) - This is the rule used in <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022)</a></li>
                 </ul>
-                When <code>Collinearity</code> is set to 0, the number of components selected by the 50% rule used in this study is quite high (around 19). 
-                As you increase the value of <code>Collinearity</code>, the number selected by this rule decreases and reaches 1 for values greater than 0.5.
-                For the same values, the Kaiser rule and the parallel analysis always identify 2 or more PCs.
+                When <code>Collinearity</code> is set to 0, the number of components selected by the <b>50% rule</b> used in this study is quite high (around 19). 
+                As you increase the value of <code>Collinearity</code>, the number selected by this rule decreases and reaches 1 for correlation values greater than 0.5.
+                For the same values, the <b>Kaiser rule</b> and the <b>parallel analysis</b> always identify 2 or more PCs.
                 <br>
                 <br>"
             )
@@ -420,13 +425,13 @@ plotResults <- function() {
         output$scatter_int <- renderText({
             shiny::HTML(
                 "<br>
-                The scatter plot in Panel D reports the Cumulative proportion of variance explained by subsequent components obtained from the PCA of Z.
+                The <b>scatter plot in Panel D</b> reports the cumulative proportion of variance explained (CPVE) by the first 10 PCs obtained from the potential auxiliary variables.
                 <br>
                 <br>
-                When <code>Collinearity</code> is set to 0, the first PC explains very little of the total variance in Z (CPVE < 0.01).
+                When <code>Collinearity</code> is set to 0, the <b>first PC</b> explains very little of the total variance in the variables considered (CPVE < 0.01).
                 For larger values of the <code>Collinearity</code> input, the first PC explains more and more of the total variance.
-                As the strength of the associaiont between the variables from v11 to v50 increases, the more of the total variance in the data set is explained by the one component representing these variables.
-                For the highest values of <code>Collinearity</code>, an elbow shape appears in Panel D: the first 3 PCs collectively explain the majority of the variance in Z, and additional PCs only add a trivial amount of explained variance.
+                As the strength of the association between the variables from v11 to v50 increases, more of the total variance is explained by the one component representing these variables.
+                For the highest values of <code>Collinearity</code>, an <b>elbow shape</b> appears in Panel D: the first 3 PCs collectively explain the majority of the variance in Z, and additional PCs only add a trivial amount of explained variance.
                 <br>
                 <br>"
             )
@@ -436,16 +441,22 @@ plotResults <- function() {
         output$conclusions <- renderText({
             shiny::HTML(
                 "<br>
-                For a <code>Collinearity</code> of 0, the important predictors contribute strongly to the computation of the first PC (high-loadings).
-                In this scenario, it would probably be sufficient to use this single PC as a predictor in the imputation models, but based on the 50% rule we actually use the first PC together with the next 18 PCs.
-                The MAR predictors are present in the imputation model through the first PC, which is a linear combination of all of the variables in Z where the MAR predictors have high weights and the noise variables have weights close to 0.
+                For a <code>Collinearity</code> of 0, the <b>MAR predictors</b> contribute strongly to the computation of the first PC, because of the high loadings.
+                In this scenario, it would be sufficient to use this single PC as a predictor in the imputation models defined by MI-PCA, but based on the 50% rule <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022a)</a> actually used the first PC together with the next 18 PCs.
+                As a result, the MAR predictors were present in the imputation model through the first PC, leading to the good imputation performance seen in the original study.
                 <br>
                 <br>
-                For a correlation of .9, the 50% rule retains a single PC that explains more than 70% of the variance in X.
-                However, this single component is a linear combination where the noise variables are weighted much more than the important predictors.
-                The only additional predictor MI-PCA is using compared to MI-AM is a linear combination of noise variables.
-                As a result, MI-PCA will perform similarly to MI-AM in conditions with high correlations among the noise variables.
-                Had we used the Kaiser criterion or parallel analysis, we would have kept the first three PCs, which would have included a first PC that is useless for imputation (a combination of noise variables) and the two following important PCs (a combination of the MAR predictors.)
+                For a <code>Collinearity</code> of .9, the 50% rule retains a single PC that explains more than 70% of the variance in X.
+                However, this single component is a linear combination where the <b>noise variables</b> are weighted much more than the MAR predictors.
+                As a result, in <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022a)</a>, the only additional predictor MI-PCA used compared to MI-AM was a linear combination of noise variables.
+                <br>
+                <br>
+                In <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022a)</a>, MI-PCA performed similarly to MI-AM in conditions with high correlations among the noise variables because the only additional predictor was a linear combination of noise variables.
+                However, this does not suggest MI-PCA is inadequate for highly collinear data.
+                PCA does what it should: higher correlation values in the block of noise variables make this block the largest variation to explain, and the first PC will summarise it well.
+                The problem for MI-PCA was that the first component extracted had little relevance for the imputation task.
+                However, as confirmed in <a href='https://arxiv.org/abs/2206.15107'>Costantini et. al. (2022b)</a>, when using the <b>true number of components</b> summarizing all axis of variation of a data set, MI-PCA leads to low bias and close-to-nominal confidence interval coverage.
+                Furthermore, as shown in <a href='https://arxiv.org/abs/2206.15107'>Costantini et. al. (2023)</a>, adding a <b>supervision</b> element to MI-PCA can help in making sure that the first PCs computed is helpful for the imputation task.
                 <br>
                 <br>"
             )

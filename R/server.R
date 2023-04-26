@@ -72,47 +72,12 @@ server <- function(input, output, session) {
         # > Loading matrix -----------------------------------------------------
 
         output$heatmap_load <- shiny::renderPlot({
-            # Subset correlation matrix
-            load_mat_melt <- reshape2::melt(app_data()$load_mat[c(1:6, 43:44), 1:10])
-
-            # Round values
-            load_mat_melt$value <- abs(round(load_mat_melt$value, 3))
-
-            # Add ellipsis as an empty level
-            load_mat_melt[, "Var1"] <- factor(
-                x = load_mat_melt[, "Var1"],
-                levels = c(levels(load_mat_melt[, "Var1"])[1:6], "...", levels(load_mat_melt[, "Var1"])[-c(1:6)])
+            heatmap_loadings(
+                load_mat = app_data()$load_mat,
+                absolute = TRUE,
+                var_range = c(1:6, 43:44),
+                PCs_range = 1:10
             )
-
-            # Make heatmap
-            ggplot2::ggplot(
-                data = load_mat_melt,
-                ggplot2::aes(x = Var1, y = Var2, fill = value)
-            ) +
-                ggplot2::geom_tile(color = "white") +
-                ggplot2::scale_fill_gradient2(
-                    low = "white",
-                    high = "darkgray",
-                    limit = c(min(load_mat_melt$value), max(load_mat_melt$value)),
-                    space = "Lab",
-                    name = ""
-                ) +
-                ggplot2::theme_bw() +
-                ggplot2::theme(
-                    axis.title.y = ggplot2::element_blank(),
-                    axis.title.x = ggplot2::element_blank(),
-                    legend.position = "bottom",
-                    aspect.ratio = 1
-                ) +
-                ggplot2::coord_fixed() +
-                ggplot2::scale_y_discrete(
-                    drop = FALSE, # avoid dropping empty elements
-                    limits = rev # reverse the y order
-                ) +
-                ggplot2::scale_x_discrete(
-                    drop = FALSE, # avoid dropping empty elements
-                    position = "top"
-                )
         })
 
         # > CPVE plot ----------------------------------------------------------

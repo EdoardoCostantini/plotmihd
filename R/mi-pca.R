@@ -131,7 +131,7 @@ plotResults <- function() {
             )
 
             # Prepare correlation matrix
-            cor_mat <- round(cor(X)[c(1:13, 48:50), c(1:13, 48:50)], 1)
+            cor_mat <- round(cor(X)[c(1:12, 49:50), c(1:12, 49:50)], 1)
 
             # Subset X to desired active set for PCA
             X_ma <- X[, -c(1:3, 6:8)]
@@ -179,11 +179,11 @@ plotResults <- function() {
             # Add ellipsis as an empty level
             cor_mat_melt[, "Var1"] <- factor(
                 x = cor_mat_melt[, "Var1"],
-                levels = c(levels(cor_mat_melt[, "Var1"])[1:13], "...", levels(cor_mat_melt[, "Var1"])[-c(1:13)])
+                levels = c(levels(cor_mat_melt[, "Var1"])[1:12], "...", levels(cor_mat_melt[, "Var1"])[-c(1:12)])
             )
             cor_mat_melt[, "Var2"] <- factor(
                 x = cor_mat_melt[, "Var2"],
-                levels = c(levels(cor_mat_melt[, "Var2"])[1:13], "...", levels(cor_mat_melt[, "Var2"])[-c(1:13)])
+                levels = c(levels(cor_mat_melt[, "Var2"])[1:12], "...", levels(cor_mat_melt[, "Var2"])[-c(1:12)])
             )
 
             # Make heatmap
@@ -205,6 +205,7 @@ plotResults <- function() {
                 ggplot2::theme(
                     axis.title.y = ggplot2::element_blank(),
                     axis.title.x = ggplot2::element_blank(),
+                    axis.text.x = ggplot2::element_text(angle = 90),
                     legend.position = "bottom",
                     aspect.ratio = 1
                 ) +
@@ -293,8 +294,8 @@ plotResults <- function() {
                     )
                 ) +
                 ggplot2::geom_point() +
-                ggplot2::ylab("") +
-                ggplot2::xlab("") +
+                ggplot2::ylab("CPVE") +
+                ggplot2::xlab("Number of PCs") +
                 ggplot2::theme_bw() +
                 ggplot2::theme(
                     aspect.ratio = 1
@@ -324,7 +325,7 @@ plotResults <- function() {
                 ) +
                 ggplot2::geom_bar(stat = "identity", fill = "gray") +
                 ggplot2::geom_text(colour = "black") +
-                ggplot2::ylab("") +
+                ggplot2::ylab("Number of PCs") +
                 ggplot2::theme_bw() +
                 ggplot2::theme(
                     axis.title.x = ggplot2::element_blank(),

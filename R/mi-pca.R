@@ -21,9 +21,9 @@ plotResults <- function() {
         shiny::titlePanel(
             shiny::h1("Understanding the MI-PCA behaviour", align = "center")
         ),
-        fluidRow(
-            column(
-                width = 4,
+        shiny::fluidRow(
+            shiny::column(
+                width = 3,
                 offset = 1,
                 shiny::titlePanel(
                     shiny::h3("Interpretation", align = "center")
@@ -56,9 +56,9 @@ plotResults <- function() {
                     )
                 )
             ),
-            column(
-                width = 6,
-                fluidRow(
+            shiny::column(
+                width = 7,
+                shiny::fluidRow(
                     shiny::titlePanel(
                         shiny::h3("Input", align = "center")
                     ),
@@ -74,45 +74,44 @@ plotResults <- function() {
                             step = .1,
                             width = "100%"
                         )
-                    )
+                    ),
                 ),
-                fluidRow(
+                shiny::fluidRow(
                     shiny::titlePanel(
                         shiny::h3("Plots", align = "center")
                     ),
-                    fluidRow(
+                    shiny::fluidRow(
                         shiny::column(
-                            width = 6,
+                            width = 3,
                             shiny::titlePanel(
                                 shiny::h5("Panel A", align = "center")
                             ),
                             shiny::plotOutput(outputId = "heatmap_cor")
                         ),
                         shiny::column(
-                            width = 6,
+                            width = 3,
                             shiny::titlePanel(
                                 shiny::h5("Panel B", align = "center")
                             ),
                             shiny::plotOutput(outputId = "heatmap_load")
-                        )
-                    ),
-                    fluidRow(
+                        ),
                         shiny::column(
-                            width = 6,
+                            width = 3,
                             shiny::titlePanel(
                                 shiny::h5("Panel C", align = "center")
                             ),
                             shiny::plotOutput(outputId = "hist")
                         ),
                         shiny::column(
-                            width = 6,
+                            width = 3,
                             shiny::titlePanel(
                                 shiny::h5("Panel D", align = "center")
                             ),
                             shiny::plotOutput(outputId = "scatter")
                         )
                     )
-                )
+                ),
+            style = "border-left: 1px solid; border-left-color: #DDDDDD"
             )
         )
     )

@@ -15,7 +15,7 @@
 #'
 #' # use it
 #' histogram_npcs(npcs_nscree, npcs_50rule)
-#' 
+#'
 #' @export
 histogram_npcs <- function(npcs_nscree, npcs_50rule) {
     # Number of factors underlying data
@@ -39,8 +39,14 @@ histogram_npcs <- function(npcs_nscree, npcs_50rule) {
         ggplot2::geom_text(colour = "black") +
         ggplot2::ylab("Number of PCs") +
         ggplot2::theme_bw() +
+        ggplot2::ggtitle("Panel C") +
         ggplot2::theme(
-            axis.title.x = ggplot2::element_blank(),
-            aspect.ratio = 1
+            plot.title = ggplot2::element_text(
+                size = 10,
+                face = "bold",
+                hjust = 0.5
+            ),
+            axis.title.x = ggplot2::element_blank()
+            # aspect.ratio = 1
         )
 }

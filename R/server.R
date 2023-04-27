@@ -8,7 +8,11 @@
 #' @author Edoardo Costantini, 2023
 #' @export
 server <- function(input, output, session) {
-        # Simulate data
+
+        # Tab 3: MI-PCA deep dive ----------------------------------------------
+
+        # > Simulate data ------------------------------------------------------
+
         app_data <- reactive({
             # Simulate Data
             X <- gen_data(
@@ -61,6 +65,7 @@ server <- function(input, output, session) {
         })
 
         # > Correlation matrix -------------------------------------------------
+
         output$heatmap_cor <- shiny::renderPlot({
             heatmap_correlation(
                 cor_mat = app_data()$cor_mat,
@@ -98,7 +103,8 @@ server <- function(input, output, session) {
             )
         })
 
-        # > Interpretation Panel -----------------------------------------------
+        # > Text ---------------------------------------------------------------
+
         output <- tab_mi_pca_text(output)
-        
+
     }

@@ -92,35 +92,26 @@ ui_call <- function() {
                                 shiny::titlePanel(
                                     shiny::h3("Plots", align = "center")
                                 ),
-                                shiny::fluidRow(
-                                    shiny::column(
-                                        width = 3,
-                                        shiny::titlePanel(
-                                            shiny::h5("Panel A", align = "center")
-                                        ),
-                                        shiny::plotOutput(outputId = "heatmap_cor")
+                                shiny::column(
+                                    width = 4,
+                                    offset = 2,
+                                    shiny::plotOutput(
+                                        outputId = "heatmap_cor"
                                     ),
-                                    shiny::column(
-                                        width = 3,
-                                        shiny::titlePanel(
-                                            shiny::h5("Panel B", align = "center")
-                                        ),
-                                        shiny::plotOutput(outputId = "heatmap_load")
+                                    shiny::plotOutput(
+                                        outputId = "hist"
                                     ),
-                                    shiny::column(
-                                        width = 3,
-                                        shiny::titlePanel(
-                                            shiny::h5("Panel C", align = "center")
-                                        ),
-                                        shiny::plotOutput(outputId = "hist")
+                                    style = "height: 525px"
+                                ),
+                                shiny::column(
+                                    width = 4,
+                                    shiny::plotOutput(
+                                        outputId = "heatmap_load"
                                     ),
-                                    shiny::column(
-                                        width = 3,
-                                        shiny::titlePanel(
-                                            shiny::h5("Panel D", align = "center")
-                                        ),
-                                        shiny::plotOutput(outputId = "scatter")
-                                    )
+                                    shiny::plotOutput(
+                                        outputId = "scatter"
+                                    ),
+                                    style = "height: 525px"
                                 )
                             ),
                             style = "border-left: 1px solid; border-left-color: #DDDDDD"

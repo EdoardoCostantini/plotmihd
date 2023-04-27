@@ -10,12 +10,12 @@
 #' @author Edoardo Costantini, 2023
 #' @examples
 #' # Crete an example correlation matrix
-#' npcs_nscree <- nFactors::nScree(as.data.frame(X_ma))$Components
+#' npcs_nscree <- nFactors::nScree(as.data.frame(mtcars))$Components
 #' npcs_50rule <- 5
 #'
 #' # use it
 #' histogram_npcs(npcs_nscree, npcs_50rule)
-#' 
+#'
 #' @export
 histogram_npcs <- function(npcs_nscree, npcs_50rule) {
     # Number of factors underlying data
@@ -36,11 +36,20 @@ histogram_npcs <- function(npcs_nscree, npcs_50rule) {
             )
         ) +
         ggplot2::geom_bar(stat = "identity", fill = "gray") +
-        ggplot2::geom_text(colour = "black") +
+        ggplot2::geom_text(
+            size = 8 * 5 / 14,
+            vjust = "inward"
+        ) +
         ggplot2::ylab("Number of PCs") +
         ggplot2::theme_bw() +
+        ggplot2::ggtitle("Panel C") +
         ggplot2::theme(
-            axis.title.x = ggplot2::element_blank(),
-            aspect.ratio = 1
+            plot.title = ggplot2::element_text(
+                size = 10,
+                face = "bold",
+                hjust = 0.5
+            ),
+            axis.title.y = ggplot2::element_text(size = 8),
+            axis.title.x = ggplot2::element_blank()
         )
 }

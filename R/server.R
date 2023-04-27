@@ -66,17 +66,24 @@ server <- function(input, output, session) {
 
         # > Correlation matrix -------------------------------------------------
 
-        output$heatmap_cor <- shiny::renderPlot({
-            heatmap_correlation(
-                cor_mat = app_data()$cor_mat,
-                var_range = 1:12,
-                absolute = TRUE
-            )
-        })
+        output$heatmap_cor <- shiny::renderPlot(
+            res = 96,
+            height = 400,
+            {
+                heatmap_correlation(
+                    cor_mat = app_data()$cor_mat,
+                    var_range = 1:12,
+                    absolute = TRUE
+                )
+            }
+        )
 
         # > Loading matrix -----------------------------------------------------
 
-        output$heatmap_load <- shiny::renderPlot({
+        output$heatmap_load <- shiny::renderPlot(
+            res = 96,
+            height = 400,
+            {
             heatmap_loadings(
                 load_mat = app_data()$load_mat,
                 absolute = TRUE,
@@ -87,7 +94,10 @@ server <- function(input, output, session) {
 
         # > CPVE plot ----------------------------------------------------------
 
-        output$scatter <- shiny::renderPlot({
+        output$scatter <- shiny::renderPlot(
+            res = 96,
+            height = 165,
+            {
             scatter_cpve(
                 cpve = app_data()$cpve,
                 PCs_range = 1:10
@@ -96,7 +106,10 @@ server <- function(input, output, session) {
 
         # > NPCS plot ----------------------------------------------------------
 
-        output$hist <- shiny::renderPlot({
+        output$hist <- shiny::renderPlot(
+            res = 96,
+            height = 150,
+            {
             histogram_npcs(
                 npcs_nscree = app_data()$storenScree,
                 npcs_50rule = app_data()$npcs_kpet

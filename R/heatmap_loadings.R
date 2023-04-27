@@ -18,13 +18,12 @@
 #' # Give meaningful names to dimensions
 #' colnames(load_mat) <- paste0("PC", 1:ncol(mtcars))
 #' rownames(load_mat) <- colnames(mtcars)
-#' 
+#'
 #' # use it
 #' heatmap_loadings(load_mat)
 #'
 #' @export
 heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_mat), PCs_range = 1:ncol(load_mat)) {
-
     # Prepare differences if the absolute value is requested
     if (absolute == TRUE) {
         # Take the absolute value of the correlation matrix
@@ -38,8 +37,7 @@ heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_
     load_mat_melt$value <- round(load_mat_melt$value, 3)
 
     # Modify based on range of values requested
-    if(identical(seq_along(var_range), var_range) == FALSE){
-
+    if (identical(seq_along(var_range), var_range) == FALSE) {
         # Identify split
         end_first_part <- max(which(seq_along(var_range) %in% var_range))
 
@@ -76,11 +74,16 @@ heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_
             name = ""
         ) +
         ggplot2::theme_bw() +
+        ggplot2::ggtitle("Panel B") +
         ggplot2::theme(
+            plot.title = ggplot2::element_text(
+                size = 10,
+                face = "bold",
+                hjust = 0.5
+            ),
             axis.title.y = ggplot2::element_blank(),
             axis.title.x = ggplot2::element_blank(),
-            legend.position = "bottom",
-            aspect.ratio = 1
+            legend.position = "bottom"
         ) +
         ggplot2::coord_fixed() +
         ggplot2::scale_y_discrete(

@@ -9,21 +9,20 @@
 #' @examples
 #' # Crete an example correlation matrix
 #' cor_mat <- cor(mtcars)
-#' 
+#'
 #' # use it
 #' heatmap_correlation(cor_mat)
-#' 
+#'
 #' # Check if you want absolute values or not
 #' cor_mat <- matrix(c(1, -.5, -.5, 1), ncol = 2, dimnames = list(c("V1", "V2"), c("V1", "V2")))
-#' 
+#'
 #' # use it
 #' heatmap_correlation(cor_mat)
-#' 
+#'
 #' @export
 heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor_mat)) {
-
     # Prepare differences if absolute value is requested
-    if(absolute == TRUE){
+    if (absolute == TRUE) {
         # Take the absolute value of the correlation matrix
         cor_mat <- abs(cor_mat)
 
@@ -63,12 +62,17 @@ heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor
             name = ""
         ) +
         ggplot2::theme_bw() +
+        ggplot2::ggtitle("Panel A") +
         ggplot2::theme(
+            plot.title = ggplot2::element_text(
+                size = 10,
+                face = "bold",
+                hjust = 0.5
+            ),
             axis.title.y = ggplot2::element_blank(),
             axis.title.x = ggplot2::element_blank(),
             axis.text.x = ggplot2::element_text(angle = 90),
-            legend.position = "bottom",
-            aspect.ratio = 1
+            legend.position = "bottom"
         ) +
         ggplot2::coord_fixed() +
         ggplot2::scale_y_discrete(

@@ -46,7 +46,9 @@ scatter_cpve <- function(cpve, PCs_range = 1:length(cpve)) {
                 size = 10,
                 face = "bold",
                 hjust = 0.5
-            )
+            ),
+            axis.title.y = ggplot2::element_text(size = 8),
+            axis.title.x = ggplot2::element_text(size = 8)
             # aspect.ratio = 1
         )
 }

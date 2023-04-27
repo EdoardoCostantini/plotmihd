@@ -96,7 +96,7 @@ server <- function(input, output, session) {
 
         output$scatter <- shiny::renderPlot(
             res = 96,
-            height = 150,
+            height = 165,
             {
             scatter_cpve(
                 cpve = app_data()$cpve,

@@ -73,7 +73,6 @@ heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor
             axis.title.x = ggplot2::element_blank(),
             axis.text.x = ggplot2::element_text(angle = 90),
             legend.position = "bottom"
-            # aspect.ratio = 1
         ) +
         ggplot2::coord_fixed() +
         ggplot2::scale_y_discrete(

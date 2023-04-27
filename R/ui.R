@@ -100,7 +100,8 @@ ui_call <- function() {
                                     ),
                                     shiny::plotOutput(
                                         outputId = "hist"
-                                    )
+                                    ),
+                                    style = "height: 525px"
                                 ),
                                 shiny::column(
                                     width = 4,
@@ -109,7 +110,8 @@ ui_call <- function() {
                                     ),
                                     shiny::plotOutput(
                                         outputId = "scatter"
-                                    )
+                                    ),
+                                    style = "height: 525px"
                                 )
                             ),
                             style = "border-left: 1px solid; border-left-color: #DDDDDD"

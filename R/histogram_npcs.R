@@ -51,6 +51,5 @@ histogram_npcs <- function(npcs_nscree, npcs_50rule) {
             ),
             axis.title.y = ggplot2::element_text(size = 8),
             axis.title.x = ggplot2::element_blank()
-            # aspect.ratio = 1
         )
 }

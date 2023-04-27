@@ -84,7 +84,6 @@ heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_
             axis.title.y = ggplot2::element_blank(),
             axis.title.x = ggplot2::element_blank(),
             legend.position = "bottom"
-            # aspect.ratio = 1
         ) +
         ggplot2::coord_fixed() +
         ggplot2::scale_y_discrete(

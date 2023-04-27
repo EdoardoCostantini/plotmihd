@@ -95,30 +95,18 @@ ui_call <- function() {
                                 shiny::column(
                                     width = 4,
                                     offset = 2,
-                                    # shiny::titlePanel(
-                                    #     shiny::h5("Panel A", align = "center")
-                                    # ),
                                     shiny::plotOutput(
                                         outputId = "heatmap_cor"
                                     ),
-                                    # shiny::titlePanel(
-                                    #     shiny::h5("Panel C", align = "center")
-                                    # ),
                                     shiny::plotOutput(
                                         outputId = "hist"
                                     )
                                 ),
                                 shiny::column(
                                     width = 4,
-                                    # shiny::titlePanel(
-                                    #     shiny::h5("Panel B", align = "center")
-                                    # ),
                                     shiny::plotOutput(
                                         outputId = "heatmap_load"
                                     ),
-                                    # shiny::titlePanel(
-                                    #     shiny::h5("Panel D", align = "center")
-                                    # ),
                                     shiny::plotOutput(
                                         outputId = "scatter"
                                     )

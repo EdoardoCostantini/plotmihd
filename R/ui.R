@@ -49,11 +49,11 @@ ui_call <- function() {
                 shiny::tabPanel(
                     title = "Module 1: Simulation study",
                     shiny::column(
-                        width = 1,
+                        width = 2,
                         offset = 5,
                         shiny::HTML(
                             "<br>
-                            Coming soon
+                            <p style='text-align:center'>Coming soon</p>
                             <br>
                             <br>"
                         )
@@ -62,11 +62,11 @@ ui_call <- function() {
                 shiny::tabPanel(
                     title = "Module 2: Collinearity study",
                     shiny::column(
-                        width = 1,
+                        width = 2,
                         offset = 5,
                         shiny::HTML(
                             "<br>
-                            Coming soon
+                            <p style='text-align:center'>Coming soon</p>
                             <br>
                             <br>"
                         )
@@ -165,11 +165,11 @@ ui_call <- function() {
                 shiny::tabPanel(
                     title = "Module 4: Resampling study",
                     shiny::column(
-                        width = 1,
+                        width = 2,
                         offset = 5,
                         shiny::HTML(
                             "<br>
-                            Coming soon
+                            <p style='text-align:center'>Coming soon</p>
                             <br>
                             <br>"
                         )
@@ -178,11 +178,11 @@ ui_call <- function() {
                 shiny::tabPanel(
                     title = "Module 5: Convergence checks",
                     shiny::column(
-                        width = 1,
+                        width = 2,
                         offset = 5,
                         shiny::HTML(
                             "<br>
-                            Coming soon
+                            <p style='text-align:center'>Coming soon</p>
                             <br>
                             <br>"
                         )

@@ -76,7 +76,7 @@ ui_call <- function() {
                     title = "Module 3: MI-PCA deep-dive",
                     shiny::fluidRow(
                         shiny::column(
-                            width = 4,
+                            width = 5,
                             shiny::HTML(
                                 "<br>
                             <br>"
@@ -114,14 +114,14 @@ ui_call <- function() {
                             )
                         ),
                         shiny::column(
-                            width = 8,
+                            width = 7,
                             shiny::HTML(
                                 "<br>
                             <br>"
                             ),
                             shiny::column(
-                                width = 8,
-                                offset = 2,
+                                width = 10,
+                                offset = 1,
                                 shiny::sliderInput(
                                     inputId = "colli",
                                     label = "Collinearity",
@@ -133,8 +133,8 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 4,
-                                offset = 2,
+                                width = 5,
+                                offset = 1,
                                 shiny::plotOutput(
                                     outputId = "heatmap_cor"
                                 ),
@@ -144,7 +144,7 @@ ui_call <- function() {
                                 style = "height: 525px"
                             ),
                             shiny::column(
-                                width = 4,
+                                width = 5,
                                 shiny::plotOutput(
                                     outputId = "heatmap_load"
                                 ),

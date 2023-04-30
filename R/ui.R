@@ -23,13 +23,26 @@ ui_call <- function() {
                 shiny::tabPanel(
                     title = "About this Shiny app",
                     shiny::column(
-                        width = 1,
-                        offset = 5,
+                        width = 8,
+                        offset = 2,
                         shiny::HTML(
                             "<br>
-                            Coming soon
+                            This Shiny app accompanies the article:
                             <br>
-                            <br>"
+                            <br>
+                            <a href='https://doi.org/10.48550/arXiv.2208.13656'>Costantini, E., Lang, K. M., Reeskens, T., & Sijtsma, K. (2022). High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods. <i>arXiv preprint arXiv:2208.13656.</i></a>
+                            <br>
+                            <br>
+                            The app contains five modules that allow the user to interact with different results related to this article:
+                            <ul>
+                                <li><b>Module 1</b>: Interact with the main simulation study results <i>coming soon</i>.</li>
+                                <li><b>Module 2</b>: Interact with the collinearity simulation study results <i>coming soon</i>.</li>
+                                <li><b>Module 3</b>: Interact with a tool exploring the performance of MI-PCA for varying levels of collinearity.</li>
+                                <li><b>Module 4</b>: Interact with the resampling study results <i>coming soon</i>.</li>
+                                <li><b>Module 5</b>: Interact with the convergence plots for the studies <i>coming soon</i>.</li>
+                            </ul>
+                            For questions and feedback, please <a href = 'mailto:e.costantini@tilburguniversity.edu'>send me an email</a>.
+                            "
                         )
                     )
                 ),

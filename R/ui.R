@@ -19,17 +19,48 @@ ui_call <- function() {
             # Create tabs for different plotting aspects
             shiny::tabsetPanel(
                 type = "tabs",
-                selected = "MI-PCA deep-dive",
+                selected = "About this Shiny app",
                 shiny::tabPanel(
-                    title = "Simulation study",
-                    "Coming soon"
+                    title = "About this Shiny app",
+                    shiny::column(
+                        width = 1,
+                        offset = 5,
+                        shiny::HTML(
+                            "<br>
+                            Coming soon
+                            <br>
+                            <br>"
+                        )
+                    )
                 ),
                 shiny::tabPanel(
-                    title = "Collinearity study",
-                    "Coming soon"
+                    title = "Module 1: Simulation study",
+                    shiny::column(
+                        width = 1,
+                        offset = 5,
+                        shiny::HTML(
+                            "<br>
+                            Coming soon
+                            <br>
+                            <br>"
+                        )
+                    )
                 ),
                 shiny::tabPanel(
-                    title = "MI-PCA deep-dive",
+                    title = "Module 2: Collinearity study",
+                    shiny::column(
+                        width = 1,
+                        offset = 5,
+                        shiny::HTML(
+                            "<br>
+                            Coming soon
+                            <br>
+                            <br>"
+                        )
+                    )
+                ),
+                shiny::tabPanel(
+                    title = "Module 3: MI-PCA deep-dive",
                     shiny::fluidRow(
                         shiny::column(
                             width = 4,
@@ -119,8 +150,30 @@ ui_call <- function() {
                     )
                 ),
                 shiny::tabPanel(
-                    title = "Resampling study",
-                    "Coming soon"
+                    title = "Module 4: Resampling study",
+                    shiny::column(
+                        width = 1,
+                        offset = 5,
+                        shiny::HTML(
+                            "<br>
+                            Coming soon
+                            <br>
+                            <br>"
+                        )
+                    )
+                ),
+                shiny::tabPanel(
+                    title = "Module 5: Convergence checks",
+                    shiny::column(
+                        width = 1,
+                        offset = 5,
+                        shiny::HTML(
+                            "<br>
+                            Coming soon
+                            <br>
+                            <br>"
+                        )
+                    )
                 )
             )
         )

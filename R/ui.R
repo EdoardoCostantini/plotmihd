@@ -77,8 +77,9 @@ ui_call <- function() {
                     shiny::fluidRow(
                         shiny::column(
                             width = 4,
-                            shiny::titlePanel(
-                                shiny::h3("Understanding the MI-PCA behaviour", align = "center")
+                            shiny::HTML(
+                                "<br>
+                            <br>"
                             ),
                             shiny::tabsetPanel(
                                 type = "tabs",
@@ -114,49 +115,43 @@ ui_call <- function() {
                         ),
                         shiny::column(
                             width = 8,
-                            shiny::fluidRow(
-                                shiny::titlePanel(
-                                    shiny::h3("Input", align = "center")
-                                ),
-                                shiny::column(
-                                    width = 8,
-                                    offset = 2,
-                                    shiny::sliderInput(
-                                        inputId = "colli",
-                                        label = "Collinearity",
-                                        min = 0,
-                                        max = .9,
-                                        value = .1,
-                                        step = .1,
-                                        width = "100%"
-                                    )
-                                ),
+                            shiny::HTML(
+                                "<br>
+                            <br>"
                             ),
-                            shiny::fluidRow(
-                                shiny::titlePanel(
-                                    shiny::h3("Plots", align = "center")
-                                ),
-                                shiny::column(
-                                    width = 4,
-                                    offset = 2,
-                                    shiny::plotOutput(
-                                        outputId = "heatmap_cor"
-                                    ),
-                                    shiny::plotOutput(
-                                        outputId = "hist"
-                                    ),
-                                    style = "height: 525px"
-                                ),
-                                shiny::column(
-                                    width = 4,
-                                    shiny::plotOutput(
-                                        outputId = "heatmap_load"
-                                    ),
-                                    shiny::plotOutput(
-                                        outputId = "scatter"
-                                    ),
-                                    style = "height: 525px"
+                            shiny::column(
+                                width = 8,
+                                offset = 2,
+                                shiny::sliderInput(
+                                    inputId = "colli",
+                                    label = "Collinearity",
+                                    min = 0,
+                                    max = .9,
+                                    value = .1,
+                                    step = .1,
+                                    width = "100%"
                                 )
+                            ),
+                            shiny::column(
+                                width = 4,
+                                offset = 2,
+                                shiny::plotOutput(
+                                    outputId = "heatmap_cor"
+                                ),
+                                shiny::plotOutput(
+                                    outputId = "hist"
+                                ),
+                                style = "height: 525px"
+                            ),
+                            shiny::column(
+                                width = 4,
+                                shiny::plotOutput(
+                                    outputId = "heatmap_load"
+                                ),
+                                shiny::plotOutput(
+                                    outputId = "scatter"
+                                ),
+                                style = "height: 525px"
                             ),
                             style = "border-left: 1px solid; border-left-color: #DDDDDD"
                         )

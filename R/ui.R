@@ -44,6 +44,7 @@ ui_call <- function() {
                         shiny::checkboxGroupInput(
                             inputId = "tab3_rho",
                             label = "Strenght of the correlation",
+                            inline = TRUE,
                             choices = unique(res_exp_1_2$collinearity),
                             selected = range(res_exp_1_2$collinearity)
                         ),

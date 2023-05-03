@@ -61,11 +61,11 @@ ui_call <- function() {
                 ),
                 shiny::tabPanel(
                     title = "Module 2: Collinearity study",
-                    shiny::HTML("<br>"),
                     shiny::column(
                         width = 3,
                         shiny::HTML(
-                            "This tab allows you to plot the results of the collinearity simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in. 
+                            "<br>
+                            This tab allows you to plot the results of the collinearity simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in. 
                             <br>
                             <br>
                             "),
@@ -108,7 +108,8 @@ ui_call <- function() {
                         offset = 1,
                         shiny::plotOutput(
                             outputId = "tab3_plot"
-                        )
+                        ),
+                        style = "border-left: 1px solid; border-left-color: #DDDDDD"
                     )
                 ),
                 shiny::tabPanel(

@@ -18,10 +18,11 @@ server <- function(input, output, session) {
             {
                 plot_simulation_colli(
                     res = res_exp_1_2,
-                    dims = 500,
-                    outcome = "PRB",
-                    meths = levels(res$methods)[1:11],
-                    rho = c(0, .9)
+                    dims = input$tab3_dims,
+                    outcome = input$tab3_outcome,
+                    meths = input$tab3_methods,
+                    rho = input$tab3_rho,
+                    x_lims = input$tab3_xlim
                 )
             }
         )

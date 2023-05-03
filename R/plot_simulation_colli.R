@@ -1,0 +1,123 @@
+#' Plot results for the simulation study on collinearity
+#'
+#' @param res result object from the simulation study 1.2 on collinearity
+#' @param dims number of variables used in the data generation procedure
+#' @param outcome type of performance measure to be plotted
+#' @param meths names of imputation methods to plot
+#' @param rho vector of the correlation coefficients to plot
+#' @param x_lims minimum and maxim values for the x axis values
+#' @return ggplot object
+#' @author Edoardo Costantini, 2023
+#' @examples
+#' # Example internals
+#' data(res_exp_1_2)
+#' res <- res_exp_1_2
+#' dims <- 50
+#' outcome <- c("PRB", "CIC")[1]
+#' meths <- levels(res$methods)[1:11]
+#' rho <- c(0, .9)
+#' x_lims <- c(0, 50)
+#'
+#' @export
+plot_simulation_colli <- function(res, dims, outcome, meths, rho, x_lims) {
+    
+    # Condition Names / Labels
+    label_cond <- unique(res$cond)
+    label_parm <- unique(res$parm)
+
+    # Define plots main objects of interest
+    if (outcome == "PRB") {
+        # Threshold lines
+        vertical_lines <- 10
+        x_breaks <- c(0, 10, 20, 50)
+    }
+    if (outcome == "CIC") {
+        # SE for threshold
+        ci_lvl <- .95
+        dt_reps <- 500
+        SEp <- sqrt(ci_lvl * (1 - ci_lvl) / dt_reps)
+        low_thr <- (.95 - SEp * 2) * 100
+        hig_thr <- (.95 + SEp * 2) * 100
+        vline_burton <- c(low_thr, hig_thr)
+        vline_vanBuu <- 90
+        x_breaks <- sort(c(0, 10, 20, 50))
+    }
+
+    # Filter data
+    res_filtered <- res %>%
+        dplyr::filter(
+            analysis == outcome,
+            variable %in% c("Min", "Mean", "Max"),
+            collinearity %in% rho,
+            p == dims,
+            methods %in% meths
+        )
+
+    # Main plot
+    plot_main <- res_filtered %>%
+        # Main Plot
+        ggplot2::ggplot(
+            data = .,
+            ggplot2::aes(
+                y = methods,
+                x = value,
+                shape = variable
+            )
+        ) +
+        ggplot2::geom_point(size = 1.75) +
+        ggplot2::geom_line(ggplot2::aes(group = methods),
+            size = .25
+        )
+
+    # Grid
+    plot_grid <- plot_main + ggplot2::facet_grid(
+        rows = ggplot2::vars(factor(parm,
+            levels = unique(parm)
+        )),
+        cols = ggplot2::vars(cond)
+    )
+
+    # References
+    plot_refs <- plot_grid + ggplot2::geom_vline(
+        ggplot2::aes(xintercept = vertical_lines),
+        linetype = "solid",
+        size = .15,
+    )
+
+    # Format
+    plot_format <- plot_refs +
+        ggplot2::scale_x_continuous(
+            labels = x_breaks,
+            breaks = x_breaks
+        ) +
+        ggplot2::scale_y_discrete(limits = rev) +
+        ggplot2::scale_shape_manual(values = c("I", "I", "I")) +
+        ggplot2::coord_cartesian(xlim = x_lims) +
+        ggplot2::labs(
+            x = NULL,
+            y = NULL,
+            linetype = NULL,
+            shape = NULL
+        ) +
+        ggplot2::theme(
+            panel.background = ggplot2::element_rect(
+                fill = NA,
+                color = "gray"
+            ),
+            panel.grid.major = ggplot2::element_line(
+                color = "gray",
+                linewidth = 0.15,
+                linetype = 1
+            ),
+            legend.key = ggplot2::element_rect(
+                colour = "gray",
+                fill = NA,
+                linewidth = .15
+            ),
+            axis.ticks = ggplot2::element_blank(),
+            legend.position = "none"
+        )
+
+    # Return plot
+    plot_format
+}

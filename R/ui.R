@@ -26,7 +26,26 @@ ui_call <- function() {
                 ),
                 shiny::tabPanel(
                     title = "Collinearity study",
-                    "Coming soon"
+                    shiny::HTML("<br>"),
+                    shiny::column(
+                        width = 3,
+                        shiny::sliderInput(
+                            inputId = "some_in",
+                            label = "Some input",
+                            min = 0,
+                            max = .9,
+                            value = .1,
+                            step = .1,
+                            width = "100%"
+                        )
+                    ),
+                    shiny::column(
+                        width = 7,
+                        offset = 1,
+                        shiny::plotOutput(
+                            outputId = "tab3_plot"
+                        )
+                    )
                 ),
                 shiny::tabPanel(
                     title = "MI-PCA deep-dive",

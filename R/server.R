@@ -9,6 +9,23 @@
 #' @export
 server <- function(input, output, session) {
 
+        # Tab 2: Collineairty study --------------------------------------------
+
+        # Main plot
+        output$tab3_plot <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_simulation_colli(
+                    res = res_exp_1_2,
+                    dims = 500,
+                    outcome = "PRB",
+                    meths = levels(res$methods)[1:11],
+                    rho = c(0, .9)
+                )
+            }
+        )
+
         # Tab 3: MI-PCA deep dive ----------------------------------------------
 
         # > Simulate data ------------------------------------------------------

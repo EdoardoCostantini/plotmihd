@@ -47,8 +47,20 @@ ui_call <- function() {
                     )
                 ),
                 shiny::tabPanel(
-<<<<<<< HEAD
-                    title = "Collinearity study",
+                    title = "Module 1: Simulation study",
+                    shiny::column(
+                        width = 2,
+                        offset = 5,
+                        shiny::HTML(
+                            "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                        )
+                    )
+                ),
+                shiny::tabPanel(
+                    title = "Module 2: Collinearity study",
                     shiny::HTML("<br>"),
                     shiny::column(
                         width = 3,
@@ -91,30 +103,6 @@ ui_call <- function() {
                         offset = 1,
                         shiny::plotOutput(
                             outputId = "tab3_plot"
-=======
-                    title = "Module 1: Simulation study",
-                    shiny::column(
-                        width = 2,
-                        offset = 5,
-                        shiny::HTML(
-                            "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
->>>>>>> develop
-                        )
-                    )
-                ),
-                shiny::tabPanel(
-                    title = "Module 2: Collinearity study",
-                    shiny::column(
-                        width = 2,
-                        offset = 5,
-                        shiny::HTML(
-                            "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
                         )
                     )
                 ),

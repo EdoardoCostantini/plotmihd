@@ -49,14 +49,54 @@ ui_call <- function() {
                 shiny::tabPanel(
                     title = "Module 1: Simulation study",
                     shiny::column(
-                        width = 2,
-                        offset = 5,
+                        width = 3,
                         shiny::HTML(
                             "<br>
-                            <p style='text-align:center'>Coming soon</p>
+                            This tab allows you to plot the results of the collinearity simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in. 
                             <br>
-                            <br>"
+                            <br>
+                            "),
+                        shiny::selectInput(
+                            inputId = "tab2_dims",
+                            label = "Number of columns in the data (p)",
+                            choices = c(50, 500),
+                            selected = 500
+                        ),
+                        shiny::selectInput(
+                            inputId = "tab2_outcome",
+                            label = "Performance Measure",
+                            choices = c("PRB", "CIC", "CIW"),
+                            selected = "PRB"
+                        ),
+                        shiny::checkboxGroupInput(
+                            inputId = "tab2_pm",
+                            label = "Proportion of missing cases",
+                            inline = TRUE,
+                            choices = unique(res_exp_1$pm),
+                            selected = unique(res_exp_1$pm)
+                        ),
+                        shiny::checkboxGroupInput(
+                            inputId = "tab2_methods",
+                            label = "Missing data treatments",
+                            choices = levels(res_exp_1$methods),
+                            selected = levels(res_exp_1$methods)[1:12]
+                        ),
+                        shinyWidgets::sliderTextInput(
+                            inputId = "tab2_xlim",
+                            label = "X-axis range",
+                            hide_min_max = TRUE,
+                            choices = 0:100,
+                            selected = c(0, 50),
+                            grid = FALSE
                         )
+                    ),
+                    shiny::column(
+                        width = 7,
+                        offset = 1,
+                        shiny::plotOutput(
+                            outputId = "tab2_plot"
+                        ),
+                        style = "border-left: 1px solid; border-left-color: #DDDDDD"
                     )
                 ),
                 shiny::tabPanel(

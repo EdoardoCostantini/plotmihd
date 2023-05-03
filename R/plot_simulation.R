@@ -46,7 +46,7 @@ plot_simulation <- function(res, dims, outcome, meths, prop_NA, x_lims) {
         ci_lvl <- .95
         reference_line <- ci_lvl * 100
         reference_linewidth <- 0.15
-        dt_reps <- 500
+        dt_reps <- 1e3
         SEp <- sqrt(ci_lvl * (1 - ci_lvl) / dt_reps)
         low_thr <- (.95 - SEp * 2) * 100
         hig_thr <- (.95 + SEp * 2) * 100

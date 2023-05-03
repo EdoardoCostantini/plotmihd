@@ -26,6 +26,11 @@ levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "MI-am", "MI
 levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "MI-OP", "MI-OR")
 levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "stepFor", "MI-SF")
 
+# Fix methods order
+res_exp_1$methods <- factor(res_exp_1$methods,
+    levels = levels(res_exp_1$methods)[c(1:7, 13, 11:12, 8, 9, 10)]
+)
+
 # Make analysis a factor
 res_exp_1$analysis <- factor(
     x = res_exp_1$analysis,

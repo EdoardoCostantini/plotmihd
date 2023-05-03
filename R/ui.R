@@ -52,7 +52,7 @@ ui_call <- function() {
                         width = 3,
                         shiny::HTML(
                             "<br>
-                            This tab allows you to plot the results of the collinearity simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in. 
+                            This tab allows you to plot the results of the main simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in. 
                             <br>
                             <br>
                             "),
@@ -91,8 +91,7 @@ ui_call <- function() {
                         )
                     ),
                     shiny::column(
-                        width = 7,
-                        offset = 1,
+                        width = 8,
                         shiny::plotOutput(
                             outputId = "tab2_plot"
                         ),
@@ -144,8 +143,7 @@ ui_call <- function() {
                         )
                     ),
                     shiny::column(
-                        width = 7,
-                        offset = 1,
+                        width = 8,
                         shiny::plotOutput(
                             outputId = "tab3_plot"
                         ),

@@ -33,5 +33,8 @@ res_exp_1_2$analysis <- factor(
     labels = c("PRB", "CIC", "CIW")
 )
 
+# Get rid of _la in methods vector
+levels(res_exp_1_2$methods) <- gsub("-la", "", levels(res_exp_1_2$methods))
+
 # Use the data
 usethis::use_data(res_exp_1_2, overwrite = TRUE)

@@ -32,26 +32,10 @@ To start the shiny apps and interact with the plots, open an R session and load 
 library("mihd.results")
 ```
 
-### Main simulation study results
-
-Coming soon
-
-### Collinearity simulation study results 
-
-#### Understanding MI-PCA behavior
-
-Run the following command in the R console:
+Then, run the following command in the R console:
 
 ```
-mihd.results::plot_colli_mipca()
+mihd.results::start_app()
 ```
 
-You can then click on the tabs in the `Interpretation` panel to understand the plots.
-
-### EVS resampling study results
-
-Coming soon
-
-### Convergence plots
-
-Coming soon
+The app interface will explain how to interact with it.

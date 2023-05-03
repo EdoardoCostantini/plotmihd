@@ -9,12 +9,37 @@ library(stringr)
 
 # Load data --------------------------------------------------------------------
 
+# Load experiment 1 results
+res_exp_1 <- readRDS("./data-raw/exp1_simOut_20230403_1631_res.rds")
+
 # Load results for simulation study 1.2
 res_exp_1_2 <- readRDS("./data-raw/exp1_2_simOut_20230503_0838_res.rds")
+
+# Simulation study: results ----------------------------------------------------
+
+# Change names of methods
+levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "-la", "")
+levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "blasso", "BLasso")
+levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "bridge", "BRidge")
+levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "MI-qp", "MI-QP")
+levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "MI-am", "MI-AM")
+levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "MI-OP", "MI-OR")
+levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "stepFor", "MI-SF")
+
+# Make analysis a factor
+res_exp_1$analysis <- factor(
+    x = res_exp_1$analysis,
+    levels = unique(res_exp_1$analysis),
+    labels = c("PRB", "CIC", "CIW")
+)
+
+# Use the data
+usethis::use_data(res_exp_1, overwrite = TRUE)
 
 # Simulation study 1.2: results ------------------------------------------------
 
 # Change names of methods if required
+levels(res_exp_1_2$methods) <- gsub("-la", "", levels(res_exp_1_2$methods))
 levels(res_exp_1_2$methods) <- str_replace(levels(res_exp_1_2$methods), "blasso", "BLasso")
 levels(res_exp_1_2$methods) <- str_replace(levels(res_exp_1_2$methods), "bridge", "BRidge")
 levels(res_exp_1_2$methods) <- str_replace(levels(res_exp_1_2$methods), "MI-qp", "MI-QP")
@@ -32,9 +57,6 @@ res_exp_1_2$analysis <- factor(
     levels = unique(res_exp_1_2$analysis),
     labels = c("PRB", "CIC", "CIW")
 )
-
-# Get rid of _la in methods vector
-levels(res_exp_1_2$methods) <- gsub("-la", "", levels(res_exp_1_2$methods))
 
 # Use the data
 usethis::use_data(res_exp_1_2, overwrite = TRUE)

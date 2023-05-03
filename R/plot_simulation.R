@@ -74,7 +74,7 @@ plot_simulation <- function(res, dims, outcome, meths, prop_NA, x_lims) {
             ggplot2::aes(group = methods),
             linewidth = .25
         )
-head(res_filtered)
+
     # Grid
     plot_grid <- plot_main + ggplot2::facet_grid(
         rows = ggplot2::vars(

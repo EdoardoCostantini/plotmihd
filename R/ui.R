@@ -39,7 +39,8 @@ ui_call <- function() {
                                 <li><b>Module 2</b>: Interact with the collinearity simulation study results <i>coming soon</i>.</li>
                                 <li><b>Module 3</b>: Interact with a tool exploring the performance of MI-PCA for varying levels of collinearity.</li>
                                 <li><b>Module 4</b>: Interact with the resampling study results <i>coming soon</i>.</li>
-                                <li><b>Module 5</b>: Interact with the convergence plots for the studies <i>coming soon</i>.</li>
+                                <li><b>Module 5</b>: Interact with the plots of the imputation time for the studies <i>coming soon</i>.</li>
+                                <li><b>Module 6</b>: Interact with the convergence plots for the studies <i>coming soon</i>.</li>
                             </ul>
                             For questions and feedback, please <a href = 'mailto:e.costantini@tilburguniversity.edu'>send me an email</a>.
                             "
@@ -52,10 +53,11 @@ ui_call <- function() {
                         width = 3,
                         shiny::HTML(
                             "<br>
-                            This tab allows you to plot the results of the main simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in. 
+                            This tab allows you to plot the results of the main simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in.
                             <br>
                             <br>
-                            "),
+                            "
+                        ),
                         shiny::selectInput(
                             inputId = "tab2_dims",
                             label = "Number of columns in the data (p)",
@@ -104,10 +106,11 @@ ui_call <- function() {
                         width = 3,
                         shiny::HTML(
                             "<br>
-                            This tab allows you to plot the results of the collinearity simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in. 
+                            This tab allows you to plot the results of the collinearity simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in.
                             <br>
                             <br>
-                            "),
+                            "
+                        ),
                         shiny::selectInput(
                             inputId = "tab3_dims",
                             label = "Number of columns in the data (p)",
@@ -247,7 +250,26 @@ ui_call <- function() {
                     )
                 ),
                 shiny::tabPanel(
-                    title = "Module 5: Convergence checks",
+                    title = "Module 5: Imputation time",
+                    shiny::column(
+                        width = 3,
+                        shiny::HTML(
+                            "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                        )
+                    ),
+                    shiny::column(
+                        width = 8,
+                        offset = 0,
+                        shiny::plotOutput(
+                            outputId = "tab5_plot_time_main_sim"
+                        )
+                    )
+                ),
+                shiny::tabPanel(
+                    title = "Module 6: Convergence checks",
                     shiny::column(
                         width = 2,
                         offset = 5,

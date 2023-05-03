@@ -50,29 +50,22 @@ usethis::use_data(res_exp_1, overwrite = TRUE)
 # Simulation study: time -------------------------------------------------------
 
 # Change names of methods
-levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "-la", "")
-levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "blasso", "BLasso")
-levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "bridge", "BRidge")
-levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "MI-qp", "MI-QP")
-levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "MI-am", "MI-AM")
-levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "MI-OP", "MI-OR")
-levels(res_exp_1$methods) <- str_replace(levels(res_exp_1$methods), "stepFor", "MI-SF")
+levels(res_exp_1_time$variable) <- str_replace(levels(res_exp_1_time$variable), "_la", "")
+levels(res_exp_1_time$variable) <- str_replace(levels(res_exp_1_time$variable), "blasso", "BLasso")
+levels(res_exp_1_time$variable) <- str_replace(levels(res_exp_1_time$variable), "bridge", "BRidge")
+levels(res_exp_1_time$variable) <- str_replace(levels(res_exp_1_time$variable), "_", "-")
+levels(res_exp_1_time$variable) <- str_replace(levels(res_exp_1_time$variable), "MI-qp", "MI-QP")
+levels(res_exp_1_time$variable) <- str_replace(levels(res_exp_1_time$variable), "MI-am", "MI-AM")
+levels(res_exp_1_time$variable) <- str_replace(levels(res_exp_1_time$variable), "MI-OP", "MI-OR")
+levels(res_exp_1_time$variable) <- str_replace(levels(res_exp_1_time$variable), "stepFor", "MI-SF")
 
 # Fix methods order
-res_exp_1$methods <- factor(res_exp_1$methods,
-    levels = levels(res_exp_1$methods)[c(1:7, 13, 11:12, 8, 9, 10)]
-)
-
-# Make analysis a factor
-res_exp_1$analysis <- factor(
-    x = res_exp_1$analysis,
-    levels = unique(res_exp_1$analysis),
-    labels = c("PRB", "CIC", "CIW")
+res_exp_1_time$variable <- factor(res_exp_1_time$variable,
+    levels = levels(res_exp_1_time$variable)[c(1:7, 11, 8:10)]
 )
 
 # Use the data
-usethis::use_data(res_exp_1, overwrite = TRUE)
-
+usethis::use_data(res_exp_1_time, overwrite = TRUE)
 
 # Simulation study 1.2: results ------------------------------------------------
 

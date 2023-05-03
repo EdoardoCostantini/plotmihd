@@ -11,6 +11,25 @@ server <- function(input, output, session) {
 
         # Tab 2: Collineairty study --------------------------------------------
 
+        # Update X limits default input based on outcome (performance) measure
+        observe({
+            # Define subset of data in use
+            if (input$tab3_outcome == "PRB") {
+                tab3_xlim_choices <- 0:100
+                tab3_xlim_selected <- c(0, 50)
+            }
+            if(input$tab3_outcome == "CIC"){
+                tab3_xlim_choices <- 0:100
+                tab3_xlim_selected <- c(70, 100)
+            }
+            shinyWidgets::updateSliderTextInput(
+                session,
+                inputId = "tab3_xlim",
+                choices = tab3_xlim_choices,
+                selected = tab3_xlim_selected
+            )
+        })
+
         # Main plot
         output$tab3_plot <- shiny::renderPlot(
             res = 96,

@@ -13,14 +13,13 @@
 #' data(res_exp_1_2)
 #' res <- res_exp_1_2
 #' dims <- 50
-#' outcome <- c("PRB", "CIC")[1]
+#' outcome <- c("PRB", "CIC")[2]
 #' meths <- levels(res$methods)[1:11]
 #' rho <- c(0, .9)
-#' x_lims <- c(0, 50)
+#' x_lims <- c(50, 100)
 #'
 #' @export
 plot_simulation_colli <- function(res, dims, outcome, meths, rho, x_lims) {
-    
     # Condition Names / Labels
     label_cond <- unique(res$cond)
     label_parm <- unique(res$parm)
@@ -28,19 +27,18 @@ plot_simulation_colli <- function(res, dims, outcome, meths, rho, x_lims) {
     # Define plots main objects of interest
     if (outcome == "PRB") {
         # Threshold lines
-        vertical_lines <- 10
+        reference_line <- 10
         x_breaks <- c(0, 10, 20, 50)
     }
     if (outcome == "CIC") {
         # SE for threshold
         ci_lvl <- .95
+        reference_line <- ci_lvl * 100
         dt_reps <- 500
         SEp <- sqrt(ci_lvl * (1 - ci_lvl) / dt_reps)
         low_thr <- (.95 - SEp * 2) * 100
         hig_thr <- (.95 + SEp * 2) * 100
-        vline_burton <- c(low_thr, hig_thr)
-        vline_vanBuu <- 90
-        x_breaks <- sort(c(0, 10, 20, 50))
+        x_breaks <- c(0, 50, 80, 90, round(low_thr, 0), round(hig_thr, 0), 100)
     }
 
     # Filter data
@@ -65,8 +63,9 @@ plot_simulation_colli <- function(res, dims, outcome, meths, rho, x_lims) {
             )
         ) +
         ggplot2::geom_point(size = 1.75) +
-        ggplot2::geom_line(ggplot2::aes(group = methods),
-            size = .25
+        ggplot2::geom_line(
+            ggplot2::aes(group = methods),
+            linewidth = .25
         )
 
     # Grid
@@ -79,7 +78,7 @@ plot_simulation_colli <- function(res, dims, outcome, meths, rho, x_lims) {
 
     # References
     plot_refs <- plot_grid + ggplot2::geom_vline(
-        ggplot2::aes(xintercept = vertical_lines),
+        ggplot2::aes(xintercept = reference_line),
         linetype = "solid",
         size = .15,
     )
@@ -100,6 +99,11 @@ plot_simulation_colli <- function(res, dims, outcome, meths, rho, x_lims) {
             shape = NULL
         ) +
         ggplot2::theme(
+            axis.text.x = ggplot2::element_text(
+                angle = 90,
+                vjust = 0.5,
+                hjust = 1
+            ),
             panel.background = ggplot2::element_rect(
                 fill = NA,
                 color = "gray"

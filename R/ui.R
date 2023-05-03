@@ -96,7 +96,7 @@ ui_call <- function() {
                         shiny::plotOutput(
                             outputId = "tab2_plot"
                         ),
-                        style = "border-left: 1px solid; border-left-color: #DDDDDD"
+                        style = "border-left: 1px solid; border-left-color: #DDDDDD; height: 725px"
                     )
                 ),
                 shiny::tabPanel(
@@ -149,7 +149,7 @@ ui_call <- function() {
                         shiny::plotOutput(
                             outputId = "tab3_plot"
                         ),
-                        style = "border-left: 1px solid; border-left-color: #DDDDDD"
+                        style = "border-left: 1px solid; border-left-color: #DDDDDD; height: 725px"
                     )
                 ),
                 shiny::tabPanel(
@@ -220,8 +220,7 @@ ui_call <- function() {
                                 ),
                                 shiny::plotOutput(
                                     outputId = "hist"
-                                ),
-                                style = "height: 525px"
+                                )
                             ),
                             shiny::column(
                                 width = 5,
@@ -230,10 +229,9 @@ ui_call <- function() {
                                 ),
                                 shiny::plotOutput(
                                     outputId = "scatter"
-                                ),
-                                style = "height: 525px"
+                                )
                             ),
-                            style = "border-left: 1px solid; border-left-color: #DDDDDD"
+                            style = "border-left: 1px solid; border-left-color: #DDDDDD; height: 725px"
                         )
                     )
                 ),

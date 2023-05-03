@@ -64,6 +64,11 @@ ui_call <- function() {
                     shiny::HTML("<br>"),
                     shiny::column(
                         width = 3,
+                        shiny::HTML(
+                            "This tab allows you to plot the results of the collinearity simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in. 
+                            <br>
+                            <br>
+                            "),
                         shiny::selectInput(
                             inputId = "tab3_dims",
                             label = "Number of columns in the data (p)",

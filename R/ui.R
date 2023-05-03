@@ -19,12 +19,35 @@ ui_call <- function() {
             # Create tabs for different plotting aspects
             shiny::tabsetPanel(
                 type = "tabs",
-                selected = "Collinearity study",
+                selected = "About this Shiny app",
                 shiny::tabPanel(
-                    title = "Simulation study",
-                    "Coming soon"
+                    title = "About this Shiny app",
+                    shiny::column(
+                        width = 8,
+                        offset = 2,
+                        shiny::HTML(
+                            "<br>
+                            This Shiny app accompanies the article:
+                            <br>
+                            <br>
+                            <a href='https://doi.org/10.48550/arXiv.2208.13656'>Costantini, E., Lang, K. M., Reeskens, T., & Sijtsma, K. (2022). High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods. <i>arXiv preprint arXiv:2208.13656.</i></a>
+                            <br>
+                            <br>
+                            The app contains five modules that allow the user to interact with different results related to this article:
+                            <ul>
+                                <li><b>Module 1</b>: Interact with the main simulation study results <i>coming soon</i>.</li>
+                                <li><b>Module 2</b>: Interact with the collinearity simulation study results <i>coming soon</i>.</li>
+                                <li><b>Module 3</b>: Interact with a tool exploring the performance of MI-PCA for varying levels of collinearity.</li>
+                                <li><b>Module 4</b>: Interact with the resampling study results <i>coming soon</i>.</li>
+                                <li><b>Module 5</b>: Interact with the convergence plots for the studies <i>coming soon</i>.</li>
+                            </ul>
+                            For questions and feedback, please <a href = 'mailto:e.costantini@tilburguniversity.edu'>send me an email</a>.
+                            "
+                        )
+                    )
                 ),
                 shiny::tabPanel(
+<<<<<<< HEAD
                     title = "Collinearity study",
                     shiny::HTML("<br>"),
                     shiny::column(
@@ -68,16 +91,41 @@ ui_call <- function() {
                         offset = 1,
                         shiny::plotOutput(
                             outputId = "tab3_plot"
+=======
+                    title = "Module 1: Simulation study",
+                    shiny::column(
+                        width = 2,
+                        offset = 5,
+                        shiny::HTML(
+                            "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+>>>>>>> develop
                         )
                     )
                 ),
                 shiny::tabPanel(
-                    title = "MI-PCA deep-dive",
+                    title = "Module 2: Collinearity study",
+                    shiny::column(
+                        width = 2,
+                        offset = 5,
+                        shiny::HTML(
+                            "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                        )
+                    )
+                ),
+                shiny::tabPanel(
+                    title = "Module 3: MI-PCA deep-dive",
                     shiny::fluidRow(
                         shiny::column(
-                            width = 4,
-                            shiny::titlePanel(
-                                shiny::h3("Understanding the MI-PCA behaviour", align = "center")
+                            width = 5,
+                            shiny::HTML(
+                                "<br>
+                            <br>"
                             ),
                             shiny::tabsetPanel(
                                 type = "tabs",
@@ -112,58 +160,74 @@ ui_call <- function() {
                             )
                         ),
                         shiny::column(
-                            width = 8,
-                            shiny::fluidRow(
-                                shiny::titlePanel(
-                                    shiny::h3("Input", align = "center")
-                                ),
-                                shiny::column(
-                                    width = 8,
-                                    offset = 2,
-                                    shiny::sliderInput(
-                                        inputId = "colli",
-                                        label = "Collinearity",
-                                        min = 0,
-                                        max = .9,
-                                        value = .1,
-                                        step = .1,
-                                        width = "100%"
-                                    )
-                                ),
+                            width = 7,
+                            shiny::HTML(
+                                "<br>
+                            <br>"
                             ),
-                            shiny::fluidRow(
-                                shiny::titlePanel(
-                                    shiny::h3("Plots", align = "center")
-                                ),
-                                shiny::column(
-                                    width = 4,
-                                    offset = 2,
-                                    shiny::plotOutput(
-                                        outputId = "heatmap_cor"
-                                    ),
-                                    shiny::plotOutput(
-                                        outputId = "hist"
-                                    ),
-                                    style = "height: 525px"
-                                ),
-                                shiny::column(
-                                    width = 4,
-                                    shiny::plotOutput(
-                                        outputId = "heatmap_load"
-                                    ),
-                                    shiny::plotOutput(
-                                        outputId = "scatter"
-                                    ),
-                                    style = "height: 525px"
+                            shiny::column(
+                                width = 10,
+                                offset = 1,
+                                shiny::sliderInput(
+                                    inputId = "colli",
+                                    label = "Collinearity",
+                                    min = 0,
+                                    max = .9,
+                                    value = .1,
+                                    step = .1,
+                                    width = "100%"
                                 )
+                            ),
+                            shiny::column(
+                                width = 5,
+                                offset = 1,
+                                shiny::plotOutput(
+                                    outputId = "heatmap_cor"
+                                ),
+                                shiny::plotOutput(
+                                    outputId = "hist"
+                                ),
+                                style = "height: 525px"
+                            ),
+                            shiny::column(
+                                width = 5,
+                                shiny::plotOutput(
+                                    outputId = "heatmap_load"
+                                ),
+                                shiny::plotOutput(
+                                    outputId = "scatter"
+                                ),
+                                style = "height: 525px"
                             ),
                             style = "border-left: 1px solid; border-left-color: #DDDDDD"
                         )
                     )
                 ),
                 shiny::tabPanel(
-                    title = "Resampling study",
-                    "Coming soon"
+                    title = "Module 4: Resampling study",
+                    shiny::column(
+                        width = 2,
+                        offset = 5,
+                        shiny::HTML(
+                            "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                        )
+                    )
+                ),
+                shiny::tabPanel(
+                    title = "Module 5: Convergence checks",
+                    shiny::column(
+                        width = 2,
+                        offset = 5,
+                        shiny::HTML(
+                            "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                        )
+                    )
                 )
             )
         )

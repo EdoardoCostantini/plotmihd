@@ -9,6 +9,47 @@
 #' @export
 server <- function(input, output, session) {
 
+        # Tab 2: Collineairty study --------------------------------------------
+
+        # Update X limits default input based on outcome (performance) measure
+        observe({
+            # Define subset of data in use
+            if (input$tab3_outcome == "PRB") {
+                tab3_xlim_choices <- 0:100
+                tab3_xlim_selected <- c(0, 50)
+            }
+            if(input$tab3_outcome == "CIC"){
+                tab3_xlim_choices <- 0:100
+                tab3_xlim_selected <- c(70, 100)
+            }
+            if (input$tab3_outcome == "CIW") {
+                tab3_xlim_choices <- 0:10
+                tab3_xlim_selected <- c(0, 5)
+            }
+            shinyWidgets::updateSliderTextInput(
+                session,
+                inputId = "tab3_xlim",
+                choices = tab3_xlim_choices,
+                selected = tab3_xlim_selected
+            )
+        })
+
+        # Main plot
+        output$tab3_plot <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_simulation_colli(
+                    res = res_exp_1_2,
+                    dims = input$tab3_dims,
+                    outcome = input$tab3_outcome,
+                    meths = input$tab3_methods,
+                    rho = input$tab3_rho,
+                    x_lims = input$tab3_xlim
+                )
+            }
+        )
+
         # Tab 3: MI-PCA deep dive ----------------------------------------------
 
         # > Simulate data ------------------------------------------------------

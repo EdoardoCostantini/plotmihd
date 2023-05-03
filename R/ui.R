@@ -47,6 +47,51 @@ ui_call <- function() {
                     )
                 ),
                 shiny::tabPanel(
+<<<<<<< HEAD
+                    title = "Collinearity study",
+                    shiny::HTML("<br>"),
+                    shiny::column(
+                        width = 3,
+                        shiny::selectInput(
+                            inputId = "tab3_dims",
+                            label = "Number of columns in the data (p)",
+                            choices = c(50, 500),
+                            selected = 500
+                        ),
+                        shiny::selectInput(
+                            inputId = "tab3_outcome",
+                            label = "Performance Measure",
+                            choices = c("PRB", "CIC", "CIW"),
+                            selected = "PRB"
+                        ),
+                        shiny::checkboxGroupInput(
+                            inputId = "tab3_rho",
+                            label = "Strenght of the correlation",
+                            inline = TRUE,
+                            choices = unique(res_exp_1_2$collinearity),
+                            selected = range(res_exp_1_2$collinearity)
+                        ),
+                        shiny::checkboxGroupInput(
+                            inputId = "tab3_methods",
+                            label = "Missing data treatments",
+                            choices = levels(res_exp_1_2$methods),
+                            selected = levels(res_exp_1_2$methods)[1:12]
+                        ),
+                        shinyWidgets::sliderTextInput(
+                            inputId = "tab3_xlim",
+                            label = "X-axis range",
+                            hide_min_max = TRUE,
+                            choices = 0:100,
+                            selected = c(0, 50),
+                            grid = FALSE
+                        )
+                    ),
+                    shiny::column(
+                        width = 7,
+                        offset = 1,
+                        shiny::plotOutput(
+                            outputId = "tab3_plot"
+=======
                     title = "Module 1: Simulation study",
                     shiny::column(
                         width = 2,
@@ -56,6 +101,7 @@ ui_call <- function() {
                             <p style='text-align:center'>Coming soon</p>
                             <br>
                             <br>"
+>>>>>>> develop
                         )
                     )
                 ),

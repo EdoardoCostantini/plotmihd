@@ -22,6 +22,10 @@ server <- function(input, output, session) {
                 tab3_xlim_choices <- 0:100
                 tab3_xlim_selected <- c(70, 100)
             }
+            if (input$tab3_outcome == "CIW") {
+                tab3_xlim_choices <- 0:10
+                tab3_xlim_selected <- c(0, 5)
+            }
             shinyWidgets::updateSliderTextInput(
                 session,
                 inputId = "tab3_xlim",

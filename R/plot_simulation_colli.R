@@ -13,7 +13,7 @@
 #' data(res_exp_1_2)
 #' res <- res_exp_1_2
 #' dims <- 50
-#' outcome <- c("PRB", "CIC")[2]
+#' outcome <- c("PRB", "CIC", "CIW")[3]
 #' meths <- levels(res$methods)[1:11]
 #' rho <- c(0, .9)
 #' x_lims <- c(50, 100)
@@ -24,23 +24,6 @@ plot_simulation_colli <- function(res, dims, outcome, meths, rho, x_lims) {
     label_cond <- unique(res$cond)
     label_parm <- unique(res$parm)
 
-    # Define plots main objects of interest
-    if (outcome == "PRB") {
-        # Threshold lines
-        reference_line <- 10
-        x_breaks <- c(0, 10, 20, 50)
-    }
-    if (outcome == "CIC") {
-        # SE for threshold
-        ci_lvl <- .95
-        reference_line <- ci_lvl * 100
-        dt_reps <- 500
-        SEp <- sqrt(ci_lvl * (1 - ci_lvl) / dt_reps)
-        low_thr <- (.95 - SEp * 2) * 100
-        hig_thr <- (.95 + SEp * 2) * 100
-        x_breaks <- c(0, 50, 80, 90, round(low_thr, 0), round(hig_thr, 0), 100)
-    }
-
     # Filter data
     res_filtered <- res %>%
         dplyr::filter(
@@ -50,6 +33,30 @@ plot_simulation_colli <- function(res, dims, outcome, meths, rho, x_lims) {
             p == dims,
             methods %in% meths
         )
+
+    # Define plots main objects of interest
+    if (outcome == "PRB") {
+        # Threshold lines
+        reference_line <- 10
+        reference_linewidth <- 0.15
+        x_breaks <- c(0, 10, 20, 50)
+    }
+    if (outcome == "CIC") {
+        # SE for threshold
+        ci_lvl <- .95
+        reference_line <- ci_lvl * 100
+        reference_linewidth <- 0.15
+        dt_reps <- 500
+        SEp <- sqrt(ci_lvl * (1 - ci_lvl) / dt_reps)
+        low_thr <- (.95 - SEp * 2) * 100
+        hig_thr <- (.95 + SEp * 2) * 100
+        x_breaks <- c(0, 50, 80, 90, round(low_thr, 0), round(hig_thr, 0), 100)
+    }
+    if (outcome == "CIW") {
+        reference_line <- 0
+        reference_linewidth <- 0
+        x_breaks <- 0:5
+    }
 
     # Main plot
     plot_main <- res_filtered %>%
@@ -80,7 +87,7 @@ plot_simulation_colli <- function(res, dims, outcome, meths, rho, x_lims) {
     plot_refs <- plot_grid + ggplot2::geom_vline(
         ggplot2::aes(xintercept = reference_line),
         linetype = "solid",
-        size = .15,
+        linewidth = reference_linewidth,
     )
 
     # Format

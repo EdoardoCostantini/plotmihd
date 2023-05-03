@@ -50,7 +50,7 @@ plot_simulation_colli <- function(res, dims, outcome, meths, rho, x_lims) {
         SEp <- sqrt(ci_lvl * (1 - ci_lvl) / dt_reps)
         low_thr <- (.95 - SEp * 2) * 100
         hig_thr <- (.95 + SEp * 2) * 100
-        x_breaks <- c(0, 50, 80, 90, round(low_thr, 0), round(hig_thr, 0), 100)
+        x_breaks <- c(0, 50, 80, 90, round(low_thr, 0), 95, round(hig_thr, 0), 100)
     }
     if (outcome == "CIW") {
         reference_line <- 0

@@ -51,7 +51,7 @@ ui_call <- function() {
                             inputId = "tab3_methods",
                             label = "Missing data treatments",
                             choices = levels(res_exp_1_2$methods),
-                            selected = levels(res_exp_1_2$methods)[1:11]
+                            selected = levels(res_exp_1_2$methods)[1:12]
                         ),
                         shinyWidgets::sliderTextInput(
                             inputId = "tab3_xlim",

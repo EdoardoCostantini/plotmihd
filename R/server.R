@@ -206,7 +206,7 @@ server <- function(input, output, session) {
 
         output <- tab_mi_pca_text(output)
 
-        # Module 5: Imputation time --------------------------------------------
+        # Imputation time ------------------------------------------------------
 
         # Simulation study
         output$tab2_plot_time_main_sim <- shiny::renderPlot(
@@ -219,6 +219,7 @@ server <- function(input, output, session) {
                     meths = input$tab2_time_methods,
                     prop_NA = input$tab2_time_pm,
                     rho = 0,
+                    sample_size = 200,
                     x_lims = c(0, 90)
                 )
             }
@@ -235,7 +236,43 @@ server <- function(input, output, session) {
                     meths = input$tab3_time_methods,
                     prop_NA = 0.3,
                     rho = input$tab3_time_rho,
+                    sample_size = 200,
                     x_lims = c(0, 90)
+                )
+            }
+        )
+
+        # Simulation study
+        output$tab4_plot_time <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_time_simulation(
+                    res = res_exp_4_time,
+                    dims = 243,
+                    meths = input$tab4_time_methods,
+                    prop_NA = 0,
+                    rho = 0,
+                    sample_size = input$tab4_time_sample_size,
+                    x_lims = c(0, 90)
+                )
+            }
+        )
+
+        # Tab 4: Resampling study ----------------------------------------------
+
+        # Simulation study
+        output$tab4_plot_res <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_resampling(
+                    res = res_exp_4,
+                    outcome = input$tab4_outcome,
+                    model = input$tab4_model,
+                    dt_reps = 500,
+                    ci_lvl = .95,
+                    meth_compare = rev(c("DURR_la", "IURR_la", "blasso", "bridge", "MI_PCA", "MI_CART", "MI_RF", "stepFor", "CC"))
                 )
             }
         )

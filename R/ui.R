@@ -356,14 +356,94 @@ ui_call <- function() {
                 ),
                 shiny::tabPanel(
                     title = "Module 4: Resampling study",
-                    shiny::column(
-                        width = 2,
-                        offset = 5,
-                        shiny::HTML(
-                            "<br>
+                    shiny::HTML("<br>"),
+                    shiny::tabsetPanel(
+                        shiny::tabPanel(
+                            title = "Main results",
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
+                            This tab allows you to plot the results of the resampling study reported in the article. You change the values of the experimental factors to plot the results you are most interested in.
+                            <br>
+                            <br>
+                            "
+                                ),
+                                shiny::checkboxGroupInput(
+                                    inputId = "tab4_n",
+                                    label = "Sample size",
+                                    inline = TRUE,
+                                    choices = c(1000, 300),
+                                    selected = c(1000, 300)
+                                ),
+                                shiny::selectInput(
+                                    inputId = "tab4_outcome",
+                                    label = "Performance Measure",
+                                    choices = c("bias_per", "ci_cov", "CIW"),
+                                    selected = "bias_per"
+                                ),
+                                shiny::selectInput(
+                                    inputId = "tab4_model",
+                                    label = "Model",
+                                    choices = c("m1", "m2"),
+                                    selected = "m1"
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                shiny::plotOutput(
+                                    outputId = "tab4_plot_res"
+                                ),
+                                style = "border-left: 1px solid; border-left-color: #DDDDDD; height: 725px"
+                            )
+                        ),
+                        shiny::tabPanel(
+                            title = "Imputation time",
+                            shiny::HTML("<br>"),
+                            shiny::column(
+                                width = 3,
+                                shiny::selectInput(
+                                    inputId = "tab4_time_sample_size",
+                                    label = "Sample size",
+                                    choices = c(1000, 300),
+                                    selected = 1000
+                                ),
+                                shiny::checkboxGroupInput(
+                                    inputId = "tab4_time_methods",
+                                    label = "Missing data treatments",
+                                    choices = levels(res_exp_4_time$variable),
+                                    selected = levels(res_exp_4_time$variable)
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                offset = 0,
+                                shiny::plotOutput(
+                                    outputId = "tab4_plot_time"
+                                )
+                            )
+                        ),
+                        shiny::tabPanel(
+                            title = "Convergence checks",
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
                             <p style='text-align:center'>Coming soon</p>
                             <br>
                             <br>"
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                offset = 0,
+                                shiny::HTML(
+                                    "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                                )
+                            )
                         )
                     )
                 )

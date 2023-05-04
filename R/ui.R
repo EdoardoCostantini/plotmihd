@@ -368,6 +368,25 @@ ui_call <- function() {
                             <br>
                             <br>
                             "
+                                ),
+                                shiny::checkboxGroupInput(
+                                    inputId = "tab4_n",
+                                    label = "Sample size",
+                                    inline = TRUE,
+                                    choices = c(1000, 300),
+                                    selected = c(1000, 300)
+                                ),
+                                shiny::selectInput(
+                                    inputId = "tab4_outcome",
+                                    label = "Performance Measure",
+                                    choices = c("bias_per", "ci_cov", "CIW"),
+                                    selected = "bias_per"
+                                ),
+                                shiny::selectInput(
+                                    inputId = "tab4_model",
+                                    label = "Model",
+                                    choices = c("m1", "m2"),
+                                    selected = "m1"
                                 )
                             ),
                             shiny::column(

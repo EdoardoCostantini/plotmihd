@@ -10,7 +10,6 @@
 #' # Example input
 #' res <- res_exp_4
 #' model <- c("m1", "m2")[1]
-#' type <- "bias"
 #' dt_reps <- 500
 #' ci_lvl <- .95
 #' meth_compare <- c("DURR_la", "IURR_la", "blasso", "bridge", "MI_PCA", "MI_CART", "MI_RF", "stepFor", "CC")
@@ -23,7 +22,6 @@
 plot_resampling <- function(res,
                             outcome = c("bias_per", "ci_cov", "CIW")[1],
                             model = c("m1", "m2")[1],
-                            type = "bias",
                             dt_reps = 500,
                             ci_lvl = .95,
                             meth_compare) {
@@ -120,7 +118,7 @@ plot_resampling <- function(res,
 
     # Parameter Labels
     # Ticks
-    if (type == "bias") {
+    if (outcome == "bias_per") {
         # Levels order
         levs <- c(no = "<10%", yes = ">10%")
 
@@ -138,7 +136,7 @@ plot_resampling <- function(res,
         plot_vlines <- 10
     }
 
-    if (type == "ci") {
+    if (outcome == "ci_cov") {
         # Redefine values as differences from target
         dt_edit$value[dt_edit$value != 0] <- dt_edit$value[dt_edit$value != 0] - 95
 
@@ -168,7 +166,7 @@ plot_resampling <- function(res,
         plot_vlines <- c(-5, low_thr, hig_thr, 4)
     }
 
-    if (type == "CIW") {
+    if (outcome == "CIW") {
         # Plot Limits
         plot_xlim <- c(0, 10)
 
@@ -200,7 +198,7 @@ plot_resampling <- function(res,
     p <- ggplot2::ggplot(dt_edit, ggplot2::aes(x = value, y = id))
 
     # Add colored segments
-    if (type == "CIW") {
+    if (outcome == "CIW") {
         p <- p + ggplot2::geom_segment(
             ggplot2::aes(
                 xend = 0,
@@ -235,7 +233,7 @@ plot_resampling <- function(res,
         ) +
         ggplot2::geom_vline(
             xintercept = plot_vlines,
-            size = v.lines.thick,
+            linewidth = v.lines.thick,
             linetype = v.lines.type,
             color = v.lines.color
         ) +
@@ -251,7 +249,7 @@ plot_resampling <- function(res,
         ) +
         ggplot2::geom_hline(
             yintercept = plot_hlines,
-            size = h.lines.thick,
+            linewidth = h.lines.thick,
             color = h.lines.color
         )
 

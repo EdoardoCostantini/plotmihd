@@ -249,9 +249,8 @@ server <- function(input, output, session) {
             {
                 plot_resampling(
                     res = res_exp_4,
-                    outcome = c("bias_per", "ci_cov", "CIW")[1],
-                    model = c("m1", "m2")[1],
-                    type = "bias",
+                    outcome = input$tab4_outcome,
+                    model = input$tab4_model,
                     dt_reps = 500,
                     ci_lvl = .95,
                     meth_compare = c("DURR_la", "IURR_la", "blasso", "bridge", "MI_PCA", "MI_CART", "MI_RF", "stepFor", "CC")

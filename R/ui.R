@@ -39,7 +39,8 @@ ui_call <- function() {
                                 <li><b>Module 2</b>: Interact with the collinearity simulation study results <i>coming soon</i>.</li>
                                 <li><b>Module 3</b>: Interact with a tool exploring the performance of MI-PCA for varying levels of collinearity.</li>
                                 <li><b>Module 4</b>: Interact with the resampling study results <i>coming soon</i>.</li>
-                                <li><b>Module 5</b>: Interact with the convergence plots for the studies <i>coming soon</i>.</li>
+                                <li><b>Module 5</b>: Interact with the plots of the imputation time for the studies <i>coming soon</i>.</li>
+                                <li><b>Module 6</b>: Interact with the convergence plots for the studies <i>coming soon</i>.</li>
                             </ul>
                             For questions and feedback, please <a href = 'mailto:e.costantini@tilburguniversity.edu'>send me an email</a>.
                             "
@@ -48,68 +49,205 @@ ui_call <- function() {
                 ),
                 shiny::tabPanel(
                     title = "Module 1: Simulation study",
-                    shiny::column(
-                        width = 2,
-                        offset = 5,
-                        shiny::HTML(
-                            "<br>
+                    shiny::HTML("<br>"),
+                    shiny::tabsetPanel(
+                        shiny::tabPanel(
+                            title = "Main results",
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
+                            This tab allows you to plot the results of the main simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in.
+                            <br>
+                            <br>
+                            "
+                                ),
+                                shiny::selectInput(
+                                    inputId = "tab2_dims",
+                                    label = "Number of columns in the data (p)",
+                                    choices = c(50, 500),
+                                    selected = 500
+                                ),
+                                shiny::selectInput(
+                                    inputId = "tab2_outcome",
+                                    label = "Performance Measure",
+                                    choices = c("PRB", "CIC", "CIW"),
+                                    selected = "PRB"
+                                ),
+                                shiny::checkboxGroupInput(
+                                    inputId = "tab2_pm",
+                                    label = "Proportion of missing cases",
+                                    inline = TRUE,
+                                    choices = unique(res_exp_1$pm),
+                                    selected = unique(res_exp_1$pm)
+                                ),
+                                shiny::checkboxGroupInput(
+                                    inputId = "tab2_methods",
+                                    label = "Missing data treatments",
+                                    choices = levels(res_exp_1$methods),
+                                    selected = levels(res_exp_1$methods)[c(1:8, 10:12)]
+                                ),
+                                shinyWidgets::sliderTextInput(
+                                    inputId = "tab2_xlim",
+                                    label = "X-axis range",
+                                    hide_min_max = TRUE,
+                                    choices = 0:100,
+                                    selected = c(0, 50),
+                                    grid = FALSE
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                shiny::plotOutput(
+                                    outputId = "tab2_plot"
+                                ),
+                                style = "border-left: 1px solid; border-left-color: #DDDDDD; height: 725px"
+                            )
+                        ),
+                        shiny::tabPanel(
+                            title = "Imputation time",
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
                             <p style='text-align:center'>Coming soon</p>
                             <br>
                             <br>"
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                offset = 0,
+                                shiny::plotOutput(
+                                    outputId = "tab5_plot_time_main_sim"
+                                )
+                            )
+                        ),
+                        shiny::tabPanel(
+                            title = "Convergence checks",
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                offset = 0,
+                                shiny::HTML(
+                                    "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                                )
+                            )
                         )
                     )
                 ),
                 shiny::tabPanel(
                     title = "Module 2: Collinearity study",
-                    shiny::column(
-                        width = 3,
-                        shiny::HTML(
-                            "<br>
-                            This tab allows you to plot the results of the collinearity simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in. 
+                    shiny::HTML("<br>"),
+                    shiny::tabsetPanel(
+                        shiny::tabPanel(
+                            title = "Main results",
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
+                            This tab allows you to plot the results of the collinearity simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in.
                             <br>
                             <br>
-                            "),
-                        shiny::selectInput(
-                            inputId = "tab3_dims",
-                            label = "Number of columns in the data (p)",
-                            choices = c(50, 500),
-                            selected = 500
+                            "
+                                ),
+                                shiny::selectInput(
+                                    inputId = "tab3_dims",
+                                    label = "Number of columns in the data (p)",
+                                    choices = c(50, 500),
+                                    selected = 500
+                                ),
+                                shiny::selectInput(
+                                    inputId = "tab3_outcome",
+                                    label = "Performance Measure",
+                                    choices = c("PRB", "CIC", "CIW"),
+                                    selected = "PRB"
+                                ),
+                                shiny::checkboxGroupInput(
+                                    inputId = "tab3_rho",
+                                    label = "Strenght of the correlation",
+                                    inline = TRUE,
+                                    choices = unique(res_exp_1_2$collinearity),
+                                    selected = range(res_exp_1_2$collinearity)
+                                ),
+                                shiny::checkboxGroupInput(
+                                    inputId = "tab3_methods",
+                                    label = "Missing data treatments",
+                                    choices = levels(res_exp_1_2$methods)[c(1:8, 10:13)],
+                                    selected = levels(res_exp_1_2$methods)[c(1:8, 10:12)]
+                                ),
+                                shinyWidgets::sliderTextInput(
+                                    inputId = "tab3_xlim",
+                                    label = "X-axis range",
+                                    hide_min_max = TRUE,
+                                    choices = 0:100,
+                                    selected = c(0, 50),
+                                    grid = FALSE
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                shiny::plotOutput(
+                                    outputId = "tab3_plot"
+                                ),
+                                style = "border-left: 1px solid; border-left-color: #DDDDDD; height: 725px"
+                            )
                         ),
-                        shiny::selectInput(
-                            inputId = "tab3_outcome",
-                            label = "Performance Measure",
-                            choices = c("PRB", "CIC", "CIW"),
-                            selected = "PRB"
+                        shiny::tabPanel(
+                            title = "Imputation time",
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                offset = 0,
+shiny::HTML(
+    "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+)
+                            )
                         ),
-                        shiny::checkboxGroupInput(
-                            inputId = "tab3_rho",
-                            label = "Strenght of the correlation",
-                            inline = TRUE,
-                            choices = unique(res_exp_1_2$collinearity),
-                            selected = range(res_exp_1_2$collinearity)
-                        ),
-                        shiny::checkboxGroupInput(
-                            inputId = "tab3_methods",
-                            label = "Missing data treatments",
-                            choices = levels(res_exp_1_2$methods),
-                            selected = levels(res_exp_1_2$methods)[1:12]
-                        ),
-                        shinyWidgets::sliderTextInput(
-                            inputId = "tab3_xlim",
-                            label = "X-axis range",
-                            hide_min_max = TRUE,
-                            choices = 0:100,
-                            selected = c(0, 50),
-                            grid = FALSE
+                        shiny::tabPanel(
+                            title = "Convergence checks",
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                offset = 0,
+                                shiny::HTML(
+                                    "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                                )
+                            )
                         )
-                    ),
-                    shiny::column(
-                        width = 7,
-                        offset = 1,
-                        shiny::plotOutput(
-                            outputId = "tab3_plot"
-                        ),
-                        style = "border-left: 1px solid; border-left-color: #DDDDDD"
                     )
                 ),
                 shiny::tabPanel(
@@ -118,8 +256,7 @@ ui_call <- function() {
                         shiny::column(
                             width = 5,
                             shiny::HTML(
-                                "<br>
-                            <br>"
+                                "<br>"
                             ),
                             shiny::tabsetPanel(
                                 type = "tabs",
@@ -156,8 +293,7 @@ ui_call <- function() {
                         shiny::column(
                             width = 7,
                             shiny::HTML(
-                                "<br>
-                            <br>"
+                                "<br>"
                             ),
                             shiny::column(
                                 width = 10,
@@ -180,8 +316,7 @@ ui_call <- function() {
                                 ),
                                 shiny::plotOutput(
                                     outputId = "hist"
-                                ),
-                                style = "height: 525px"
+                                )
                             ),
                             shiny::column(
                                 width = 5,
@@ -190,28 +325,14 @@ ui_call <- function() {
                                 ),
                                 shiny::plotOutput(
                                     outputId = "scatter"
-                                ),
-                                style = "height: 525px"
+                                )
                             ),
-                            style = "border-left: 1px solid; border-left-color: #DDDDDD"
+                            style = "border-left: 1px solid; border-left-color: #DDDDDD; height: 725px"
                         )
                     )
                 ),
                 shiny::tabPanel(
                     title = "Module 4: Resampling study",
-                    shiny::column(
-                        width = 2,
-                        offset = 5,
-                        shiny::HTML(
-                            "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
-                        )
-                    )
-                ),
-                shiny::tabPanel(
-                    title = "Module 5: Convergence checks",
                     shiny::column(
                         width = 2,
                         offset = 5,

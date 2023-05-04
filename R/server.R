@@ -9,7 +9,48 @@
 #' @export
 server <- function(input, output, session) {
 
-        # Tab 2: Collineairty study --------------------------------------------
+        # Tab 2: Simulation study ----------------------------------------------
+
+        # Update X limits default input based on outcome (performance) measure
+        observe({
+            # Define subset of data in use
+            if (input$tab2_outcome == "PRB") {
+                tab2_xlim_choices <- 0:100
+                tab2_xlim_selected <- c(0, 50)
+            }
+            if (input$tab2_outcome == "CIC") {
+                tab2_xlim_choices <- 0:100
+                tab2_xlim_selected <- c(70, 100)
+            }
+            if (input$tab2_outcome == "CIW") {
+                tab2_xlim_choices <- 0:10
+                tab2_xlim_selected <- c(0, 5)
+            }
+            shinyWidgets::updateSliderTextInput(
+                session,
+                inputId = "tab2_xlim",
+                choices = tab2_xlim_choices,
+                selected = tab2_xlim_selected
+            )
+        })
+
+        # Main plot
+        output$tab2_plot <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_simulation(
+                    res = res_exp_1,
+                    dims = input$tab2_dims,
+                    outcome = input$tab2_outcome,
+                    meths = input$tab2_methods,
+                    prop_NA = input$tab2_pm,
+                    x_lims = input$tab2_xlim
+                )
+            }
+        )
+
+        # Tab 3: Collineairty study --------------------------------------------
 
         # Update X limits default input based on outcome (performance) measure
         observe({
@@ -160,5 +201,23 @@ server <- function(input, output, session) {
         # > Text ---------------------------------------------------------------
 
         output <- tab_mi_pca_text(output)
+
+        # Module 5: Imputation time --------------------------------------------
+
+        # Simulation study
+        output$tab5_plot_time_main_sim <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_time_simulation(
+                    res = res_exp_1_time,
+                    dims = input$tab2_dims,
+                    meths = input$tab2_methods,
+                    prop_NA = input$tab2_pm,
+                    x_lims = c(0, 90)
+                )
+            }
+        )
+
 
     }

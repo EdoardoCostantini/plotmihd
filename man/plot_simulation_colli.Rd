@@ -30,10 +30,10 @@ Plot results for the simulation study on collinearity
 data(res_exp_1_2)
 res <- res_exp_1_2
 dims <- 50
-outcome <- c("PRB", "CIC")[1]
+outcome <- c("PRB", "CIC", "CIW")[3]
 meths <- levels(res$methods)[1:11]
 rho <- c(0, .9)
-x_lims <- c(0, 50)
+x_lims <- c(50, 100)
 
 }
 \author{

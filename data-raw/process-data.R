@@ -61,7 +61,7 @@ levels(res_exp_1_time$variable) <- str_replace(levels(res_exp_1_time$variable), 
 
 # Fix methods order
 res_exp_1_time$variable <- factor(res_exp_1_time$variable,
-    levels = levels(res_exp_1_time$variable)[c(1:7, 11, 8:10)]
+    levels = levels(res_exp_1_time$variable)[c(1:7, 11, 9, 10, 8)]
 )
 
 # Add an empty collineairty column (for processing data with a single plotting function)
@@ -110,11 +110,6 @@ levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variabl
 # Replace NA in conditions with 0
 res_exp_1_2_time$cond <- gsub("NA", "0", res_exp_1_2_time$cond)
 res_exp_1_2_time$collinearity[is.na(res_exp_1_2_time$collinearity)] <- 0
-
-# Fix methods order
-res_exp_1_2_time$variable <- factor(res_exp_1_2_time$variable,
-    levels = levels(res_exp_1_2_time$variable)[c(1:7, 11, 8:10)]
-)
 
 # Use the data
 usethis::use_data(res_exp_1_2_time, overwrite = TRUE)

@@ -64,7 +64,7 @@ ui_call <- function() {
                                 ),
                                 shiny::selectInput(
                                     inputId = "tab2_dims",
-                                    label = "Number of columns in the data (p)",
+                                    label = "Number of columns in the data",
                                     choices = c(50, 500),
                                     selected = 500
                                 ),
@@ -111,21 +111,21 @@ ui_call <- function() {
                                 width = 3,
                                 shiny::selectInput(
                                     inputId = "tab2_time_dims",
-                                    label = "Number of columns in the data (p)",
+                                    label = "Number of columns in the data",
                                     choices = c(50, 500),
                                     selected = 500
                                 ),
                                 shiny::selectInput(
                                     inputId = "tab2_time_pm",
                                     label = "Proportion of missing cases",
-                                    choices = unique(res_exp_1$pm),
-                                    selected = unique(res_exp_1$pm)[2]
+                                    choices = unique(res_exp_1_time$pm),
+                                    selected = unique(res_exp_1_time$pm)[2]
                                 ),
                                 shiny::checkboxGroupInput(
                                     inputId = "tab2_time_methods",
                                     label = "Missing data treatments",
-                                    choices = levels(res_exp_1$methods),
-                                    selected = levels(res_exp_1$methods)[1:12]
+                                    choices = levels(res_exp_1_time$variable),
+                                    selected = levels(res_exp_1_time$variable)
                                 )
                             ),
                             shiny::column(
@@ -177,7 +177,7 @@ ui_call <- function() {
                                 ),
                                 shiny::selectInput(
                                     inputId = "tab3_dims",
-                                    label = "Number of columns in the data (p)",
+                                    label = "Number of columns in the data",
                                     choices = c(50, 500),
                                     selected = 500
                                 ),
@@ -219,23 +219,33 @@ ui_call <- function() {
                         ),
                         shiny::tabPanel(
                             title = "Imputation time",
+                            shiny::HTML("<br>"),
                             shiny::column(
                                 width = 3,
-                                shiny::HTML(
-                                    "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
+                                shiny::selectInput(
+                                    inputId = "tab3_time_dims",
+                                    label = "Number of columns in the data",
+                                    choices = c(50, 500),
+                                    selected = 500
+                                ),
+                                shiny::selectInput(
+                                    inputId = "tab3_time_rho",
+                                    label = "Collinearity",
+                                    choices = unique(res_exp_1_2_time$collinearity),
+                                    selected = unique(res_exp_1_2_time$collinearity)[4]
+                                ),
+                                shiny::checkboxGroupInput(
+                                    inputId = "tab3_time_methods",
+                                    label = "Missing data treatments",
+                                    choices = levels(res_exp_1_2_time$variable),
+                                    selected = levels(res_exp_1_2_time$variable)
                                 )
                             ),
                             shiny::column(
                                 width = 8,
                                 offset = 0,
-                                shiny::HTML(
-                                    "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
+                                shiny::plotOutput(
+                                    outputId = "tab3_plot_time"
                                 )
                             )
                         ),

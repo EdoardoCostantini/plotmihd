@@ -224,5 +224,20 @@ server <- function(input, output, session) {
             }
         )
 
+        # Simulation study
+        output$tab3_plot_time <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_time_simulation(
+                    res = res_exp_1_2_time,
+                    dims = input$tab3_time_dims,
+                    meths = input$tab3_time_methods,
+                    prop_NA = 0.3,
+                    rho = input$tab3_time_rho,
+                    x_lims = c(0, 90)
+                )
+            }
+        )
 
     }

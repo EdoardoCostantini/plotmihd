@@ -402,21 +402,24 @@ ui_call <- function() {
                             shiny::HTML("<br>"),
                             shiny::column(
                                 width = 3,
-                                shiny::HTML(
-                                    "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
+                                shiny::selectInput(
+                                    inputId = "tab4_time_sample_size",
+                                    label = "Sample size",
+                                    choices = c(1000, 300),
+                                    selected = 1000
+                                ),
+                                shiny::checkboxGroupInput(
+                                    inputId = "tab4_time_methods",
+                                    label = "Missing data treatments",
+                                    choices = levels(res_exp_4_time$variable),
+                                    selected = levels(res_exp_4_time$variable)
                                 )
                             ),
                             shiny::column(
                                 width = 8,
                                 offset = 0,
-                                shiny::HTML(
-                                    "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
+                                shiny::plotOutput(
+                                    outputId = "tab4_plot_time"
                                 )
                             )
                         ),

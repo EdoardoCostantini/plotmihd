@@ -5,12 +5,15 @@
 #' @param meths names of imputation methods to plot
 #' @param prop_NA vector of the correlation coefficients to plot
 #' @param x_lims minimum and maxim values for the x axis values
+#' @details
+#' Can be used to plot the results of all studies.
 #' @return ggplot object
 #' @author Edoardo Costantini, 2023
 #' @examples
 #' # Example internals main simulation study
 #' res <- res_exp_1_time
 #' meths <- levels(res_exp_1_time$variable)[1:3]
+#' sample_size <- 200
 #' dims <- 50
 #' prop_NA <- .3
 #' rho <- 0
@@ -23,9 +26,18 @@
 #' prop_NA <- .3
 #' rho <- .6
 #' x_lims <- c(0, 90)
+#' 
+#' # Example internals resampling study
+#' res <- res_exp_4_time
+#' meths <- levels(res_exp_4_time$variable)[1:3]
+#' dims <- 243
+#' prop_NA <- 0
+#' rho <- 0
+#' sample_size <- 1000
+#' x_lims <- c(0, 90)
 #'
 #' @export
-plot_time_simulation <- function(res, meths, dims, prop_NA, rho, x_lims) {
+plot_time_simulation <- function(res, meths, dims, prop_NA, rho, sample_size, x_lims) {
 
     # Graphical parameters
     segme.thick <- 1 # thickness of lines reporting results (was 1)
@@ -50,6 +62,7 @@ plot_time_simulation <- function(res, meths, dims, prop_NA, rho, x_lims) {
             pm == prop_NA,
             p == dims,
             collinearity == rho,
+            n == sample_size,
             variable %in% meths
         )
 

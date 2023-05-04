@@ -253,7 +253,7 @@ server <- function(input, output, session) {
                     model = input$tab4_model,
                     dt_reps = 500,
                     ci_lvl = .95,
-                    meth_compare = c("DURR_la", "IURR_la", "blasso", "bridge", "MI_PCA", "MI_CART", "MI_RF", "stepFor", "CC")
+                    meth_compare = rev(c("DURR_la", "IURR_la", "blasso", "bridge", "MI_PCA", "MI_CART", "MI_RF", "stepFor", "CC"))
                 )
             }
         )

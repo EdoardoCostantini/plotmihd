@@ -97,8 +97,8 @@ plot_resampling <- function(res,
     dt_edit <- do.call(rbind, dt_edit)
 
     # Change Methods labels
-    dt_edit$key <- str_replace(dt_edit$key, "blasso", "BLasso")
-    dt_edit$key <- str_replace(dt_edit$key, "bridge", "BRidge")
+    dt_edit$key <- stringr::str_replace(dt_edit$key, "blasso", "BLasso")
+    dt_edit$key <- stringr::str_replace(dt_edit$key, "bridge", "BRidge")
 
     # Define Step Size for all parameters sets
     step_size <- (

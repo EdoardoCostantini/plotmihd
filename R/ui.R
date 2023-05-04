@@ -218,12 +218,12 @@ ui_call <- function() {
                             shiny::column(
                                 width = 8,
                                 offset = 0,
-shiny::HTML(
-    "<br>
+                                shiny::HTML(
+                                    "<br>
                             <p style='text-align:center'>Coming soon</p>
                             <br>
                             <br>"
-)
+                                )
                             )
                         ),
                         shiny::tabPanel(

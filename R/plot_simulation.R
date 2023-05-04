@@ -8,6 +8,8 @@
 #' @param rho vector of the correlation coefficients to plot
 #' @param reps number of repetitions used in the simulation
 #' @param x_lims minimum and maxim values for the x axis values
+#' @details 
+#' If you use the data for the first simulation study, then set `rho = NA`. If you use data for simulation study 1.2, then set `prop_NA = 0.3`.
 #' @return ggplot object
 #' @author Edoardo Costantini, 2023
 #' @examples

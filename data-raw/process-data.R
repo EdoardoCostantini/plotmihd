@@ -64,6 +64,9 @@ res_exp_1_time$variable <- factor(res_exp_1_time$variable,
     levels = levels(res_exp_1_time$variable)[c(1:7, 11, 8:10)]
 )
 
+# Add an empty collineairty column (for processing data with a single plotting function)
+res_exp_1_time$collinearity <- 0
+
 # Use the data
 usethis::use_data(res_exp_1_time, overwrite = TRUE)
 
@@ -91,3 +94,27 @@ res_exp_1_2$analysis <- factor(
 
 # Use the data
 usethis::use_data(res_exp_1_2, overwrite = TRUE)
+
+# Simulation study 1.2: time -------------------------------------------------------
+
+# Change names of methods
+levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "_la", "")
+levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "blasso", "BLasso")
+levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "bridge", "BRidge")
+levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "_", "-")
+levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "MI-qp", "MI-QP")
+levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "MI-am", "MI-AM")
+levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "MI-OP", "MI-OR")
+levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "stepFor", "MI-SF")
+
+# Replace NA in conditions with 0
+res_exp_1_2_time$cond <- gsub("NA", "0", res_exp_1_2_time$cond)
+res_exp_1_2_time$collinearity[is.na(res_exp_1_2_time$collinearity)] <- 0
+
+# Fix methods order
+res_exp_1_2_time$variable <- factor(res_exp_1_2_time$variable,
+    levels = levels(res_exp_1_2_time$variable)[c(1:7, 11, 8:10)]
+)
+
+# Use the data
+usethis::use_data(res_exp_1_2_time, overwrite = TRUE)

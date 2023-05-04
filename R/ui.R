@@ -119,7 +119,7 @@ ui_call <- function() {
                                 width = 8,
                                 offset = 0,
                                 shiny::plotOutput(
-                                    outputId = "tab5_plot_time_main_sim"
+                                    outputId = "tab2_plot_time_main_sim"
                                 )
                             )
                         ),

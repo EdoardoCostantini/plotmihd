@@ -21,6 +21,9 @@ res_exp_1_2 <- readRDS("./data-raw/exp1_2_simOut_20230503_0838_res.rds")
 # Load simulation study 1.2 time
 res_exp_1_2_time <- readRDS("./data-raw/exp1_2_simOut_time.rds")
 
+# Load resampling study results
+res_exp_4 <- readRDS("./data-raw/exp4_simOut_20230323_1551_res.rds")
+
 # Simulation study: results ----------------------------------------------------
 
 # Change names of methods
@@ -113,3 +116,8 @@ res_exp_1_2_time$collinearity[is.na(res_exp_1_2_time$collinearity)] <- 0
 
 # Use the data
 usethis::use_data(res_exp_1_2_time, overwrite = TRUE)
+
+# Resampling study: results ----------------------------------------------------
+
+# Use the data
+usethis::use_data(res_exp_4, overwrite = TRUE)

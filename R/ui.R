@@ -356,14 +356,72 @@ ui_call <- function() {
                 ),
                 shiny::tabPanel(
                     title = "Module 4: Resampling study",
-                    shiny::column(
-                        width = 2,
-                        offset = 5,
-                        shiny::HTML(
-                            "<br>
+                    shiny::HTML("<br>"),
+                    shiny::tabsetPanel(
+                        shiny::tabPanel(
+                            title = "Main results",
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
+                            This tab allows you to plot the results of the resampling study reported in the article. You change the values of the experimental factors to plot the results you are most interested in.
+                            <br>
+                            <br>
+                            "
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                shiny::plotOutput(
+                                    outputId = "tab4_plot_res"
+                                ),
+                                style = "border-left: 1px solid; border-left-color: #DDDDDD; height: 725px"
+                            )
+                        ),
+                        shiny::tabPanel(
+                            title = "Imputation time",
+                            shiny::HTML("<br>"),
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
                             <p style='text-align:center'>Coming soon</p>
                             <br>
                             <br>"
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                offset = 0,
+                                shiny::HTML(
+                                    "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                                )
+                            )
+                        ),
+                        shiny::tabPanel(
+                            title = "Convergence checks",
+                            shiny::column(
+                                width = 3,
+                                shiny::HTML(
+                                    "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                                )
+                            ),
+                            shiny::column(
+                                width = 8,
+                                offset = 0,
+                                shiny::HTML(
+                                    "<br>
+                            <p style='text-align:center'>Coming soon</p>
+                            <br>
+                            <br>"
+                                )
+                            )
                         )
                     )
                 )

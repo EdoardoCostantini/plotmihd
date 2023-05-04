@@ -206,7 +206,7 @@ server <- function(input, output, session) {
 
         output <- tab_mi_pca_text(output)
 
-        # Module 5: Imputation time --------------------------------------------
+        # Imputation time ------------------------------------------------------
 
         # Simulation study
         output$tab2_plot_time_main_sim <- shiny::renderPlot(
@@ -236,6 +236,25 @@ server <- function(input, output, session) {
                     prop_NA = 0.3,
                     rho = input$tab3_time_rho,
                     x_lims = c(0, 90)
+                )
+            }
+        )
+
+        # Tab 4: Resampling study ----------------------------------------------
+
+        # Simulation study
+        output$tab4_plot_res <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_resampling(
+                    res = res_exp_4,
+                    outcome = c("bias_per", "ci_cov", "CIW")[1],
+                    model = c("m1", "m2")[1],
+                    type = "bias",
+                    dt_reps = 500,
+                    ci_lvl = .95,
+                    meth_compare = c("DURR_la", "IURR_la", "blasso", "bridge", "MI_PCA", "MI_CART", "MI_RF", "stepFor", "CC")
                 )
             }
         )

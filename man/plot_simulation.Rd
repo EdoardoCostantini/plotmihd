@@ -4,7 +4,16 @@
 \alias{plot_simulation}
 \title{Plot results for the simulation study}
 \usage{
-plot_simulation(res, dims, outcome, meths, prop_NA, x_lims)
+plot_simulation(
+  res,
+  dims,
+  outcome,
+  meths,
+  rho = NULL,
+  prop_NA = NULL,
+  x_lims,
+  reps
+)
 }
 \arguments{
 \item{res}{result object from the simulation study}
@@ -15,9 +24,13 @@ plot_simulation(res, dims, outcome, meths, prop_NA, x_lims)
 
 \item{meths}{names of imputation methods to plot}
 
+\item{rho}{vector of the correlation coefficients to plot}
+
 \item{prop_NA}{vector of the correlation coefficients to plot}
 
 \item{x_lims}{minimum and maxim values for the x axis values}
+
+\item{reps}{number of repetitions used in the simulation}
 }
 \value{
 ggplot object
@@ -26,14 +39,43 @@ ggplot object
 Plot results for the simulation study
 }
 \examples{
-# Example internals
+# Example internals main simulation study
 data(res_exp_1)
 res <- res_exp_1
 dims <- 50
 outcome <- c("PRB", "CIC", "CIW")[1]
-meths <- levels(res$methods)[1:11]
+meths <- levels(res_exp_1$methods)[1:11]
 prop_NA <- c(0.1, .3)
-x_lims <- c(0, 50)
+rho <- unique(res_exp_1$collinearity)
+
+# Example use
+plot_simulation(
+    res = res_exp_1,
+    dims = dims,
+    outcome = outcome,
+    meths = meths,
+    x_lims = x_lims,
+    rho = unique(res_exp_1$collinearity)
+    prop_NA = prop_NA
+)
+
+# Example internals collinearity study
+data(res_exp_1_2)
+res <- res_exp_1_2
+prop_NA <- unique(res_exp_1_2$pm)
+rho <- c(0, .9)
+x_lims <- c(1, 50)
+
+# Example use
+plot_simulation(
+    res = res_exp_1_2,
+    dims = dims,
+    outcome = outcome,
+    meths = meths,
+    x_lims = x_lims,
+    rho = rho
+    prop_NA = unique(res_exp_1_2$pm)
+)
 
 }
 \author{

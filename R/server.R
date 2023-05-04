@@ -45,6 +45,8 @@ server <- function(input, output, session) {
                     outcome = input$tab2_outcome,
                     meths = input$tab2_methods,
                     prop_NA = input$tab2_pm,
+                    rho = unique(res_exp_1$collinearity),
+                    reps = 1e3,
                     x_lims = input$tab2_xlim
                 )
             }
@@ -80,12 +82,14 @@ server <- function(input, output, session) {
             res = 96,
             height = 725,
             {
-                plot_simulation_colli(
+                plot_simulation(
                     res = res_exp_1_2,
                     dims = input$tab3_dims,
                     outcome = input$tab3_outcome,
                     meths = input$tab3_methods,
                     rho = input$tab3_rho,
+                    prop_NA = unique(res_exp_1_2$pm),
+                    reps = 500,
                     x_lims = input$tab3_xlim
                 )
             }

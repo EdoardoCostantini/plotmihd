@@ -215,9 +215,9 @@ server <- function(input, output, session) {
             {
                 plot_time_simulation(
                     res = res_exp_1_time,
-                    dims = input$tab2_dims,
-                    meths = input$tab2_methods,
-                    prop_NA = input$tab2_pm,
+                    dims = input$tab2_time_dims,
+                    meths = input$tab2_time_methods,
+                    prop_NA = input$tab2_time_pm,
                     rho = 0,
                     x_lims = c(0, 90)
                 )

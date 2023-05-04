@@ -88,6 +88,11 @@ plot_time_simulation <- function(res, meths, dims, prop_NA, rho, x_lims) {
             color = v.lines.color
         ) +
         ggplot2::coord_cartesian(xlim = x_lims) +
+        ggplot2::labs(
+            x = "Imputation time in minutes"
+        ) + 
+        # Y axis
+        ggplot2::scale_y_discrete(limits = rev) +
         # Horizontal lines
         ggplot2::geom_hline(
             yintercept = plot_hlines,
@@ -95,9 +100,6 @@ plot_time_simulation <- function(res, meths, dims, prop_NA, rho, x_lims) {
             color = h.lines.color
         ) +
         # Theme, title, and axis
-        ggplot2::labs(
-            x = "Imputation time in minutes"
-        ) + 
         ggplot2::theme(
             plot.title = ggplot2::element_blank(),
             axis.title.y = ggplot2::element_blank(),

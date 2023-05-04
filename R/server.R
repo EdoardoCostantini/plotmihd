@@ -209,19 +209,35 @@ server <- function(input, output, session) {
         # Module 5: Imputation time --------------------------------------------
 
         # Simulation study
-        output$tab5_plot_time_main_sim <- shiny::renderPlot(
+        output$tab2_plot_time_main_sim <- shiny::renderPlot(
             res = 96,
             height = 725,
             {
                 plot_time_simulation(
                     res = res_exp_1_time,
-                    dims = input$tab2_dims,
-                    meths = input$tab2_methods,
-                    prop_NA = input$tab2_pm,
+                    dims = input$tab2_time_dims,
+                    meths = input$tab2_time_methods,
+                    prop_NA = input$tab2_time_pm,
+                    rho = 0,
                     x_lims = c(0, 90)
                 )
             }
         )
 
+        # Simulation study
+        output$tab3_plot_time <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_time_simulation(
+                    res = res_exp_1_2_time,
+                    dims = input$tab3_time_dims,
+                    meths = input$tab3_time_methods,
+                    prop_NA = 0.3,
+                    rho = input$tab3_time_rho,
+                    x_lims = c(0, 90)
+                )
+            }
+        )
 
     }

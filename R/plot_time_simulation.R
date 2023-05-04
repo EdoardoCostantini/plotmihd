@@ -8,14 +8,25 @@
 #' @return ggplot object
 #' @author Edoardo Costantini, 2023
 #' @examples
+#' # Example internals main simulation study
 #' res <- res_exp_1_time
-#' meths <- levels(dt$variable)[1:3]
+#' meths <- levels(res_exp_1_time$variable)[1:3]
 #' dims <- 50
 #' prop_NA <- .3
+#' rho <- 0
+#' x_lims <- c(0, 90)
+#' 
+#' # Example internals collinearity simulation study 
+#' res <- res_exp_1_2_time
+#' meths <- levels(res_exp_1_2_time$variable)[1:3]
+#' dims <- 50
+#' prop_NA <- .3
+#' rho <- .6
 #' x_lims <- c(0, 90)
 #'
 #' @export
-plot_time_simulation <- function(res, meths, dims, prop_NA, x_lims) {
+plot_time_simulation <- function(res, meths, dims, prop_NA, rho, x_lims) {
+
     # Graphical parameters
     segme.thick <- 1 # thickness of lines reporting results (was 1)
     small.color <- "darkgray" # color of lines |PRB| < 10%
@@ -36,10 +47,14 @@ plot_time_simulation <- function(res, meths, dims, prop_NA, x_lims) {
     # Filter data
     res_filtered <- res %>%
         dplyr::filter(
-            pm %in% prop_NA,
+            pm == prop_NA,
             p == dims,
+            collinearity == rho,
             variable %in% meths
         )
+
+    # Round results
+    res_filtered$value <- round(res_filtered$value, 2)
 
     # Main Plot
     plot_main <- ggplot2::ggplot(
@@ -55,12 +70,7 @@ plot_time_simulation <- function(res, meths, dims, prop_NA, x_lims) {
             size = 2
         )
 
-    # Faceting
-    plot_faceted <- plot_main + ggplot2::facet_grid(
-        cols = ggplot2::vars(cond)
-    )
-
-    plot_themed <- plot_faceted + ggplot2::labs(
+    plot_themed <- plot_main + ggplot2::labs(
         # Cosmetic
         title = ggplot2::element_blank(),
         x = ggplot2::element_blank(),
@@ -78,6 +88,11 @@ plot_time_simulation <- function(res, meths, dims, prop_NA, x_lims) {
             color = v.lines.color
         ) +
         ggplot2::coord_cartesian(xlim = x_lims) +
+        ggplot2::labs(
+            x = "Imputation time in minutes"
+        ) + 
+        # Y axis
+        ggplot2::scale_y_discrete(limits = rev) +
         # Horizontal lines
         ggplot2::geom_hline(
             yintercept = plot_hlines,
@@ -87,8 +102,6 @@ plot_time_simulation <- function(res, meths, dims, prop_NA, x_lims) {
         # Theme, title, and axis
         ggplot2::theme(
             plot.title = ggplot2::element_blank(),
-            # plot.margin  = unit(c(0, 0.1, 0, 0.05), "cm"),
-            axis.title.x = ggplot2::element_blank(),
             axis.title.y = ggplot2::element_blank(),
             # Background
             panel.background = ggplot2::element_rect(fill = "white", colour = "white"),

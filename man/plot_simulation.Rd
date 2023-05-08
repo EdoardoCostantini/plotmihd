@@ -38,6 +38,9 @@ ggplot object
 \description{
 Plot results for the simulation study
 }
+\details{
+If you use the data for the first simulation study, then set \code{rho = NA}. If you use data for simulation study 1.2, then set \code{prop_NA = 0.3}.
+}
 \examples{
 # Example internals main simulation study
 data(res_exp_1)
@@ -55,7 +58,7 @@ plot_simulation(
     outcome = outcome,
     meths = meths,
     x_lims = x_lims,
-    rho = unique(res_exp_1$collinearity)
+    rho = unique(res_exp_1$collinearity),
     prop_NA = prop_NA
 )
 
@@ -69,11 +72,11 @@ x_lims <- c(1, 50)
 # Example use
 plot_simulation(
     res = res_exp_1_2,
-    dims = dims,
-    outcome = outcome,
-    meths = meths,
-    x_lims = x_lims,
-    rho = rho
+    dims = unique(res_exp_1_2$p)[1],
+    outcome = levels(res_exp_1_2$analysis)[1],
+    meths = levels(res_exp_1_2$methods)[1:5],
+    x_lims = c(1, 50),
+    rho = unique(res_exp_1_2$collinearity),
     prop_NA = unique(res_exp_1_2$pm)
 )
 

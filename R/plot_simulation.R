@@ -29,7 +29,7 @@
 #'     outcome = outcome,
 #'     meths = meths,
 #'     x_lims = x_lims,
-#'     rho = unique(res_exp_1$collinearity)
+#'     rho = unique(res_exp_1$collinearity),
 #'     prop_NA = prop_NA
 #' )
 #' 
@@ -43,11 +43,11 @@
 #' # Example use
 #' plot_simulation(
 #'     res = res_exp_1_2,
-#'     dims = dims,
-#'     outcome = outcome,
-#'     meths = meths,
-#'     x_lims = x_lims,
-#'     rho = rho
+#'     dims = unique(res_exp_1_2$p)[1],
+#'     outcome = levels(res_exp_1_2$analysis)[1],
+#'     meths = levels(res_exp_1_2$methods)[1:5],
+#'     x_lims = c(1, 50),
+#'     rho = unique(res_exp_1_2$collinearity),
 #'     prop_NA = unique(res_exp_1_2$pm)
 #' )
 #'

@@ -4,7 +4,7 @@
 \alias{plot_time_simulation}
 \title{Plot time for different data results}
 \usage{
-plot_time_simulation(res, meths, dims, prop_NA, x_lims)
+plot_time_simulation(res, meths, dims, prop_NA, rho, sample_size, x_lims)
 }
 \arguments{
 \item{res}{result object from the simulation study}
@@ -23,11 +23,34 @@ ggplot object
 \description{
 Plot time for different data results
 }
+\details{
+Can be used to plot the results of all studies.
+}
 \examples{
+# Example internals main simulation study
 res <- res_exp_1_time
-meths <- levels(dt$variable)[1:3]
+meths <- levels(res_exp_1_time$variable)[1:3]
+sample_size <- 200
 dims <- 50
 prop_NA <- .3
+rho <- 0
+x_lims <- c(0, 90)
+
+# Example internals collinearity simulation study 
+res <- res_exp_1_2_time
+meths <- levels(res_exp_1_2_time$variable)[1:3]
+dims <- 50
+prop_NA <- .3
+rho <- .6
+x_lims <- c(0, 90)
+
+# Example internals resampling study
+res <- res_exp_4_time
+meths <- levels(res_exp_4_time$variable)[1:3]
+dims <- 243
+prop_NA <- 0
+rho <- 0
+sample_size <- 1000
 x_lims <- c(0, 90)
 
 }

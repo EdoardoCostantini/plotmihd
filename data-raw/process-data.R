@@ -16,7 +16,7 @@ res_exp_1 <- readRDS("./data-raw/exp1_simOut_20230403_1631_res.rds")
 res_exp_1_time <- readRDS("./data-raw/exp1_simOut_time.rds")
 
 # Load results for simulation study 1.2
-res_exp_1_2 <- readRDS("./data-raw/exp1_2_simOut_20230503_0838_res.rds")
+res_exp_1_2 <- readRDS("./data-raw/exp1_2_simOut_main_results_res.rds")
 
 # Load simulation study 1.2 time
 res_exp_1_2_time <- readRDS("./data-raw/exp1_2_simOut_time.rds")
@@ -102,6 +102,7 @@ usethis::use_data(res_exp_1_2, overwrite = TRUE)
 # Simulation study 1.2: time -------------------------------------------------------
 
 # Change names of methods
+levels(res_exp_1_2_time$variable) <- gsub("_", "-", levels(res_exp_1_2_time$variable))
 levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "_la", "")
 levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "blasso", "BLasso")
 levels(res_exp_1_2_time$variable) <- str_replace(levels(res_exp_1_2_time$variable), "bridge", "BRidge")

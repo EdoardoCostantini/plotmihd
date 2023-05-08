@@ -197,8 +197,8 @@ ui_call <- function() {
                                 shiny::checkboxGroupInput(
                                     inputId = "tab3_methods",
                                     label = "Missing data treatments",
-                                    choices = levels(res_exp_1_2$methods)[c(1:8, 10:13)],
-                                    selected = levels(res_exp_1_2$methods)[c(1:8, 10:12)]
+                                    choices = levels(res_exp_1_2$methods)[c(1:9, 11:14)],
+                                    selected = levels(res_exp_1_2$methods)[c(1:9, 11:14)]
                                 ),
                                 shinyWidgets::sliderTextInput(
                                     inputId = "tab3_xlim",

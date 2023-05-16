@@ -111,6 +111,21 @@ server <- function(input, output, session) {
             }
         )
 
+        # Convergence plots
+        output$tab3_trace_plots <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_trace(
+                    mids_data = res_exp_1_2_mids,
+                    method = input$tab_3_conv_method,
+                    layout <- c(2, 6),
+                    iters = input$tab_3_conv_iters,
+                    rp = as.numeric(input$tab_3_conv_rep)
+                )
+            }
+        )
+
         # Tab 3: MI-PCA deep dive ----------------------------------------------
 
         # > Simulate data ------------------------------------------------------

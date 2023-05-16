@@ -12,8 +12,8 @@
 #' @examples
 #' # Define example inputs
 #' mids_data <- res_exp_1_mids
-#' method <- "MI-PCA"
-#' layout <- c(2, 3)
+#' method <- "IURR"
+#' layout <- c(2, 6)
 #' iters <- c(0, 25)
 #' rp <- 1
 #'

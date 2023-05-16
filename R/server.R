@@ -60,9 +60,10 @@ server <- function(input, output, session) {
             {
                 plot_trace(
                     mids_data = res_exp_1_mids,
-                    method = "MI-PCA",
+                    method = input$tab_2_conv_method,
                     layout <- c(2, 6),
-                    iters = c(0, 25)
+                    iters = input$tab_2_conv_iters,
+                    rp = as.numeric(input$tab_2_conv_rep)
                 )
             }
         )

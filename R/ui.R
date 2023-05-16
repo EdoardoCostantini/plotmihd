@@ -481,7 +481,7 @@ ui_call <- function() {
                             shiny::column(
                                 width = 8,
                                 offset = 0,
-shiny::plotOutput(
+                                shiny::plotOutput(
                                     outputId = "tab5_trace_plots"
                                 ),
                             )

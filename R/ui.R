@@ -454,20 +454,36 @@ ui_call <- function() {
                                 width = 3,
                                 shiny::HTML(
                                     "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
+                                This tab allows you to interact with the trace plots for the imputation methods used in the simulation study.
+                                <br>
+                                <br>
+                                "
+                                ),
+                                shiny::selectInput("tab_5_conv_method",
+                                    "Imputation method:",
+                                    choices = names(res_exp_4_mids[[1]]),
+                                    selected = names(res_exp_4_mids[[1]])[1]
+                                ),
+                                shiny::selectInput("tab_5_conv_rep",
+                                    "Repetition:",
+                                    choices = 1:10,
+                                    selected = 1
+                                ),
+                                shinyWidgets::sliderTextInput(
+                                    inputId = "tab_5_conv_iters",
+                                    label = "Iteration range",
+                                    hide_min_max = TRUE,
+                                    choices = 0:250,
+                                    selected = c(0, 25),
+                                    grid = FALSE
                                 )
                             ),
                             shiny::column(
                                 width = 8,
                                 offset = 0,
-                                shiny::HTML(
-                                    "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
-                                )
+shiny::plotOutput(
+                                    outputId = "tab5_trace_plots"
+                                ),
                             )
                         )
                     )

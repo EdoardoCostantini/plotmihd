@@ -308,4 +308,19 @@ server <- function(input, output, session) {
             }
         )
 
+        # Convergence plots
+        output$tab5_trace_plots <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_trace(
+                    mids_data = res_exp_4_mids,
+                    method = input$tab_5_conv_method,
+                    layout <- c(2, 6),
+                    iters = input$tab_5_conv_iters,
+                    rp = as.numeric(input$tab_5_conv_rep)
+                )
+            }
+        )
+
     }

@@ -30,6 +30,9 @@ res_exp_1_2_mids <- readRDS("./data-raw/exp1_2_convergence_all_meth_20230403_102
 # Load resampling study results
 res_exp_4 <- readRDS("./data-raw/exp4_simOut_20230323_1551_res.rds")
 
+# Load slim mids objects for resampling study
+res_exp_4_mids <- readRDS("./data-raw/exp4_conv_20201015_1555_shiny.rds")
+
 # Simulation study: results ----------------------------------------------------
 
 # Change names of methods
@@ -178,3 +181,8 @@ res_exp_4_time$pm <- 0 # corresponds to not considered
 
 # Use the data
 usethis::use_data(res_exp_4_time, overwrite = TRUE)
+
+# Resampling study: mids -------------------------------------------------------
+
+# Use the data
+usethis::use_data(res_exp_4_mids, overwrite = TRUE)

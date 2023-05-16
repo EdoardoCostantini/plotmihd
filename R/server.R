@@ -52,6 +52,21 @@ server <- function(input, output, session) {
             }
         )
 
+        # Convergence plots ----------------------------------------------------
+
+        output$tab2_trace_plots <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_trace(
+                    mids_data = res_exp_1_mids,
+                    method = "MI-PCA",
+                    layout <- c(2, 6),
+                    iters = c(0, 25)
+                )
+            }
+        )
+
         # Tab 3: Collineairty study --------------------------------------------
 
         # Update X limits default input based on outcome (performance) measure

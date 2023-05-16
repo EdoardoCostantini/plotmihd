@@ -2,7 +2,7 @@
 # Objective: Prepare and deploy results for app
 # Author:    Edoardo Costantini
 # Created:   2023-05-02
-# Modified:  2023-05-02
+# Modified:  2023-05-16
 # Notes: 
 
 library(stringr)
@@ -15,14 +15,23 @@ res_exp_1 <- readRDS("./data-raw/exp1_simOut_20230403_1631_res.rds")
 # Load simulation study 1 time
 res_exp_1_time <- readRDS("./data-raw/exp1_simOut_time.rds")
 
+# Load simulation study 1 slim mids objects
+res_exp_1_mids <- readRDS("./data-raw/exp1_conv_20200731_1652_shiny.rds")
+
 # Load results for simulation study 1.2
 res_exp_1_2 <- readRDS("./data-raw/exp1_2_simOut_main_results_res.rds")
 
 # Load simulation study 1.2 time
 res_exp_1_2_time <- readRDS("./data-raw/exp1_2_simOut_time.rds")
 
+# Load slim mids objects for simulation study 1.2
+res_exp_1_2_mids <- readRDS("./data-raw/exp1_2_convergence_all_meth_20230403_1027_shiny.rds")
+
 # Load resampling study results
 res_exp_4 <- readRDS("./data-raw/exp4_simOut_20230323_1551_res.rds")
+
+# Load slim mids objects for resampling study
+res_exp_4_mids <- readRDS("./data-raw/exp4_conv_20201015_1555_shiny.rds")
 
 # Simulation study: results ----------------------------------------------------
 
@@ -74,6 +83,11 @@ res_exp_1_time$n <- 200
 # Use the data
 usethis::use_data(res_exp_1_time, overwrite = TRUE)
 
+# Simulation study mids --------------------------------------------------------
+
+# Use the data
+usethis::use_data(res_exp_1_mids, overwrite = TRUE)
+
 # Simulation study 1.2: results ------------------------------------------------
 
 # Change names of methods if required
@@ -122,6 +136,11 @@ res_exp_1_2_time$n <- 200
 # Use the data
 usethis::use_data(res_exp_1_2_time, overwrite = TRUE)
 
+# Simulation study 1.2: mids ---------------------------------------------------
+
+# Use the data
+usethis::use_data(res_exp_1_2_mids, overwrite = TRUE)
+
 # Resampling study: results ----------------------------------------------------
 
 # Use the data
@@ -162,3 +181,8 @@ res_exp_4_time$pm <- 0 # corresponds to not considered
 
 # Use the data
 usethis::use_data(res_exp_4_time, overwrite = TRUE)
+
+# Resampling study: mids -------------------------------------------------------
+
+# Use the data
+usethis::use_data(res_exp_4_mids, overwrite = TRUE)

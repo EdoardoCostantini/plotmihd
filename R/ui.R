@@ -97,7 +97,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 shiny::plotOutput(
                                     outputId = "tab2_plot"
                                 ),
@@ -129,7 +129,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
                                 shiny::plotOutput(
                                     outputId = "tab2_plot_time_main_sim"
@@ -142,19 +142,35 @@ ui_call <- function() {
                                 width = 3,
                                 shiny::HTML(
                                     "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
+                                This tab allows you to interact with the trace plots for the imputation methods used in the simulation study.
+                                <br>
+                                <br>
+                                "
+                                ),
+                                shiny::selectInput("tab_2_conv_method",
+                                    "Imputation method:",
+                                    choices = names(res_exp_1_mids[[1]]),
+                                    selected = names(res_exp_1_mids[[1]])[1]
+                                ),
+                                shiny::selectInput("tab_2_conv_rep",
+                                    "Repetition:",
+                                    choices = 1:10,
+                                    selected = 1
+                                ),
+                                shinyWidgets::sliderTextInput(
+                                    inputId = "tab_2_conv_iters",
+                                    label = "Iteration range",
+                                    hide_min_max = TRUE,
+                                    choices = 0:250,
+                                    selected = c(0, 25),
+                                    grid = FALSE
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
-                                shiny::HTML(
-                                    "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
+                                shiny::plotOutput(
+                                    outputId = "tab2_trace_plots"
                                 )
                             )
                         )
@@ -168,13 +184,6 @@ ui_call <- function() {
                             title = "Main results",
                             shiny::column(
                                 width = 3,
-                                shiny::HTML(
-                                    "<br>
-                            This tab allows you to plot the results of the collinearity simulation study reported in the article. You change the values of the experimental factors to plot the results you are most interested in.
-                            <br>
-                            <br>
-                            "
-                                ),
                                 shiny::selectInput(
                                     inputId = "tab3_dims",
                                     label = "Number of columns in the data",
@@ -210,7 +219,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 shiny::plotOutput(
                                     outputId = "tab3_plot"
                                 ),
@@ -242,7 +251,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
                                 shiny::plotOutput(
                                     outputId = "tab3_plot_time"
@@ -255,19 +264,35 @@ ui_call <- function() {
                                 width = 3,
                                 shiny::HTML(
                                     "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
+                                This tab allows you to interact with the trace plots for the imputation methods used in the simulation study.
+                                <br>
+                                <br>
+                                "
+                                ),
+                                shiny::selectInput("tab_3_conv_method",
+                                    "Imputation method:",
+                                    choices = names(res_exp_1_2_mids[[1]]),
+                                    selected = names(res_exp_1_2_mids[[1]])[1]
+                                ),
+                                shiny::selectInput("tab_3_conv_rep",
+                                    "Repetition:",
+                                    choices = 1:5,
+                                    selected = 1
+                                ),
+                                shinyWidgets::sliderTextInput(
+                                    inputId = "tab_3_conv_iters",
+                                    label = "Iteration range",
+                                    hide_min_max = TRUE,
+                                    choices = 0:100,
+                                    selected = c(0, 25),
+                                    grid = FALSE
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
-                                shiny::HTML(
-                                    "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
+                                shiny::plotOutput(
+                                    outputId = "tab3_trace_plots"
                                 )
                             )
                         )
@@ -390,7 +415,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 shiny::plotOutput(
                                     outputId = "tab4_plot_res"
                                 ),
@@ -416,7 +441,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
                                 shiny::plotOutput(
                                     outputId = "tab4_plot_time"
@@ -429,20 +454,36 @@ ui_call <- function() {
                                 width = 3,
                                 shiny::HTML(
                                     "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
+                                This tab allows you to interact with the trace plots for the imputation methods used in the simulation study.
+                                <br>
+                                <br>
+                                "
+                                ),
+                                shiny::selectInput("tab_5_conv_method",
+                                    "Imputation method:",
+                                    choices = names(res_exp_4_mids[[1]]),
+                                    selected = names(res_exp_4_mids[[1]])[1]
+                                ),
+                                shiny::selectInput("tab_5_conv_rep",
+                                    "Repetition:",
+                                    choices = 1:10,
+                                    selected = 1
+                                ),
+                                shinyWidgets::sliderTextInput(
+                                    inputId = "tab_5_conv_iters",
+                                    label = "Iteration range",
+                                    hide_min_max = TRUE,
+                                    choices = 0:250,
+                                    selected = c(0, 25),
+                                    grid = FALSE
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
-                                shiny::HTML(
-                                    "<br>
-                            <p style='text-align:center'>Coming soon</p>
-                            <br>
-                            <br>"
-                                )
+                                shiny::plotOutput(
+                                    outputId = "tab5_trace_plots"
+                                ),
                             )
                         )
                     )

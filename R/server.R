@@ -52,6 +52,22 @@ server <- function(input, output, session) {
             }
         )
 
+        # Convergence plots ----------------------------------------------------
+
+        output$tab2_trace_plots <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_trace(
+                    mids_data = res_exp_1_mids,
+                    method = input$tab_2_conv_method,
+                    layout <- c(2, 6),
+                    iters = input$tab_2_conv_iters,
+                    rp = as.numeric(input$tab_2_conv_rep)
+                )
+            }
+        )
+
         # Tab 3: Collineairty study --------------------------------------------
 
         # Update X limits default input based on outcome (performance) measure
@@ -91,6 +107,21 @@ server <- function(input, output, session) {
                     prop_NA = unique(res_exp_1_2$pm),
                     reps = 500,
                     x_lims = input$tab3_xlim
+                )
+            }
+        )
+
+        # Convergence plots
+        output$tab3_trace_plots <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_trace(
+                    mids_data = res_exp_1_2_mids,
+                    method = input$tab_3_conv_method,
+                    layout <- c(2, 6),
+                    iters = input$tab_3_conv_iters,
+                    rp = as.numeric(input$tab_3_conv_rep)
                 )
             }
         )
@@ -273,6 +304,21 @@ server <- function(input, output, session) {
                     dt_reps = 500,
                     ci_lvl = .95,
                     meth_compare = rev(c("DURR_la", "IURR_la", "blasso", "bridge", "MI_PCA", "MI_CART", "MI_RF", "stepFor", "CC"))
+                )
+            }
+        )
+
+        # Convergence plots
+        output$tab5_trace_plots <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_trace(
+                    mids_data = res_exp_4_mids,
+                    method = input$tab_5_conv_method,
+                    layout <- c(2, 6),
+                    iters = input$tab_5_conv_iters,
+                    rp = as.numeric(input$tab_5_conv_rep)
                 )
             }
         )

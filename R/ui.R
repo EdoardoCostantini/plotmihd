@@ -97,7 +97,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 shiny::plotOutput(
                                     outputId = "tab2_plot"
                                 ),
@@ -129,7 +129,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
                                 shiny::plotOutput(
                                     outputId = "tab2_plot_time_main_sim"
@@ -167,7 +167,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
                                 shiny::plotOutput(
                                     outputId = "tab2_trace_plots"
@@ -219,7 +219,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 shiny::plotOutput(
                                     outputId = "tab3_plot"
                                 ),
@@ -251,7 +251,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
                                 shiny::plotOutput(
                                     outputId = "tab3_plot_time"
@@ -289,7 +289,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
                                 shiny::plotOutput(
                                     outputId = "tab3_trace_plots"
@@ -415,7 +415,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 shiny::plotOutput(
                                     outputId = "tab4_plot_res"
                                 ),
@@ -441,7 +441,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
                                 shiny::plotOutput(
                                     outputId = "tab4_plot_time"
@@ -479,7 +479,7 @@ ui_call <- function() {
                                 )
                             ),
                             shiny::column(
-                                width = 8,
+                                width = 9,
                                 offset = 0,
                                 shiny::plotOutput(
                                     outputId = "tab5_trace_plots"

@@ -1,18 +1,26 @@
 # Shiny app: plot mi-hd results
 
-[![DOI: coming soon]]()
-
-This Shiny app allows you to interact with the results in the study [mi-hd](<https://arxiv.org/abs/2208.13656>).
+This Shiny app allows you to interact with the results in the study ["High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods"](<https://arxiv.org/abs/2208.13656>).
 
 ## 1. Installing the Shiny app as an R package
 
+You can install the Shiny app by using one of the methods described below.
+
 ### 1.1 Install from GitHub
 
-- Open an R session and run the following command:
+1. Open an R session.
 
-```
-devtools::install_github("https://github.com/EdoardoCostantini/mihd.results")
-```
+2. Install `devtools`, an R package that provides a way to install other R packages directly from GitHub. Run the following R command in the console:
+
+    ```
+    install.packages("devtools")
+    ```
+
+3. Run the following command:
+
+    ```
+    devtools::install_github("https://github.com/EdoardoCostantini/mihd.results")
+    ```
 
 ### 1.2 Install from a local folder
 
@@ -34,7 +42,7 @@ devtools::install_github("https://github.com/EdoardoCostantini/mihd.results")
 
     ```
     install.packages(
-        "path to the folder containing the package",
+        "C:/Users/Name/Downloads/mihd.results-develop/",
         repos = NULL,
         type = "source"
     )

@@ -84,7 +84,7 @@ gen_data <- function(n = 1e3, block_sizes = c(5, 5, 10), block_rhos = c(.6, .3, 
     )
 
     # Give meaningful names
-    colnames(Z) <- paste0("v", 1:ncol(Z))
+    colnames(Z) <- paste0("z", 1:ncol(Z))
 
     return(as.data.frame(Z))
 }

@@ -22,7 +22,7 @@ This function does such and such.
 }
 \examples{
 # Crete an example correlation matrix
-npcs_nscree <- nFactors::nScree(as.data.frame(X_ma))$Components
+npcs_nscree <- nFactors::nScree(as.data.frame(mtcars))$Components
 npcs_50rule <- 5
 
 # use it

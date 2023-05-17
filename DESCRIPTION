@@ -1,6 +1,6 @@
 Package: mihd.results
 Title: What the Package Does (One Line, Title Case)
-Version: 0.2.0.0000
+Version: 0.9.0.0000
 Authors@R: 
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
@@ -13,8 +13,14 @@ RoxygenNote: 7.2.2
 Imports: 
     dplyr,
     ggplot2,
+    mice,
     mvtnorm,
     nFactors,
     pkgload,
     reshape2,
-    shiny
+    shiny,
+    shinyWidgets,
+    stringr
+Depends: 
+    R (>= 2.10)
+LazyData: true

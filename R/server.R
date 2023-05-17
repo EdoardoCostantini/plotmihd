@@ -9,6 +9,123 @@
 #' @export
 server <- function(input, output, session) {
 
+        # Tab 2: Simulation study ----------------------------------------------
+
+        # Update X limits default input based on outcome (performance) measure
+        observe({
+            # Define subset of data in use
+            if (input$tab2_outcome == "PRB") {
+                tab2_xlim_choices <- 0:100
+                tab2_xlim_selected <- c(0, 50)
+            }
+            if (input$tab2_outcome == "CIC") {
+                tab2_xlim_choices <- 0:100
+                tab2_xlim_selected <- c(70, 100)
+            }
+            if (input$tab2_outcome == "CIW") {
+                tab2_xlim_choices <- 0:10
+                tab2_xlim_selected <- c(0, 5)
+            }
+            shinyWidgets::updateSliderTextInput(
+                session,
+                inputId = "tab2_xlim",
+                choices = tab2_xlim_choices,
+                selected = tab2_xlim_selected
+            )
+        })
+
+        # Main plot
+        output$tab2_plot <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_simulation(
+                    res = res_exp_1,
+                    dims = input$tab2_dims,
+                    outcome = input$tab2_outcome,
+                    meths = input$tab2_methods,
+                    prop_NA = input$tab2_pm,
+                    rho = unique(res_exp_1$collinearity),
+                    reps = 1e3,
+                    x_lims = input$tab2_xlim
+                )
+            }
+        )
+
+        # Convergence plots ----------------------------------------------------
+
+        output$tab2_trace_plots <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_trace(
+                    mids_data = res_exp_1_mids,
+                    method = input$tab_2_conv_method,
+                    layout <- c(2, 6),
+                    iters = input$tab_2_conv_iters,
+                    rp = as.numeric(input$tab_2_conv_rep)
+                )
+            }
+        )
+
+        # Tab 3: Collineairty study --------------------------------------------
+
+        # Update X limits default input based on outcome (performance) measure
+        observe({
+            # Define subset of data in use
+            if (input$tab3_outcome == "PRB") {
+                tab3_xlim_choices <- 0:100
+                tab3_xlim_selected <- c(0, 50)
+            }
+            if(input$tab3_outcome == "CIC"){
+                tab3_xlim_choices <- 0:100
+                tab3_xlim_selected <- c(70, 100)
+            }
+            if (input$tab3_outcome == "CIW") {
+                tab3_xlim_choices <- 0:10
+                tab3_xlim_selected <- c(0, 5)
+            }
+            shinyWidgets::updateSliderTextInput(
+                session,
+                inputId = "tab3_xlim",
+                choices = tab3_xlim_choices,
+                selected = tab3_xlim_selected
+            )
+        })
+
+        # Main plot
+        output$tab3_plot <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_simulation(
+                    res = res_exp_1_2,
+                    dims = input$tab3_dims,
+                    outcome = input$tab3_outcome,
+                    meths = input$tab3_methods,
+                    rho = input$tab3_rho,
+                    prop_NA = unique(res_exp_1_2$pm),
+                    reps = 500,
+                    x_lims = input$tab3_xlim
+                )
+            }
+        )
+
+        # Convergence plots
+        output$tab3_trace_plots <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_trace(
+                    mids_data = res_exp_1_2_mids,
+                    method = input$tab_3_conv_method,
+                    layout <- c(2, 6),
+                    iters = input$tab_3_conv_iters,
+                    rp = as.numeric(input$tab_3_conv_rep)
+                )
+            }
+        )
+
         # Tab 3: MI-PCA deep dive ----------------------------------------------
 
         # > Simulate data ------------------------------------------------------
@@ -119,5 +236,91 @@ server <- function(input, output, session) {
         # > Text ---------------------------------------------------------------
 
         output <- tab_mi_pca_text(output)
+
+        # Imputation time ------------------------------------------------------
+
+        # Simulation study
+        output$tab2_plot_time_main_sim <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_time_simulation(
+                    res = res_exp_1_time,
+                    dims = input$tab2_time_dims,
+                    meths = input$tab2_time_methods,
+                    prop_NA = input$tab2_time_pm,
+                    rho = 0,
+                    sample_size = 200,
+                    x_lims = c(0, 90)
+                )
+            }
+        )
+
+        # Simulation study
+        output$tab3_plot_time <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_time_simulation(
+                    res = res_exp_1_2_time,
+                    dims = input$tab3_time_dims,
+                    meths = input$tab3_time_methods,
+                    prop_NA = 0.3,
+                    rho = input$tab3_time_rho,
+                    sample_size = 200,
+                    x_lims = c(0, 90)
+                )
+            }
+        )
+
+        # Simulation study
+        output$tab4_plot_time <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_time_simulation(
+                    res = res_exp_4_time,
+                    dims = 243,
+                    meths = input$tab4_time_methods,
+                    prop_NA = 0,
+                    rho = 0,
+                    sample_size = input$tab4_time_sample_size,
+                    x_lims = c(0, 90)
+                )
+            }
+        )
+
+        # Tab 4: Resampling study ----------------------------------------------
+
+        # Simulation study
+        output$tab4_plot_res <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_resampling(
+                    res = res_exp_4,
+                    outcome = input$tab4_outcome,
+                    model = input$tab4_model,
+                    dt_reps = 500,
+                    ci_lvl = .95,
+                    meth_compare = rev(c("DURR_la", "IURR_la", "blasso", "bridge", "MI_PCA", "MI_CART", "MI_RF", "stepFor", "CC"))
+                )
+            }
+        )
+
+        # Convergence plots
+        output$tab5_trace_plots <- shiny::renderPlot(
+            res = 96,
+            height = 725,
+            {
+                plot_trace(
+                    mids_data = res_exp_4_mids,
+                    method = input$tab_5_conv_method,
+                    layout <- c(2, 6),
+                    iters = input$tab_5_conv_iters,
+                    rp = as.numeric(input$tab_5_conv_rep)
+                )
+            }
+        )
 
     }

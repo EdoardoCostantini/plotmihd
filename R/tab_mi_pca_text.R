@@ -12,7 +12,7 @@ tab_mi_pca_text <- function(output) {
     output$introduction <- renderText({
         shiny::HTML(
             "<br>
-                The simulation study developed by <a href='https://arxiv.org/abs/2208.13656'>Anonymized et. al. (2022)</a> to compare different data-driven imputation model-building strategies showed that, for higher degrees of collinearity, MI-PCA performed similarly to MI-AM.
+                The simulation study developed by <a href='https://arxiv.org/abs/anonymized'>Anonymized et. al. (2022)</a> to compare different data-driven imputation model-building strategies showed that, for higher degrees of collinearity, MI-PCA performed similarly to MI-AM.
                 The numbered tabs in this section will help to understand the MI-PCA performance observed in the study.
                 <br>
                 <br>"
@@ -96,7 +96,7 @@ tab_mi_pca_text <- function(output) {
                     <li>Acceleration factor (naf)</li>
                     <li>Parallel analysis (nparallel)</li>
                     <li>Kaiser criterion (nkaiser)</li>
-                    <li>50% rule (rule50) - This is the rule used in <a href='https://arxiv.org/abs/2208.13656'>Anonymized et. al. (2022)</a></li>
+                    <li>50% rule (rule50) - This is the rule used in <a href='https://arxiv.org/abs/anonymized'>Anonymized et. al. (2022)</a></li>
                 </ul>
                 When <code>Collinearity</code> is set to 0, the number of components selected by the <b>50% rule</b> is quite high (around 19).
                 As you increase the value of <code>Collinearity</code>, the number selected by this rule decreases and reaches 1 for correlation values greater than 0.5.
@@ -127,7 +127,7 @@ tab_mi_pca_text <- function(output) {
         shiny::HTML(
             "<br>
                 For a <code>Collinearity</code> of 0, the <b>MAR predictors</b> contribute strongly to the computation of the first PC, because of the high loadings.
-                In this scenario, it would be sufficient to use this single PC as a predictor in the imputation models defined by MI-PCA, but based on the 50% rule <a href='https://arxiv.org/abs/2208.13656'>Anonymized et. al. (2022a)</a> actually used the first PC together with the next 18 PCs.
+                In this scenario, it would be sufficient to use this single PC as a predictor in the imputation models defined by MI-PCA, but based on the 50% rule <a href='https://arxiv.org/abs/anonymized'>Anonymized et. al. (2022a)</a> actually used the first PC together with the next 18 PCs.
                 As a result, the MAR predictors were present in the imputation model through the first PC, leading to the good imputation performance seen in the original study.
                 <br>
                 <br>
@@ -136,7 +136,7 @@ tab_mi_pca_text <- function(output) {
                 As a result, in this situation, the only additional predictor MI-PCA would use, compared to MI-AM, is a linear combination of noise variables.
                 <br>
                 <br>
-                In <a href='https://arxiv.org/abs/2208.13656'>Anonymized et. al. (2022a)</a>, MI-PCA performed similarly to MI-AM in conditions with high correlations among the potential auxiliary variables because the only additional predictor was a linear combination of noise variables.
+                In <a href='https://arxiv.org/abs/anonymized'>Anonymized et. al. (2022a)</a>, MI-PCA performed similarly to MI-AM in conditions with high correlations among the potential auxiliary variables because the only additional predictor was a linear combination of noise variables.
                 However, this does not suggest MI-PCA is inadequate for highly collinear data.
                 PCA does what it should: higher correlation values in the block of noise variables make this block the largest variation to explain, and the first PC will summarise it well.
                 The problem for MI-PCA was that the first component extracted had little relevance for the imputation task.

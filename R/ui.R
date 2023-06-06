@@ -30,7 +30,7 @@ ui_call <- function() {
                             This Shiny app accompanies the article:
                             <br>
                             <br>
-                            <a href='https://doi.org/10.48550/arXiv.2208.13656'>Anonymized, E., Lang, K. M., Reeskens, T., & Sijtsma, K. (2022). High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods. <i>arXiv preprint arXiv:2208.13656.</i></a>
+                            <a href='anonymized'>Anonymized (2022). High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods. <i>arXiv preprint arXiv:anonymized.</i></a>
                             <br>
                             <br>
                             The app contains four modules that allow the user to interact with different results related to this article:

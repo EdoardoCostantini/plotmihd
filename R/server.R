@@ -5,7 +5,7 @@
 #' @param input set of inputs coming from ui
 #' @param output set of outputs
 #' @param session session info and status
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #' @export
 server <- function(input, output, session) {
 

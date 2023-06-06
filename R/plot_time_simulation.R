@@ -8,7 +8,7 @@
 #' @details
 #' Can be used to plot the results of all studies.
 #' @return ggplot object
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #' @examples
 #' # Example internals main simulation study
 #' res <- res_exp_1_time

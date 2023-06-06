@@ -19,7 +19,7 @@ You can install the Shiny app by using one of the methods described below.
 3. Run the following command:
 
     ```
-    devtools::install_github("https://github.com/EdoardoCostantini/mihd.results")
+    devtools::install_github("https://github.com/EdoardoAnonymized/mihd.results")
     ```
 
 ### 1.2 Install from a local folder

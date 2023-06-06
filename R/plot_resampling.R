@@ -5,7 +5,7 @@
 #' @details
 #' This function does such and such.
 #' @return Description of function output
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #' @examples
 #' # Example input
 #' res <- res_exp_4

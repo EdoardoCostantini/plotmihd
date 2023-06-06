@@ -1,6 +1,6 @@
 # Project:   mihd.results
 # Objective: Prepare and deploy results for app
-# Author:    Edoardo Costantini
+# Author:    Anonymized
 # Created:   2023-05-02
 # Modified:  2023-05-16
 # Notes: 

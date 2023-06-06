@@ -55,5 +55,5 @@ x_lims <- c(0, 90)
 
 }
 \author{
-Edoardo Costantini, 2023
+Anonymized, 2023
 }

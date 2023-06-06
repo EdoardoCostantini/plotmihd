@@ -3,7 +3,7 @@
 #' Calls the definition of the user interface and returns it as an output
 #'
 #' @return UI object that can be passed directly to shiny::shinyApp()
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #' @export
 ui_call <- function() {
     # Define UI
@@ -30,7 +30,7 @@ ui_call <- function() {
                             This Shiny app accompanies the article:
                             <br>
                             <br>
-                            <a href='https://doi.org/10.48550/arXiv.2208.13656'>Costantini, E., Lang, K. M., Reeskens, T., & Sijtsma, K. (2022). High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods. <i>arXiv preprint arXiv:2208.13656.</i></a>
+                            <a href='https://doi.org/10.48550/arXiv.2208.13656'>Anonymized, E., Lang, K. M., Reeskens, T., & Sijtsma, K. (2022). High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods. <i>arXiv preprint arXiv:2208.13656.</i></a>
                             <br>
                             <br>
                             The app contains four modules that allow the user to interact with different results related to this article:
@@ -40,7 +40,7 @@ ui_call <- function() {
                                 <li><b>Module 3</b>: Interact with a tool exploring the performance of MI-PCA for varying levels of collinearity.</li>
                                 <li><b>Module 4</b>: Interact with the resampling study results.</li>
                             </ul>
-                            For questions and feedback, just <a href = 'mailto:e.costantini@tilburguniversity.edu'>send me an email</a>.
+                            For questions and feedback, just <a href = 'mailto:e.Anonymized@tilburguniversity.edu'>send me an email</a>.
                             "
                         )
                     )

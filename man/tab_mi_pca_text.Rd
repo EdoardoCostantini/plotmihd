@@ -16,5 +16,5 @@ Updated \code{output} object to be processed by ui and server
 A function to add text to the server output object for the MI-PCA tab.
 }
 \author{
-Edoardo Costantini, 2023
+Anonymized, 2023
 }

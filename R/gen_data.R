@@ -7,10 +7,10 @@
 #' @details
 #' This function does such and such.
 #' @return Description of function output
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #' @references
 #'
-#' Costantini, E., Lang, K. M., Reeskens, T., & Sijtsma, K. (2022). High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods. arXiv preprint arXiv:2208.13656.
+#' Anonymized
 #'
 #' @examples 
 #' 
@@ -21,7 +21,7 @@
 #' inflated_rhos <- list(c(4, 5), c(9, 10), c(11:p))
 #' inflated_values <- .9
 #' 
-#' # Specification that reproduces results from the simulation study in Costantini et al 2022
+#' # Specification that reproduces results from the simulation study in Anonymized et al 2022
 #' 
 #' gen_data(
 #'     n = 200,

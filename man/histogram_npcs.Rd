@@ -30,5 +30,5 @@ histogram_npcs(npcs_nscree, npcs_50rule)
 
 }
 \author{
-Edoardo Costantini, 2023
+Anonymized, 2023
 }

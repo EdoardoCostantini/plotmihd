@@ -82,5 +82,5 @@ plot_simulation(
 
 }
 \author{
-Edoardo Costantini, 2023
+Anonymized, 2023
 }

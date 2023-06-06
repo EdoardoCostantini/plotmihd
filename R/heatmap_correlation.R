@@ -4,7 +4,7 @@
 #'
 #' @param cor_mat any squared matrix (usually a correlation matrix.)
 #' @return A ggplot object containing the heatmap.
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #'
 #' @examples
 #' # Crete an example correlation matrix

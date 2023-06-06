@@ -13,5 +13,5 @@ UI object that can be passed directly to shiny::shinyApp()
 Calls the definition of the user interface and returns it as an output
 }
 \author{
-Edoardo Costantini, 2023
+Anonymized, 2023
 }

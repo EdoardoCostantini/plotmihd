@@ -39,5 +39,5 @@ meth_compare <- c("DURR_la", "IURR_la", "blasso", "bridge", "MI_PCA", "MI_CART",
 Such, S. (2006). Such and such. Journal such and such, 101(473), 119-137.
 }
 \author{
-Edoardo Costantini, 2023
+Anonymized, 2023
 }

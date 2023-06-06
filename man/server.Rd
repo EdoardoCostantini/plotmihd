@@ -17,5 +17,5 @@ server(input, output, session)
 server function for the shiny app
 }
 \author{
-Edoardo Costantini, 2023
+Anonymized, 2023
 }

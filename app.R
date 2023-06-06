@@ -1,6 +1,6 @@
 # Project:   mihd.results
 # Objective: Deployment script
-# Author:    Edoardo Costantini
+# Author:    Anonymized
 # Created:   2023-04-26
 # Modified:  2023-04-26
 # Notes:     The application needs an entry point which should be named app.R 

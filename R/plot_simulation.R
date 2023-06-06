@@ -11,7 +11,7 @@
 #' @details 
 #' If you use the data for the first simulation study, then set `rho = NA`. If you use data for simulation study 1.2, then set `prop_NA = 0.3`.
 #' @return ggplot object
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #' @examples
 #' # Example internals main simulation study
 #' data(res_exp_1)

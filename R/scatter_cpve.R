@@ -6,7 +6,7 @@
 #' @details
 #' This function does such and such.
 #' @return A ggplot object containing the scatter plot.
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #' @examples
 #' # Perform SVD of some data
 #' svd_mtcars <- svd(scale(mtcars))

@@ -8,7 +8,7 @@
 #' @param iters numeric vector containing the iteration bounds (from-to) to plot
 #' @param rp numeric vector of length 1 indexing the repetitions
 #' @return Returns the lattice plot
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #' @examples
 #' # Define example inputs
 #' mids_data <- res_exp_1_mids

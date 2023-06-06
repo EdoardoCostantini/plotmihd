@@ -7,7 +7,7 @@
 #' @param var_range range of variables for which to plot the loadings
 #' @param PCs_range range of PCs for which to plot the loadings
 #' @return Description of function output
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #' @examples
 #' # Perform SVD of some data
 #' svd_mtcars <- svd(scale(mtcars))

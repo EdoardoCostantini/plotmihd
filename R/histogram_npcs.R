@@ -7,7 +7,7 @@
 #' @details
 #' This function does such and such.
 #' @return A ggplot object containing the histogram.
-#' @author Edoardo Costantini, 2023
+#' @author Anonymized, 2023
 #' @examples
 #' # Crete an example correlation matrix
 #' npcs_nscree <- nFactors::nScree(as.data.frame(mtcars))$Components

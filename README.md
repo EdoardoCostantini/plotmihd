@@ -19,7 +19,7 @@ You can install the Shiny app by using one of the methods described below.
 3. Run the following command:
 
     ```
-    devtools::install_github("https://github.com/EdoardoCostantini/mihd.results")
+    devtools::install_github("https://github.com/EdoardoCostantini/plotmihd")
     ```
 
 ### 1.2 Install from a local folder
@@ -42,7 +42,7 @@ You can install the Shiny app by using one of the methods described below.
 
     ```
     install.packages(
-        "C:/Users/Name/Downloads/mihd.results-develop/",
+        "C:/Users/Name/Downloads/plotmihd-develop/",
         repos = NULL,
         type = "source"
     )
@@ -53,7 +53,7 @@ You can install the Shiny app by using one of the methods described below.
 To start the shiny apps and interact with the plots, open an R session and load the package:
 
 ```
-library("mihd.results")
+library("plotmihd")
 ```
 
 Then, run the following command in the R console:

@@ -1,4 +1,4 @@
-# Project:   mihd.results
+# Project:   plotmihd
 # Objective: Prepare and deploy results for app
 # Author:    Edoardo Costantini
 # Created:   2023-05-02

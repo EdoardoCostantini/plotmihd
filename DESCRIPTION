@@ -1,15 +1,15 @@
-Package: mihd.results
-Title: What the Package Does (One Line, Title Case)
+Package: plotmihd
+Title: Plot MI-HD
 Version: 1.0.0
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+    person("Edoardo", "Costantini", "costantini.edoardo@yahoo.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Plot the results of the study: High-dimensional imputation for the social sciences: a comparison of state-of-the-art methods.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Imports: 
     dplyr,
     ggplot2,

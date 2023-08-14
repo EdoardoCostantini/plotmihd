@@ -1,4 +1,4 @@
-# Project:   mihd.results
+# Project:   plotmihd
 # Objective: Deployment script
 # Author:    Edoardo Costantini
 # Created:   2023-04-26
@@ -11,4 +11,4 @@
 pkgload::load_all(export_all = FALSE, helpers = FALSE, attach_testthat = FALSE)
 
 # Run shiny app
-mihd.results::start_app()
+plotmihd::start_app()

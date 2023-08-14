@@ -57,6 +57,9 @@ You can install the Shiny app by using one of the methods described below.
     )
     ```
 
+    Note: because you are using the `install.packages()` dependencies cannot be automatically installed.
+    If you get an error message indicating some dependencies are missing, please install them independently and try again.
+
 ## 2. Using the Shiny app
 
 To start the shiny apps and interact with the plots, open an R session and load the package:

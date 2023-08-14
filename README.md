@@ -28,7 +28,16 @@ You can install the Shiny app by using one of the methods described below.
 
 2. Unzip the package.
     
-3. Open an R session, and run the following command.
+3. Open an R session, and install what is needed.
+
+    First, install dependencies `nFactors` and `shinyWidgets`.
+
+    ```
+    install.packages("shinyWidgets")
+    install.packages("nFactors")
+    ```
+
+    Then, install the Shiny app by running:
 
     ```
     install.packages(
@@ -38,7 +47,7 @@ You can install the Shiny app by using one of the methods described below.
     )
     ```
 
-    For example, on a Windows computer, this could be
+    For example, on a Windows computer, this could be:
 
     ```
     install.packages(

@@ -140,8 +140,8 @@ tab_mi_pca_text <- function(output) {
                 However, this does not suggest MI-PCA is inadequate for highly collinear data.
                 PCA does what it should: higher correlation values in the block of noise variables make this block the largest variation to explain, and the first PC will summarise it well.
                 The problem for MI-PCA was that the first component extracted had little relevance for the imputation task.
-                However, as confirmed in <a href='https://arxiv.org/abs/2206.15107'>Costantini et. al. (2022b)</a>, when using the <b>true number of components</b> summarizing all axis of variation of a data set, MI-PCA leads to low bias and close-to-nominal confidence interval coverage.
-                Furthermore, as shown in <a href='https://arxiv.org/abs/2206.15107'>Costantini et. al. (2023)</a>, adding a <b>supervision</b> element to MI-PCA can help in making sure that the first PCs computed is helpful for the imputation task.
+                However, as confirmed in <a href='https://link.springer.com/article/10.3758/s13428-023-02117-1'>Costantini et. al. (2023)</a>, when using the <b>true number of components</b> summarizing all axis of variation of a data set, MI-PCA leads to low bias and close-to-nominal confidence interval coverage.
+                Furthermore, as shown in <a href='https://edoardocostantini.github.io/research/mi-spcr.html'>Costantini et. al. (2023b)</a>, adding a <b>supervision</b> element to MI-PCA can help in making sure that the first PCs computed is helpful for the imputation task.
                 <br>
                 <br>"
         )

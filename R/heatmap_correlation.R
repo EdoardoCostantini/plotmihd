@@ -20,7 +20,7 @@
 #' heatmap_correlation(cor_mat)
 #'
 #' @export
-heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor_mat), panel_title = "Panel A") {
+heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor_mat), panel_title = "Panel A", var_omit = NULL) {
     # Prepare differences if absolute value is requested
     if (absolute == TRUE) {
         # Take the absolute value of the correlation matrix
@@ -36,21 +36,26 @@ heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor
     # Subset correlation matrix
     cor_mat_melt <- reshape2::melt(cor_mat)
 
-    # Add ellipsis as an empty level
-    cor_mat_melt[, "Var1"] <- factor(
-        x = cor_mat_melt[, "Var1"],
-        levels = c(levels(cor_mat_melt[, "Var1"])[var_range], "...", levels(cor_mat_melt[, "Var1"])[-c(var_range)])
-    )
-    cor_mat_melt[, "Var2"] <- factor(
-        x = cor_mat_melt[, "Var2"],
-        levels = c(levels(cor_mat_melt[, "Var2"])[var_range], "...", levels(cor_mat_melt[, "Var2"])[-c(var_range)])
-    )
+    # Define variables to omit
+    omit_vector <- var_range %in% var_omit
+
+    # Drop levels in a way that can still be represented
+    levels(cor_mat_melt[, "Var1"])[omit_vector] <- "..."
+    levels(cor_mat_melt[, "Var2"])[omit_vector] <- "..."
 
     # Make heatmap
-    hmc <- ggplot2::ggplot(
-        data = cor_mat_melt,
-        ggplot2::aes(x = Var1, y = Var2, fill = value)
-    ) +
+    hmc <- cor_mat_melt %>%
+        dplyr::filter(
+            Var1 != "...",
+            Var2 != "..."
+        ) %>%
+        ggplot2::ggplot(
+            ggplot2::aes(
+                x = Var1,
+                y = Var2,
+                fill = value
+            )
+        ) +
         ggplot2::geom_tile(color = "white") +
         ggplot2::scale_fill_gradient2(
             low = "blue",
@@ -83,11 +88,11 @@ heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor
             position = "top"
         )
 
-        # Add panel title if requested
-        if(!is.null(panel_title)){
-            hmc <- hmc + ggplot2::ggtitle(panel_title)
-        }
+    # Add panel title if requested
+    if (!is.null(panel_title)) {
+        hmc <- hmc + ggplot2::ggtitle(panel_title)
+    }
 
-        # Return plot
-        hmc
+    # Return plot
+    hmc
 }

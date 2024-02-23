@@ -59,7 +59,7 @@ server <- function(input, output, session) {
             height = 725,
             {
                 plot_trace(
-                    mids_data = res_exp_1_mids,
+                    mids_data = plotmihd::res_exp_1_mids,
                     method = input$tab_2_conv_method,
                     layout <- c(2, 6),
                     iters = input$tab_2_conv_iters,
@@ -131,6 +131,9 @@ server <- function(input, output, session) {
         # > Simulate data ------------------------------------------------------
 
         app_data <- reactive({
+            # Set seed to generate same data ll the time
+            set.seed(20240223)
+
             # Simulate Data
             X <- gen_data(
                 n = 5e3,
@@ -141,7 +144,7 @@ server <- function(input, output, session) {
             )
 
             # Prepare correlation matrix
-            cor_mat <- round(cor(X)[c(1:12, 49:50), c(1:12, 49:50)], 1)
+            cor_mat <- round(cor(X), 1)
 
             # Subset X to desired active set for PCA
             X_ma <- X[, -c(1:3, 6:8)]
@@ -189,7 +192,8 @@ server <- function(input, output, session) {
             {
                 heatmap_correlation(
                     cor_mat = app_data()$cor_mat,
-                    var_range = 1:12,
+                    var_range = 1:ncol(app_data()$cor_mat),
+                    var_omit = 13:48,
                     absolute = TRUE
                 )
             }
@@ -204,7 +208,8 @@ server <- function(input, output, session) {
             heatmap_loadings(
                 load_mat = app_data()$load_mat,
                 absolute = TRUE,
-                var_range = c(1:6, 43:44),
+                var_range = 1:ncol(app_data()$load_mat),
+                var_omit = 7:42,
                 PCs_range = 1:10
             )
         })

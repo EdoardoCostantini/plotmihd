@@ -18,7 +18,7 @@
 #' scatter_cpve(cpve)
 #'
 #' @export
-scatter_cpve <- function(cpve, PCs_range = 1:length(cpve)) {
+scatter_cpve <- function(cpve, PCs_range = 1:length(cpve), panel_title = "Panel D") {
     # Give PC number as name
     names(cpve) <- 1:length(cpve)
 
@@ -29,7 +29,7 @@ scatter_cpve <- function(cpve, PCs_range = 1:length(cpve)) {
     )[PCs_range, ]
 
     # ggplot
-    cpve_data %>%
+    scpve <- cpve_data %>%
         ggplot2::ggplot(
             ggplot2::aes(
                 x = npcs,
@@ -40,7 +40,6 @@ scatter_cpve <- function(cpve, PCs_range = 1:length(cpve)) {
         ggplot2::ylab("CPVE") +
         ggplot2::xlab("Number of PCs") +
         ggplot2::theme_bw() +
-        ggplot2::ggtitle("Panel D") +
         ggplot2::theme(
             plot.title = ggplot2::element_text(
                 size = 10,
@@ -50,4 +49,12 @@ scatter_cpve <- function(cpve, PCs_range = 1:length(cpve)) {
             axis.title.y = ggplot2::element_text(size = 8),
             axis.title.x = ggplot2::element_text(size = 8)
         )
+
+    # Add panel title if requested
+    if (!is.null(panel_title)) {
+        scpve <- scpve + ggplot2::ggtitle(panel_title)
+    }
+
+    # Return plot
+    scpve
 }

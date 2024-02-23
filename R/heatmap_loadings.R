@@ -23,7 +23,7 @@
 #' heatmap_loadings(load_mat)
 #'
 #' @export
-heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_mat), PCs_range = 1:ncol(load_mat)) {
+heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_mat), PCs_range = 1:ncol(load_mat), panel_title = "Panel B") {
     # Prepare differences if the absolute value is requested
     if (absolute == TRUE) {
         # Take the absolute value of the correlation matrix
@@ -59,7 +59,7 @@ heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_
     }
 
     # Make heatmap
-    ggplot2::ggplot(
+    hml <- ggplot2::ggplot(
         data = load_mat_melt,
         ggplot2::aes(x = Var1, y = Var2, fill = value)
     ) +
@@ -74,7 +74,6 @@ heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_
             name = ""
         ) +
         ggplot2::theme_bw() +
-        ggplot2::ggtitle("Panel B") +
         ggplot2::theme(
             plot.title = ggplot2::element_text(
                 size = 10,
@@ -94,4 +93,12 @@ heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_
             drop = FALSE, # avoid dropping empty elements
             position = "top"
         )
+
+    # Add panel title if requested
+    if (!is.null(panel_title)) {
+        hml <- hml + ggplot2::ggtitle(panel_title)
+    }
+
+    # Return plot
+    hml
 }

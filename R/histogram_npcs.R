@@ -17,17 +17,18 @@
 #' histogram_npcs(npcs_nscree, npcs_50rule)
 #'
 #' @export
-histogram_npcs <- function(npcs_nscree, npcs_50rule) {
+histogram_npcs <- function(npcs_nscree, npcs_50rule, panel_title = "Panel C") {
     # Number of factors underlying data
     npcs_kept <- cbind(
         npcs_nscree,
         rule50 = npcs_50rule
     )
 
-    # Plot npcs
+    # Prepare shape of data for plot
     npcs_kept <- reshape2::melt(npcs_kept)
 
-    npcs_kept %>%
+    # Plot npcs
+    hnpcs <- npcs_kept %>%
         ggplot2::ggplot(
             ggplot2::aes(
                 x = variable,
@@ -42,7 +43,6 @@ histogram_npcs <- function(npcs_nscree, npcs_50rule) {
         ) +
         ggplot2::ylab("Number of PCs") +
         ggplot2::theme_bw() +
-        ggplot2::ggtitle("Panel C") +
         ggplot2::theme(
             plot.title = ggplot2::element_text(
                 size = 10,
@@ -52,4 +52,12 @@ histogram_npcs <- function(npcs_nscree, npcs_50rule) {
             axis.title.y = ggplot2::element_text(size = 8),
             axis.title.x = ggplot2::element_blank()
         )
+
+    # Add panel title if requested
+    if (!is.null(panel_title)) {
+        hnpcs <- hnpcs + ggplot2::ggtitle(panel_title)
+    }
+
+    # Return plot
+    hnpcs
 }

@@ -20,7 +20,7 @@
 #' heatmap_correlation(cor_mat)
 #'
 #' @export
-heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor_mat)) {
+heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor_mat), panel_title = "Panel A") {
     # Prepare differences if absolute value is requested
     if (absolute == TRUE) {
         # Take the absolute value of the correlation matrix
@@ -47,7 +47,7 @@ heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor
     )
 
     # Make heatmap
-    ggplot2::ggplot(
+    hmc <- ggplot2::ggplot(
         data = cor_mat_melt,
         ggplot2::aes(x = Var1, y = Var2, fill = value)
     ) +
@@ -62,7 +62,6 @@ heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor
             name = ""
         ) +
         ggplot2::theme_bw() +
-        ggplot2::ggtitle("Panel A") +
         ggplot2::theme(
             plot.title = ggplot2::element_text(
                 size = 10,
@@ -83,4 +82,12 @@ heatmap_correlation <- function(cor_mat, absolute = TRUE, var_range = 1:ncol(cor
             drop = FALSE, # avoid dropping empty elements
             position = "top"
         )
+
+        # Add panel title if requested
+        if(!is.null(panel_title)){
+            hmc <- hmc + ggplot2::ggtitle(panel_title)
+        }
+
+        # Return plot
+        hmc
 }

@@ -39,6 +39,9 @@ heatmap_loadings <- function(load_mat, absolute = TRUE, var_range = 1:nrow(load_
     # Define variables to omit
     omit_vector <- var_range %in% var_omit
 
+    # Make sure variable names are factors
+    load_mat_melt$Var1 <- factor(load_mat_melt$Var1)
+
     # Drop levels in a way that can still be represented
     levels(load_mat_melt[, "Var1"])[omit_vector] <- "..."
 

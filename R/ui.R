@@ -76,14 +76,14 @@ ui_call <- function() {
                                     inputId = "tab2_pm",
                                     label = "Proportion of missing cases",
                                     inline = TRUE,
-                                    choices = unique(res_exp_1$pm),
-                                    selected = unique(res_exp_1$pm)
+                                    choices = unique(plotmihd::res_exp_1$pm),
+                                    selected = unique(plotmihd::res_exp_1$pm)
                                 ),
                                 shiny::checkboxGroupInput(
                                     inputId = "tab2_methods",
                                     label = "Missing data treatments",
-                                    choices = levels(res_exp_1$methods),
-                                    selected = levels(res_exp_1$methods)[c(1:8, 10:12)]
+                                    choices = levels(plotmihd::res_exp_1$methods),
+                                    selected = levels(plotmihd::res_exp_1$methods)[c(1:8, 10:12)]
                                 ),
                                 shinyWidgets::sliderTextInput(
                                     inputId = "tab2_xlim",
@@ -116,14 +116,14 @@ ui_call <- function() {
                                 shiny::selectInput(
                                     inputId = "tab2_time_pm",
                                     label = "Proportion of missing cases",
-                                    choices = unique(res_exp_1_time$pm),
-                                    selected = unique(res_exp_1_time$pm)[2]
+                                    choices = unique(plotmihd::res_exp_1_time$pm),
+                                    selected = unique(plotmihd::res_exp_1_time$pm)[2]
                                 ),
                                 shiny::checkboxGroupInput(
                                     inputId = "tab2_time_methods",
                                     label = "Missing data treatments",
-                                    choices = levels(res_exp_1_time$variable),
-                                    selected = levels(res_exp_1_time$variable)
+                                    choices = levels(plotmihd::res_exp_1_time$variable),
+                                    selected = levels(plotmihd::res_exp_1_time$variable)
                                 )
                             ),
                             shiny::column(
@@ -147,8 +147,8 @@ ui_call <- function() {
                                 ),
                                 shiny::selectInput("tab_2_conv_method",
                                     "Imputation method:",
-                                    choices = names(res_exp_1_mids[[1]]),
-                                    selected = names(res_exp_1_mids[[1]])[1]
+                                    choices = names(plotmihd::res_exp_1_mids[[1]]),
+                                    selected = names(plotmihd::res_exp_1_mids[[1]])[1]
                                 ),
                                 shiny::selectInput("tab_2_conv_rep",
                                     "Repetition:",
@@ -198,14 +198,14 @@ ui_call <- function() {
                                     inputId = "tab3_rho",
                                     label = "Collinearity",
                                     inline = TRUE,
-                                    choices = unique(res_exp_1_2$collinearity),
-                                    selected = range(res_exp_1_2$collinearity)
+                                    choices = unique(plotmihd::res_exp_1_2$collinearity),
+                                    selected = range(plotmihd::res_exp_1_2$collinearity)
                                 ),
                                 shiny::checkboxGroupInput(
                                     inputId = "tab3_methods",
                                     label = "Missing data treatments",
-                                    choices = levels(res_exp_1_2$methods)[c(1:9, 11:14)],
-                                    selected = levels(res_exp_1_2$methods)[c(1:9, 11:14)]
+                                    choices = levels(plotmihd::res_exp_1_2$methods)[c(1:9, 11:14)],
+                                    selected = levels(plotmihd::res_exp_1_2$methods)[c(1:9, 11:14)]
                                 ),
                                 shinyWidgets::sliderTextInput(
                                     inputId = "tab3_xlim",
@@ -238,14 +238,14 @@ ui_call <- function() {
                                 shiny::selectInput(
                                     inputId = "tab3_time_rho",
                                     label = "Collinearity",
-                                    choices = unique(res_exp_1_2_time$collinearity),
-                                    selected = unique(res_exp_1_2_time$collinearity)[4]
+                                    choices = unique(plotmihd::res_exp_1_2_time$collinearity),
+                                    selected = unique(plotmihd::res_exp_1_2_time$collinearity)[4]
                                 ),
                                 shiny::checkboxGroupInput(
                                     inputId = "tab3_time_methods",
                                     label = "Missing data treatments",
-                                    choices = levels(res_exp_1_2_time$variable),
-                                    selected = levels(res_exp_1_2_time$variable)
+                                    choices = levels(plotmihd::res_exp_1_2_time$variable),
+                                    selected = levels(plotmihd::res_exp_1_2_time$variable)
                                 )
                             ),
                             shiny::column(
@@ -269,8 +269,8 @@ ui_call <- function() {
                                 ),
                                 shiny::selectInput("tab_3_conv_method",
                                     "Imputation method:",
-                                    choices = names(res_exp_1_2_mids[[1]]),
-                                    selected = names(res_exp_1_2_mids[[1]])[1]
+                                    choices = names(plotmihd::res_exp_1_2_mids[[1]]),
+                                    selected = names(plotmihd::res_exp_1_2_mids[[1]])[1]
                                 ),
                                 shiny::selectInput("tab_3_conv_rep",
                                     "Repetition:",
@@ -434,8 +434,8 @@ ui_call <- function() {
                                 shiny::checkboxGroupInput(
                                     inputId = "tab4_time_methods",
                                     label = "Missing data treatments",
-                                    choices = levels(res_exp_4_time$variable),
-                                    selected = levels(res_exp_4_time$variable)
+                                    choices = levels(plotmihd::res_exp_4_time$variable),
+                                    selected = levels(plotmihd::res_exp_4_time$variable)
                                 )
                             ),
                             shiny::column(
@@ -459,8 +459,8 @@ ui_call <- function() {
                                 ),
                                 shiny::selectInput("tab_5_conv_method",
                                     "Imputation method:",
-                                    choices = names(res_exp_4_mids[[1]]),
-                                    selected = names(res_exp_4_mids[[1]])[1]
+                                    choices = names(plotmihd::res_exp_4_mids[[1]]),
+                                    selected = names(plotmihd::res_exp_4_mids[[1]])[1]
                                 ),
                                 shiny::selectInput("tab_5_conv_rep",
                                     "Repetition:",

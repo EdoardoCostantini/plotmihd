@@ -40,12 +40,12 @@ server <- function(input, output, session) {
             height = 725,
             {
                 plot_simulation(
-                    res = res_exp_1,
+                    res = plotmihd::res_exp_1,
                     dims = input$tab2_dims,
                     outcome = input$tab2_outcome,
                     meths = input$tab2_methods,
                     prop_NA = input$tab2_pm,
-                    rho = unique(res_exp_1$collinearity),
+                    rho = unique(plotmihd::res_exp_1$collinearity),
                     reps = 1e3,
                     x_lims = input$tab2_xlim
                 )
@@ -99,12 +99,12 @@ server <- function(input, output, session) {
             height = 725,
             {
                 plot_simulation(
-                    res = res_exp_1_2,
+                    res = plotmihd::res_exp_1_2,
                     dims = input$tab3_dims,
                     outcome = input$tab3_outcome,
                     meths = input$tab3_methods,
                     rho = input$tab3_rho,
-                    prop_NA = unique(res_exp_1_2$pm),
+                    prop_NA = unique(plotmihd::res_exp_1_2$pm),
                     reps = 500,
                     x_lims = input$tab3_xlim
                 )
@@ -117,7 +117,7 @@ server <- function(input, output, session) {
             height = 725,
             {
                 plot_trace(
-                    mids_data = res_exp_1_2_mids,
+                    mids_data = plotmihd::res_exp_1_2_mids,
                     method = input$tab_3_conv_method,
                     layout <- c(2, 6),
                     iters = input$tab_3_conv_iters,
@@ -250,7 +250,7 @@ server <- function(input, output, session) {
             height = 725,
             {
                 plot_time_simulation(
-                    res = res_exp_1_time,
+                    res = plotmihd::res_exp_1_time,
                     dims = input$tab2_time_dims,
                     meths = input$tab2_time_methods,
                     prop_NA = input$tab2_time_pm,
@@ -267,7 +267,7 @@ server <- function(input, output, session) {
             height = 725,
             {
                 plot_time_simulation(
-                    res = res_exp_1_2_time,
+                    res = plotmihd::res_exp_1_2_time,
                     dims = input$tab3_time_dims,
                     meths = input$tab3_time_methods,
                     prop_NA = 0.3,
@@ -284,7 +284,7 @@ server <- function(input, output, session) {
             height = 725,
             {
                 plot_time_simulation(
-                    res = res_exp_4_time,
+                    res = plotmihd::res_exp_4_time,
                     dims = 243,
                     meths = input$tab4_time_methods,
                     prop_NA = 0,
@@ -303,7 +303,7 @@ server <- function(input, output, session) {
             height = 725,
             {
                 plot_resampling(
-                    res = res_exp_4,
+                    res = plotmihd::res_exp_4,
                     outcome = input$tab4_outcome,
                     model = input$tab4_model,
                     dt_reps = 500,
@@ -319,7 +319,7 @@ server <- function(input, output, session) {
             height = 725,
             {
                 plot_trace(
-                    mids_data = res_exp_4_mids,
+                    mids_data = plotmihd::res_exp_4_mids,
                     method = input$tab_5_conv_method,
                     layout <- c(2, 6),
                     iters = input$tab_5_conv_iters,

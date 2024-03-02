@@ -20,15 +20,20 @@
 #' @export
 # Custom plot_gg function for experiment 4
 plot_resampling <- function(res,
-                            outcome = c("bias_per", "ci_cov", "CIW")[1],
+                            outcome = c("PRB", "CIC", "CIW")[1],
                             model = c("m1", "m2")[1],
                             dt_reps = 500,
                             ci_lvl = .95,
                             meth_compare) {
+
+    # Translate outcome names
+    outcome_map <- c("bias_per", "ci_cov", "CIW")
+    names(outcome_map) <- c("PRB", "CIC", "CIW")
+
     # Extract the result type you desire
     dt_outcome <- lapply(
         1:nrow(res$conds),
-        function(x) res[[model]][[x]][[outcome]]
+        function(x) res[[model]][[x]][[outcome_map[outcome]]]
     )
 
     # Take absolute value:
@@ -118,7 +123,7 @@ plot_resampling <- function(res,
 
     # Parameter Labels
     # Ticks
-    if (outcome == "bias_per") {
+    if (outcome_map[outcome] == "bias_per") {
         # Levels order
         levs <- c(no = "<10%", yes = ">10%")
 
@@ -136,7 +141,7 @@ plot_resampling <- function(res,
         plot_vlines <- 10
     }
 
-    if (outcome == "ci_cov") {
+    if (outcome_map[outcome] == "ci_cov") {
         # Redefine values as differences from target
         dt_edit$value[dt_edit$value != 0] <- dt_edit$value[dt_edit$value != 0] - 95
 
@@ -166,7 +171,7 @@ plot_resampling <- function(res,
         plot_vlines <- c(-5, low_thr, hig_thr, 4)
     }
 
-    if (outcome == "CIW") {
+    if (outcome_map[outcome] == "CIW") {
         # Plot Limits
         plot_xlim <- c(0, 10)
 
@@ -198,7 +203,7 @@ plot_resampling <- function(res,
     p <- ggplot2::ggplot(dt_edit, ggplot2::aes(x = value, y = id))
 
     # Add colored segments
-    if (outcome == "CIW") {
+    if (outcome_map[outcome] == "CIW") {
         p <- p + ggplot2::geom_segment(
             ggplot2::aes(
                 xend = 0,

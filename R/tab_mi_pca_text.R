@@ -92,11 +92,11 @@ tab_mi_pca_text <- function(output) {
                 The <b>histogram in Panel C</b> shows the number of PCs kept when performing PCA on the potential auxiliary variables (v4, z5, z9, z10, and z11 to z50).
                 Five <b>non-graphical decision rules</b> were considered:
                 <ul>
-                    <li>Optimal coordinates index (noc)</li>
-                    <li>Acceleration factor (naf)</li>
-                    <li>Parallel analysis (nparallel)</li>
-                    <li>Kaiser criterion (nkaiser)</li>
-                    <li>50% rule (rule50) - This is the rule used in <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022)</a></li>
+                    <li>Optimal coordinates index (oc)</li>
+                    <li>Acceleration factor (af)</li>
+                    <li>Parallel analysis (pa)</li>
+                    <li>Kaiser criterion (kc)</li>
+                    <li>50% rule (CPVE-50) - This is the rule used in <a href='https://arxiv.org/abs/2208.13656'>Costantini et. al. (2022)</a></li>
                 </ul>
                 When <code>Collinearity</code> is set to 0, the number of components selected by the <b>50% rule</b> is quite high (around 19).
                 As you increase the value of <code>Collinearity</code>, the number selected by this rule decreases and reaches 1 for correlation values greater than 0.5.

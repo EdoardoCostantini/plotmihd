@@ -11,21 +11,35 @@
 #' @examples
 #' # Crete an example correlation matrix
 #' npcs_nscree <- nFactors::nScree(as.data.frame(mtcars))$Components
-#' npcs_50rule <- 5
+#' npcs_50rule <- 21
 #'
 #' # use it
 #' histogram_npcs(npcs_nscree, npcs_50rule)
 #'
 #' @export
-histogram_npcs <- function(npcs_nscree, npcs_50rule, panel_title = "Panel C") {
-    # Number of factors underlying data
+histogram_npcs <- function(npcs_nscree, npcs_50rule, panel_title = "Panel C", cnames = c("CPVE-50", "oc", "af", "pa", "kc"), corder = cnames) {
+    # Collect data
     npcs_kept <- cbind(
-        npcs_nscree,
-        rule50 = npcs_50rule
+        npcs_50rule,
+        npcs_nscree
     )
+
+    # Give meaningful names
+    colnames(npcs_kept) <- cnames
+
+    # Change order if needed
+    npcs_kept <- npcs_kept[, corder]
 
     # Prepare shape of data for plot
     npcs_kept <- reshape2::melt(npcs_kept)
+
+    # Define the ticks for the Y axis
+    if (max(npcs_kept$value) <= 10) {
+        y_axis_breaks <- min(npcs_kept$value):max(npcs_kept$value)
+    }
+    if (max(npcs_kept$value) >= 10) {
+        y_axis_breaks <- seq(0, max(npcs_kept$value)+5, by = 5)
+    }
 
     # Plot npcs
     hnpcs <- npcs_kept %>%
@@ -51,6 +65,9 @@ histogram_npcs <- function(npcs_nscree, npcs_50rule, panel_title = "Panel C") {
             ),
             axis.title.y = ggplot2::element_text(size = 8),
             axis.title.x = ggplot2::element_blank()
+        ) +
+        ggplot2::scale_y_continuous(
+            breaks = y_axis_breaks
         )
 
     # Add panel title if requested

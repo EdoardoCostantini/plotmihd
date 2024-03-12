@@ -37,7 +37,7 @@ histogram_npcs <- function(npcs_nscree, npcs_50rule, panel_title = "Panel C", cn
     if (max(npcs_kept$value) <= 10) {
         y_axis_breaks <- min(npcs_kept$value):max(npcs_kept$value)
     }
-    if (max(npcs_kept$value) >= 10) {
+    if (max(npcs_kept$value) > 10) {
         y_axis_breaks <- seq(0, max(npcs_kept$value)+5, by = 5)
     }
 

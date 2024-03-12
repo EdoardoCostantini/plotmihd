@@ -24,16 +24,22 @@ scatter_cpve <- function(cpve, PCs_range = 1:length(cpve), panel_title = "Panel 
 
     # Attach collinearity as column
     cpve_data <- data.frame(
-        npcs = factor(1:length(cpve)),
+        npcs = 1:length(cpve),
         value = cpve
     )[PCs_range, ]
 
     # Define the breaks for axis
-    if (max(npcs_kept$value) <= 10) {
-        y_axis_breaks <- min(npcs_kept$value):max(npcs_kept$value)
+    if (max(cpve_data$npcs) <= 20) {
+        x_axis_breaks <- min(cpve_data$npcs):max(cpve_data$npcs)
     }
-    if (max(npcs_kept$value) >= 10) {
-        y_axis_breaks <- seq(0, max(npcs_kept$value) + 6, by = 5)
+    if (max(cpve_data$npcs) > 20) {
+        x_axis_breaks <- unique(
+            c(
+                1,
+                seq(0, max(cpve_data$npcs), by = 5)[-1],
+                max(cpve_data$npcs)
+            )
+        )
     }
 
     # ggplot
@@ -56,6 +62,9 @@ scatter_cpve <- function(cpve, PCs_range = 1:length(cpve), panel_title = "Panel 
             ),
             axis.title.y = ggplot2::element_text(size = 8),
             axis.title.x = ggplot2::element_text(size = 8)
+        ) +
+        ggplot2::scale_x_continuous(
+            breaks = x_axis_breaks
         )
 
     # Add panel title if requested

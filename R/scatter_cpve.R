@@ -28,6 +28,14 @@ scatter_cpve <- function(cpve, PCs_range = 1:length(cpve), panel_title = "Panel 
         value = cpve
     )[PCs_range, ]
 
+    # Define the breaks for axis
+    if (max(npcs_kept$value) <= 10) {
+        y_axis_breaks <- min(npcs_kept$value):max(npcs_kept$value)
+    }
+    if (max(npcs_kept$value) >= 10) {
+        y_axis_breaks <- seq(0, max(npcs_kept$value) + 6, by = 5)
+    }
+
     # ggplot
     scpve <- cpve_data %>%
         ggplot2::ggplot(

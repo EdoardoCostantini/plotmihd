@@ -1,6 +1,6 @@
 Package: plotmihd
 Title: Results dashboard for 'Costantini, E., Lang, K. M., Reeskens, T., and Sijtsma, K. (2023). High-dimensional imputation for the social sciences: A comparison of state-of-the-art methods. Sociological Methods & Research. DOI: 10.1177/00491241231200194' 
-Version: 2.2
+Version: 2.3
 Authors@R: 
     person("Edoardo", "Costantini", , "costantini.edoardo@yahoo.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9581-9913"))
